@@ -23,6 +23,33 @@ still involve several systems: a command, a file, an API, a device, or a
 desktop application. General-purpose scripting works well for these tasks, but
 may also require runtime setup and third-party packages.
 
+Flow-based services such as n8n later made this style of automation widely
+available, particularly for web APIs and server workflows. They also reflect a
+different deployment model. A JavaScript/V8 runtime, package ecosystem,
+service configuration, credential store, and often containers or a database
+may be reasonable for a shared automation server, but can be a large footprint
+for a local desktop task or an embedded product.
+
+The security cost is not only theoretical. n8n's recent advisory history
+includes repeated critical remote-code-execution and expression-sandbox
+escapes, unauthenticated file access, arbitrary file writes, command injection,
+and stored XSS. Examples include
+[CVE-2025-68613](https://github.com/n8n-io/n8n/security/advisories/ghsa-v98v-ff95-f3cp),
+[CVE-2026-25049](https://github.com/advisories/GHSA-6cqr-8cfr-67f8), and
+[CVE-2026-27493](https://github.com/advisories/GHSA-75G8-RV7V-32F7);
+n8n's own
+[February 2026 bulletin](https://community.n8n.io/t/security-bulletin-february-6-2026/261682)
+listed several high and critical fixes released together. These issues have
+patched versions, but operators must track updates closely because the service
+holds credentials and intentionally executes powerful workflows.
+
+The broad attack surface follows from the job such a platform performs:
+connectors, npm packages, credentials, user expressions, arbitrary scripts,
+webhooks, network access, and workflow permissions all need to be isolated and
+administered. Setup, hardening, patching, and deployment can therefore become a
+substantial part of adopting the automation system, especially across managed
+desktops or offline machines.
+
 XBlox provides a smaller and more constrained alternative:
 
 | Goal | What that means |
@@ -39,6 +66,65 @@ XBlox provides a smaller and more constrained alternative:
 The restricted scope is deliberate. XBlox does not provide user-defined
 functions, closures, or classes. It provides commands, files, devices,
 networking, media operations, variables, expressions, and basic control flow.
+
+---
+
+## Background
+
+XBlox is heavily influenced by Virtools and its Building Blocks approach:
+operations should be visible, composable, and understandable without first
+turning the task into a conventional source-code project. XBlox is not derived
+from Virtools and does not attempt to reproduce its runtime; the influence is
+in the way a workflow is assembled and inspected.
+
+The main departure is an attempt to reduce the amount of graph maintenance
+needed for ordinary automation. Fully explicit data-flow graphs can become
+dominated by small adapter nodes and wires. In XBlox, blocks run in a readable
+order and may pass their primary result through `PREVIOUS`; `storeAs` gives a
+result a name when it is needed later. Explicit output bindings remain
+available when provenance matters. This keeps simple pipelines short while
+still allowing their data flow to be inspected.
+
+The same concern applies to debugging. A useful block editor should show more
+than whether a node ran: it should make parameters, resolved inputs, structured
+outputs, errors, and the producer of a value inspectable. Typed block
+descriptors and structured run events provide the current foundation. The
+schema work described below extends this to fields nested inside objects and
+arrays.
+
+### Why C++ rather than Rust?
+
+Rust would be a reasonable implementation language and provides stronger
+compile-time memory-safety guarantees. The choice here is more practical than
+ideological: XBlox is embedded in an existing C++ application and calls native
+filesystem, process, media, device, model, and UI code directly. Keeping the
+runner in the same language avoids a second toolchain, duplicate data model,
+and FFI layer across a large block catalog. It also preserves a straightforward
+C++ header and DLL integration surface.
+
+C++ also gives the host direct access to platform security APIs through the
+vendor SDK headers and ABI. On Windows this includes Group Policy and registry
+policy, DPAPI, Windows Hello, token and ACL handling, AppContainer/LPAC,
+process mitigation, signing, and native consent UI. Rust can call the same
+APIs, but commonly through generated bindings, wrapper crates, unsafe FFI, and
+type conversions that form another dependency and review boundary. For a
+security-sensitive application already implemented in C++, using the platform
+types and lifetime rules directly avoids maintaining many parallel bindings
+whose mistakes can be as consequential as mistakes in the caller.
+
+Both C++ and Rust can compile high-level abstractions away. That does not make
+an additional abstraction free to understand, integrate, debug, or maintain.
+For this project, explicit descriptors and small native interfaces have been
+more useful than introducing another language boundary. The descriptor system
+also did not need to wait for C++26 reflection: block and operation schemas are
+ordinary data with explicit ownership and serialization.
+
+LLMs have reduced the mechanical cost of writing declarations, adapters, and
+tests in C++, but they do not make C++ memory-safe. Safety still comes from
+RAII, bounded types, narrow interfaces, validation, tests, compiler tooling,
+and the runtime policy controls described below. The document format and host
+API do not prevent an isolated component from being implemented in Rust where
+that trade-off is worthwhile.
 
 ---
 
@@ -68,6 +154,10 @@ Each built-in block has a descriptor containing its label, description,
 parameters, defaults, constraints, outputs, child lists, platform support, and
 execution flags. The same manifest is used by the runner and the editor, which
 reduces the amount of separate UI metadata that must be maintained.
+
+Run events retain block identity, status, errors, declared output slots, and
+structured values. The editor can therefore inspect the actual result beside
+the declaration instead of reducing every output to a log line.
 
 Flows can also be inspected without executing them:
 
@@ -340,12 +430,36 @@ configuration.
 The current development phase focuses on deep parameter schemas and ambient
 schemas.
 
-Today a parameter is a `ParamKind` plus flags. Structured results (`fsList` → `FsEntry[]`, HTTP envelopes, OCR documents, MCP tool results) still travel as `json_value`. Phase 2 attaches a practical JSON Schema subset to outputs and operations, with stable ids such as `xblox://types/fs.entry/1`:
+Today a parameter is a `ParamKind` plus flags. Structured results (`fsList` →
+`FsEntry[]`, HTTP envelopes, OCR documents, MCP tool results) still travel as
+`json_value`. Phase 2 attaches a practical JSON Schema subset to outputs and
+operations, with stable ids such as `xblox://types/fs.entry/1`.
 
-- Native built-ins declare reusable types once; the UI, docs, LLM tools, and MCP all consume the same bundle.
-- **Ambient** project files (`.xblox.schemas.json`) can teach wiring about custom / API response shapes without recompiling C++. They cannot silently override trusted native contracts.
-- A document may grow an explicit **public interface** so a flow becomes an MCP / LLM tool with plain inputs and outputs — internal `PREVIOUS` and `storeAs` stay private.
-- Option sources and dynamic provider schemas (already live in the property panel) move behind the same registry.
+Schemas may come from several sources:
+
+- native built-ins can declare reusable types once;
+- users can attach a schema to a project or public graph interface;
+- ambient project files (`.xblox.schemas.json`) can describe custom blocks and
+  APIs without recompiling C++;
+- OpenAPI operations and components can be imported into the same normalized
+  schema bundle;
+- MCP and provider schemas can be projected through the existing dynamic
+  parameter system.
+
+When a schema is available, the wiring and property views can expose object
+fields, array item types, required values, and compatible inputs before a flow
+runs. During debugging, the same shape can be used to inspect a structured
+result by field instead of treating it as an opaque JSON value.
+
+Schemas also reduce plumbing work. Exact type compatibility remains the first
+choice. When names and descriptions do not match exactly, an embedding model
+can rank likely input/output connections and propose parameter mappings. These
+are authoring suggestions rather than hidden runtime behavior: the resulting
+bindings remain visible in the document and can be reviewed or changed.
+
+A document may also define an explicit public interface so a flow becomes an
+MCP or LLM tool with plain inputs and outputs. Internal `PREVIOUS` and
+`storeAs` values remain private unless the interface exposes them.
 
 Schemas describe shape. They do not grant filesystem or network access, and they do not replace the block manifest (bindings, children, simulate policy, widgets).
 
