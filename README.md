@@ -50,6 +50,44 @@ administered. Setup, hardening, patching, and deployment can therefore become a
 substantial part of adopting the automation system, especially across managed
 desktops or offline machines.
 
+There is also an accessibility concern. Over the last decades, popular
+languages and frameworks have lowered the barrier to *developing* software,
+but they have not consistently lowered the hardware, memory, storage,
+connectivity, setup, or administration burden placed on the person running it.
+Faster computers have often been followed by larger runtime baselines.
+
+That matters for lower-income users, on older and entry-level machines, in
+schools and shared labs, and for organizations that cannot treat current
+hardware, broadband, cloud services, and technical support as unlimited
+resources. A workflow that needs several runtimes, a container stack, or
+gigabytes of memory may be convenient for its author while remaining
+inaccessible to its intended user.
+
+XBlox therefore favors the highest practical performance and broadest
+platform coverage that can be maintained in the native product. The aim is not
+to win every microbenchmark; it is to keep startup, memory, installation, and
+operational requirements low enough that useful automation remains available
+on ordinary hardware. Optional models and media features can still be large,
+but the core flow runtime should not require them.
+
+In this regard, XBlox also tries to compensate for some of the technical debt
+and resource waste accumulated through decades of software layering: duplicated
+runtimes, package environments, adapters, service wrappers, and compatibility
+layers that may remain present even when a small local task needs only a
+fraction of them. Those layers often solve real portability, productivity, or
+isolation problems, so removing abstraction indiscriminately would not be
+responsible either. The narrower goal is responsible computing: use the
+abstraction, computation, storage, and network access needed to perform the
+task reliably, rather than consuming more simply because current hardware
+makes it possible.
+
+Software footprint is only one part of device lifetime, alongside hardware
+failure, support policy, compatibility, repairability, and social factors.
+Still, rising requirements and discontinued software support can make
+functioning equipment feel or become obsolete. Keeping the core runtime useful
+on older systems is therefore both an accessibility choice and a modest
+contribution toward longer hardware use.
+
 XBlox provides a smaller and more constrained alternative:
 
 | Goal | What that means |
@@ -132,17 +170,155 @@ that trade-off is worthwhile.
 
 The runner is C++ with a compiled fast path for the common scalar / control-flow core (`setVariable`, `if`, `while`, `log`) and a numeric expression engine with a native shortcut for shapes such as `n + 1` and `nowMs - t >= 5000`.
 
-Historical microbenchmarks of tight loops have measured roughly 100–1000× the
-throughput of comparable Python scripts, with results varying by workload,
-build, and hardware. These figures describe interpreter overhead rather than
-end-to-end automation. HTTP, filesystem, capture, model, and TTS operations are
-usually dominated by their underlying I/O or computation.
+The repository contains a small CLI harness in
+`pixlwiz/tests/xblox/bench.mjs`, with its append-only measurements in
+`pixlwiz/tests/xblox/bench-results.md`. A representative optimized development
+snapshot from 18–19 June 2026 produced the following arithmetic means on an AMD
+Ryzen 7 3700X. Values are rounded; each average contains only the two or three
+listed measurements from the `jq` filter-cache, zero-copy conversion, and
+muParser bytecode-reuse development stages.
+
+| Case | Mean throughput | Mean peak RSS | Logged observations | What one iteration runs |
+| --- | ---: | ---: | ---: | --- |
+| `fps-raw-loop` | 602,412,306 iterations/s | 21.2 MB | 2 | One `while (1)` body containing a constant `setVariable`; no expression, JSON conversion, or muParser evaluation. This is the dispatch floor, not a useful flow. |
+| `fps-unthrottled` | 10,660,353 iterations/s | 20.2 MB | 2 | Increment `frames`, evaluate `nowMs - lastReportMs >= 5000`, and dispatch an `if`; the reporting branch calculates FPS, logs, and resets state when the interval elapses. |
+| `language` | 839 document passes/s | 22.8 MB | 3 | A complete language fixture: sibling and nested `if` chains, `switch`, bounded `while` and `for`, `break`, orphan-placement checks, and array/object/scalar iteration. Its `stdout` blocks still resolve and emit events, but terminal output is suppressed with `--quiet`. |
+| `expressions` | 106 document passes/s | 23.5 MB | 3 | The full expressions demonstration: arithmetic and functions, nested references, templates, string conditions, `PREVIOUS`, loops, filesystem write/list operations, `nowMs`, jq filters, and `stdout` blocks. Terminal output is suppressed, while message resolution and event emission still run. |
+| `expressions-bench` | 1,488 document passes/s | 22.2 MB | 3 | The computation-only expression fixture: nested references, arithmetic/functions/ternary, string conditions, `PREVIOUS`, a three-step loop, and 11 simple or piped jq parses; no filesystem operations or `stdout`. |
+
+The harness starts a fresh `tanit-cli` child for each sample with logging off
+and event mode set to `count`. It takes the median of three one-iteration
+process runs as the startup floor, calibrates an iteration count, runs one
+approximately three-second measurement, subtracts the startup floor, and polls
+child working-set/RSS every 50 ms. Tight-loop cases embed the selected limit in
+their inner `while`; document cases use the CLI's zero-interval document loop.
+
+These measurements characterize specific interpreter paths. They do not
+measure HTTP, capture, model inference, TTS, or other work dominated by I/O or
+underlying libraries. They also do not directly compare Python, Node.js, Rust,
+or another workflow engine; any cross-runtime ratio requires an equivalent
+fixture and harness in each runtime.
+
+The result log is deliberately append-only and also contains later builds with
+substantially different numbers, including regressions. The table above is
+therefore a dated development snapshot, not a current release guarantee.
 
 ```sh
 tanit-cli xblox run --src flow.xblox
 ```
 
 `--json` keeps full event payloads for tests. Ordinary CLI runs count events without retaining them, so a long loop does not grow RAM.
+
+---
+
+## Runtime and deployment comparison
+
+The following comparison is architectural, not a benchmark. Exact executable
+size, resident memory, startup time, and throughput depend on the build,
+enabled features, operating system, workflow, and whether models or media
+codecs are loaded. Numeric results should be published only with those details
+and a reproducible test.
+
+| Concern | XBlox / native C++ | n8n / Node.js | Python workflow | Native Rust |
+| --- | --- | --- | --- | --- |
+| Primary deployment unit | Native runner embedded in Tanit or exposed through a library/DLL | Node.js/V8 service, JavaScript dependency tree, configuration and persistent state | Python interpreter, environment and installed packages | Native executable or library |
+| Per-flow setup | JSON document; no package installation for core blocks | Instance and node configuration; community nodes may add npm packages | Environment and imports commonly vary by project | Usually compiled into the application |
+| Startup | Native process/library startup; block registry is in-process | Service and V8 initialization, normally amortized by keeping the server running | Interpreter and module import cost | Native process/library startup |
+| Idle memory | Native host baseline; enabled subsystems still contribute | Long-running server, V8 heap, UI/API service and workflow state | Interpreter plus imported native and Python modules | Native host baseline |
+| Hot control-flow cost | Native dispatch, compiled scalar paths, muParser fallback | JavaScript execution and V8 optimization/GC behavior | Interpreter dispatch; native extensions can move heavy work out of Python | Native dispatch |
+| I/O and model cost | Usually dominated by the same OS, codec, network, or model library used underneath | Usually dominated by connectors and remote services | Usually dominated by libraries and remote services | Usually dominated by libraries and remote services |
+| Dependency surface | Core block set is compiled and reviewed with the product; optional providers remain explicit | Node/npm runtime and built-in or community connector dependencies | PyPI packages, transitive dependencies and native wheels | Cargo crates and linked system libraries |
+| Updating | Product/runtime update; flows remain data | Service and dependency updates must track security advisories and node compatibility | Runtime and environment/package updates per deployment | Rebuild and redistribute the binary/library |
+| Shared web automation server | Possible, but not the primary design | Primary design and a strong fit | Requires an application/framework around it | Requires an application/framework around it |
+| Desktop and device integration | Direct OS and application APIs; richest coverage is currently Windows | Commonly reached through web APIs, agents, or custom nodes | Broad library ecosystem; quality and coverage vary by binding | Broad native potential; platform APIs commonly arrive through crates/FFI |
+| Embedding in another native app | C++ headers and DLL boundary | Usually separate service/API | Embedded interpreter or process/API boundary | Native library and C ABI are common |
+
+### Startup and UI footprint
+
+Startup differences become more visible in command-line tools that run once
+and desktop applications that users open interactively. The following ranges
+are development observations, not universal runtime guarantees:
+
+| Application shape | Observed startup class | Footprint considerations |
+| --- | --- | --- |
+| Tanit/XBlox native CLI | Usually sub-second for a small local flow | One native process; feature DLLs and models add cost only when used or loaded |
+| Typical native Rust CLI | Generally in the same startup class as C++ | Statically linked code can increase file size, but no managed runtime must warm up |
+| Dependency-heavy Node.js CLI | Approximately 2–5 seconds has been observed for real tools | V8 startup is only part of the cost; module discovery/loading, package bootstrap, transpiled bundles, and tool initialization often dominate. A bare `node` process starts much faster |
+| Tanit native desktop UI | Approximately one second to a usable window on the current development systems | Native frame and services with embedded web surfaces loaded where required |
+| Large Electron desktop application | Cold starts can take several seconds; particularly heavy applications have been observed taking roughly 30 seconds | Ships or depends on Chromium and V8; browser, renderer, JavaScript heap, IPC, and application bundles contribute to startup and resident memory |
+
+Cold and warm launch, antivirus state, storage, machine class, enabled plugins,
+and the definition of “ready” can change these numbers substantially. A formal
+comparison should record time to first process, first window, and usable
+interaction separately, along with peak and settled resident memory.
+
+For occasional CLI use, a few seconds may be acceptable. It becomes more
+noticeable when a workflow repeatedly launches child tools, and it is more
+visible still in a desktop UI expected to feel immediate. Long-running servers
+amortize startup, so service throughput and operational security matter more
+than launch time there.
+
+Electron's trade-off is also real rather than one-sided: bundling a browser
+runtime can provide consistent cross-platform UI behavior and a large web
+development ecosystem. A native UI generally starts with a smaller baseline
+and has more direct platform integration, but platform-specific features must
+be implemented and tested on each operating system.
+
+### Multiple instances
+
+The difference is larger when many automations are active. Several independent
+Electron applications or app instances can each bring a browser process tree,
+renderer, V8 heap, IPC state, and duplicated application resources. Aggregate
+resident memory can reach several gigabytes even when each visible task is
+simple.
+
+XBlox normally scales a different unit: many flow instances inside one native
+host, not one desktop runtime per flow. They share the executable code, block
+registry, policy, UI assets, option catalogs, and host services. A lightweight
+instance primarily adds its context, execution state, outputs, and event
+buffers.
+
+On current development workloads, the Tanit UI and XBlox runtime remain below
+one gigabyte while hundreds of small flow instances can be created without a
+notable launch delay. This observation applies to control, data, command, and
+small I/O flows. It is not a capacity guarantee: a flow that loads its own
+model, retains large images or event histories, opens a browser surface,
+captures video, or creates background processes can dominate memory and CPU.
+Those resources must be bounded and, where possible, shared through the
+run-scoped resource cache.
+
+| Scaling behavior | Electron application instances | XBlox flows in one Tanit host |
+| --- | --- | --- |
+| Runtime per task | Often another renderer/process state; separate app instances duplicate more of the stack | Shared native runtime and registry |
+| Incremental state | Browser/JS heap, IPC and application state | Context, execution frame, outputs, events and block-specific resources |
+| Startup pattern | Each process tree or renderer must initialize | Flow document is prepared inside the existing process |
+| Observed aggregate | Multiple simple app instances can grow into several gigabytes | UI plus hundreds of lightweight flows has remained below one gigabyte in current development observations |
+| Main limit | Renderer/runtime duplication and application behavior | The actual resources used by blocks: models, media, retained data, subprocesses and network sessions |
+
+This is not a claim that one runtime is best for every workflow. n8n is suited
+to a centrally operated web-integration service. Python has a very broad
+library ecosystem and is often the quickest environment for exploratory work.
+Rust is attractive for a new native component where its ownership model and
+memory-safety guarantees justify the integration cost. XBlox is aimed at a
+smaller case: reviewed automation embedded in a desktop/native product, with a
+limited runtime and no per-flow package environment.
+
+### Effect on platform coverage
+
+| Target | XBlox | Server-oriented JavaScript flows | Python | Rust |
+| --- | --- | --- | --- | --- |
+| Windows desktop | Primary XBlox target; direct UI Automation, capture, audio, Bluetooth, policy, and security APIs | Server is portable, but desktop access generally needs an agent or platform-specific node | Available; desktop features depend on packages and native bindings | Available; desktop features depend on platform crates and unsafe/native interop |
+| macOS and Linux | Core runner and CLI are supported; some Windows-specific blocks are omitted | Common server targets with similar web/API behavior | Broad runtime support; package and device parity varies | Broad compile targets; system integration varies |
+| Browser | Builder and live-document UI use a host bridge; privileged blocks run in the native host, not the page | Browser UI talks to the workflow server | No direct browser runtime without a separate web/WASM approach | WASM is possible, but OS capabilities still require a host |
+| Headless/server | CLI execution is available; XBlox is not currently a full multi-user orchestration service | Main operating model | Common and well supported | Common once an application/service layer is supplied |
+| Offline/managed desktop | Native package, compiled block set, GPO support, and no package download at flow start | Possible, but the service/runtime and update process still need administration | Possible with a frozen environment; packaging and updates remain application concerns | Good fit when all required platform integrations are available |
+| Embedded/OEM | Header/library/DLL integration; host chooses available blocks and policy | Usually deployed beside the product as a service | Possible through embedding or a sidecar interpreter | Strong native embedding option |
+
+Cross-platform runtime support does not imply that every block is portable.
+The registry carries platform and policy availability so unsupported blocks
+can be omitted from the palette. This is preferable to presenting a flow as
+portable when it depends on a Windows capture, UI Automation, Group Policy, or
+device API.
 
 ---
 
@@ -187,6 +363,20 @@ runtime therefore provides a few layers that hosts can use:
   controlling command groups or optional capabilities in managed deployments.
 
 Available policy keys depend on the Tanit edition and build configuration.
+
+When XBlox runs inside Tanit, these runtime controls are part of the host's
+broader security surface for LLM-driven automation: model and provider
+configuration, tool permissions, file-access boundaries, consent paths, local
+execution, GPO administration, and security-oriented CLI controls. The
+[Tanit Viewer overview and security documentation](https://tanit.polymech.info/user/cgo/pages/tanit-viewer-next)
+provide the current product-level reference, including its OWASP, GPO, and
+Security CLI sections.
+
+These controls can support an organization's compliance requirements, but they
+are not by themselves a claim of certification or universal compliance. The
+effective posture depends on the Tanit edition, enabled providers and tools,
+policy configuration, operating system, deployment, and the workflows that are
+allowed to run.
 
 ### Integration
 
@@ -451,7 +641,7 @@ fields, array item types, required values, and compatible inputs before a flow
 runs. During debugging, the same shape can be used to inspect a structured
 result by field instead of treating it as an opaque JSON value.
 
-Schemas also reduce plumbing work. Exact type compatibility remains the first
+Schemas also reduce tedious plumbing work. Exact type compatibility remains the first
 choice. When names and descriptions do not match exactly, an embedding model
 can rank likely input/output connections and propose parameter mappings. These
 are authoring suggestions rather than hidden runtime behavior: the resulting
@@ -462,6 +652,187 @@ MCP or LLM tool with plain inputs and outputs. Internal `PREVIOUS` and
 `storeAs` values remain private unless the interface exposes them.
 
 Schemas describe shape. They do not grant filesystem or network access, and they do not replace the block manifest (bindings, children, simulate policy, widgets).
+
+---
+
+## References and further reading
+
+These sources provide background for the design choices discussed above. They
+do not constitute a universal benchmark of XBlox, Electron, Node.js, Python, or
+Rust. In particular, the startup and memory figures in this README are local
+development observations; published research does not provide one controlled
+benchmark covering all of those application shapes and platforms.
+
+### Visual and flow-based programming
+
+- Virtools,
+  [*Virtools User Guide*](https://www.evl.uic.edu/datsoupi/407/Virtools_User_Guide.pdf).
+  Primary documentation for Building Blocks and Behavior Graphs, the main
+  historical influence on XBlox.
+- T. R. G. Green and M. Petre,
+  [“Usability Analysis of Visual Programming Environments: A ‘Cognitive
+  Dimensions’ Framework”](https://doi.org/10.1006/jvlc.1996.0009),
+  *Journal of Visual Languages & Computing*, 1996. Discusses viscosity,
+  hidden dependencies, error-proneness, and other trade-offs relevant to
+  wiring-heavy visual languages.
+
+### Lean software, access, and device lifetime
+
+- Niklaus Wirth,
+  [“A Plea for Lean Software”](https://doi.org/10.1109/2.348001),
+  *IEEE Computer*, 1995. An early, still relevant argument that faster
+  hardware does not by itself justify continually increasing software
+  requirements.
+- International Telecommunication Union,
+  [*Facts and Figures 2024*](https://www.itu.int/dms_pub/itu-d/opb/ind/d-ind-ict_mdd-2024-4-pdf-e.pdf).
+  Documents continuing gaps in device ownership, connectivity, affordability,
+  and digital skills. It provides the access context for keeping installation
+  and hardware requirements low; it does not measure application frameworks.
+- ITU and UNITAR,
+  [*The Global E-waste Monitor 2024*](https://www.itu.int/en/ITU-D/Environment/Pages/Publications/The-Global-E-waste-Monitor-2024.aspx).
+  Reports increasing device waste and low documented recycling rates. Longer
+  useful hardware life is one reason to avoid unnecessary baseline
+  requirements, although the report does not attribute e-waste to any specific
+  software framework.
+- Léa Mosesso, Nolwenn Maudet, Edlira Nano, Thomas Thibault, and Aurélien
+  Tabard,
+  [“Obsolescence Paths: Living with Aging
+  Devices”](https://doi.org/10.1109/ICT4S58814.2023.00011), ICT4S 2023.
+  A qualitative study of how upgrade difficulties, storage pressure, software
+  malfunction, and social context accumulate in smartphone replacement
+  decisions. It supports a cautious connection between software requirements
+  and device lifetime rather than a claim that software alone causes e-waste.
+
+### Dependency and workflow security
+
+- Marc Ohm, Henrik Plate, Arnold Sykosch, and Michael Meier,
+  [“Backstabber’s Knife Collection: A Review of Open Source Software Supply
+  Chain Attacks”](https://pmc.ncbi.nlm.nih.gov/articles/PMC7338168/), 2020.
+  Provides a taxonomy and dataset of malicious packages across npm, PyPI, and
+  other package ecosystems.
+- NIST,
+  [*Cybersecurity Supply Chain Risk Management Practices for Systems and
+  Organizations*, SP 800-161 Rev. 1](https://doi.org/10.6028/NIST.SP.800-161r1),
+  2022. Guidance for identifying, assessing, and responding to software supply
+  chain risk.
+- NTIA,
+  [*The Minimum Elements for a Software Bill of Materials
+  (SBOM)*](https://www.ntia.gov/report/2021/minimum-elements-software-bill-materials-sbom),
+  2021. Defines baseline component, dependency, and provenance information for
+  software transparency.
+- OpenSSF,
+  [*Supply-chain Levels for Software Artifacts
+  (SLSA)*](https://slsa.dev/spec/). Defines incrementally stronger build and
+  provenance guarantees; an SBOM or provenance record is useful evidence, not
+  a complete security solution.
+- n8n,
+  [CVE-2025-68613: expression-injection
+  RCE](https://github.com/n8n-io/n8n/security/advisories/ghsa-v98v-ff95-f3cp)
+  and the
+  [February 2026 security
+  bulletin](https://community.n8n.io/t/security-bulletin-february-6-2026/261682).
+  Primary examples behind the workflow-platform security discussion. Readers
+  should consult current advisories and patched-version guidance rather than
+  treating these historical entries as a statement about every release.
+- PolyMech,
+  [*Tanit Viewer overview and security
+  documentation*](https://tanit.polymech.info/user/3bb4cfbf-318b-44d3-a9d3-35680e738421/pages/tanit-viewer-next).
+  Product-level reference for the host in which XBlox runs, including links to
+  OWASP guidance, GPO policies, and Security CLI documentation relevant to
+  managed and LLM-driven automation deployments.
+
+### Schemas and assisted wiring
+
+- JSON Schema,
+  [*Draft 2020-12*](https://json-schema.org/draft/2020-12). The structural
+  schema vocabulary used as the basis for XBlox value descriptions.
+- OpenAPI Initiative,
+  [*OpenAPI Specification 3.1.1*](https://spec.openapis.org/oas/v3.1.1.html).
+  Defines machine-readable HTTP API contracts and aligns its Schema Object
+  with JSON Schema Draft 2020-12.
+- Christos Koutras et al.,
+  [“Valentine: Evaluating Matching Techniques for Dataset
+  Discovery”](https://doi.org/10.1109/ICDE51399.2021.00047), IEEE ICDE 2021.
+  An open experiment suite and benchmark for schema matching; useful for
+  evaluating proposed automatic wiring rather than relying on demonstrations.
+- Yurong Liu, Eduardo H. M. Pena, Aécio Santos, Eden Wu, and Juliana Freire,
+  [“Magneto: Combining Small and Large Language Models for Schema
+  Matching”](https://doi.org/10.14778/3742728.3742757), *PVLDB* 18(8), 2025.
+  Research on embedding retrieval plus LLM reranking for schema matching.
+  XBlox treats this direction as assistive and reviewable rather than as a
+  guarantee of correct wiring.
+
+### Native code, memory safety, and FFI
+
+- CISA, NSA, FBI, and partner agencies,
+  [*The Case for Memory Safe
+  Roadmaps*](https://www.cisa.gov/resources-tools/resources/case-memory-safe-roadmaps),
+  2023. A strong counterweight to simplistic “safe C++” claims: manufacturers
+  should account for memory-unsafe code and publish a migration/risk-reduction
+  plan.
+- ISO C++ community,
+  [*C++ Core Guidelines*](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines).
+  Guidance on RAII, ownership, bounds, resource safety, and narrow interfaces.
+  These practices reduce risk but do not provide Rust's compile-time memory
+  safety guarantee.
+- Rust project,
+  [*The Rustonomicon: Foreign Function
+  Interface*](https://doc.rust-lang.org/stable/nomicon/ffi.html). Documents
+  the unsafe boundary, ABI, ownership, layout, callbacks, and unwinding issues
+  introduced when Rust calls C or C++.
+- Microsoft,
+  [`windows-rs`](https://github.com/microsoft/windows-rs). The official
+  generated Rust projections for Win32, COM, and WinRT APIs; useful evidence
+  for both Rust's broad Windows coverage and the additional binding layer
+  discussed above.
+
+### For interested readers
+
+The main source tree contains a longer reading map in
+`pixlwiz/docs/xblox/xblox-references.md`. It separates material needed for the
+schema work from subjects that become relevant only if XBlox later adds richer
+tracing, simulation, or graph optimization. Useful starting points include:
+
+- [Understanding JSON Schema](https://json-schema.org/understanding-json-schema/)
+  and the
+  [official JSON Schema test suite](https://github.com/json-schema-org/JSON-Schema-Test-Suite)
+  for `$id`, `$ref`, composition, annotations, validation output, and
+  conformance edge cases;
+- [JSON Type Definition, RFC 8927](https://www.rfc-editor.org/rfc/rfc8927) as
+  a useful comparison with the more expressive JSON Schema model;
+- [Zod JSON Schema support](https://zod.dev/json-schema),
+  [Standard Schema](https://standardschema.dev/), and
+  [TypeBox](https://github.com/sinclairzx81/typebox) for different approaches
+  to TypeScript validation and schema-first authoring;
+- [jq's manual](https://jqlang.org/manual/) and literature on lenses, optics,
+  query typing, and abstract interpretation for reasoning about field access
+  and the shape produced by a filter;
+- the [MCP Tools specification](https://modelcontextprotocol.io/specification/draft/server/tools)
+  and
+  [SEP-2106](https://modelcontextprotocol.org/seps/2106-json-schema-2020-12)
+  for tool input/output schemas, structured results, resources, and capability
+  negotiation;
+- API and data-contract work around AsyncAPI, GraphQL introspection, Protocol
+  Buffers, Avro, Pact, CloudEvents, schema evolution, and
+  [Problem Details for HTTP APIs, RFC 9457](https://www.rfc-editor.org/rfc/rfc9457);
+- [W3C PROV](https://www.w3.org/TR/prov-overview/), OpenTelemetry, data
+  lineage, program slicing, and taint tracking for distinguishing declared
+  wiring from the values actually read during one execution;
+- effect systems, capability security, ports and adapters, record/replay,
+  virtual time, and property-based testing as background for a more complete
+  simulation model; and
+- incremental computation, memoization, SSA, liveness analysis, and
+  [*Build Systems à la Carte*](https://www.microsoft.com/en-us/research/publication/build-systems-la-carte/)
+  before attempting caching, dead-block elimination, or parallel graph
+  scheduling.
+
+Comparable systems are also useful for specific questions: Node-RED and n8n
+for flow editing and result inspection; Apache NiFi for provenance,
+backpressure, and replay; KNIME for typed ports; Apache Beam for runner
+separation; Temporal for durable execution; Airflow, Dagster, and Prefect for
+orchestration metadata; and LangGraph for LLM-oriented state graphs. Their
+execution models differ from XBlox, so they are references rather than
+templates.
 
 ---
 
