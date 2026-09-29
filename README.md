@@ -825,6 +825,7 @@ tracing, simulation, or graph optimization. Useful starting points include:
   [*Build Systems à la Carte*](https://www.microsoft.com/en-us/research/publication/build-systems-la-carte/)
   before attempting caching, dead-block elimination, or parallel graph
   scheduling.
+- [Malleable software: Restoring user agency in a world of locked-down apps (2025)](https://news.ycombinator.com/item?id=49869755)
 
 Comparable systems are also useful for specific questions: Node-RED and n8n
 for flow editing and result inspection; Apache NiFi for provenance,
