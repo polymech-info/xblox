@@ -1,0 +1,251 @@
+{
+  "context": {
+    "CURRENT_FILE": "{CURRENT_FILE}",
+    "docStatus": {
+      "status": "queued"
+    },
+    "lang": "DE",
+    "pollCount": 0
+  },
+  "roots": [
+    {
+      "blockId": "stdout-1e5msv",
+      "kind": "stdout",
+      "message": "── deepl-document-pipe ───────────────────────────────────"
+    },
+    {
+      "blockId": "stdout-8qmbwz",
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "blockId": "stdout-1ad0a2",
+      "kind": "stdout",
+      "message": "target : ${lang}"
+    },
+    {
+      "blockId": "stdout-oxmvny",
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}${PATH_EXT:CURRENT_FILE}"
+    },
+    {
+      "blockId": "stdout-8q3odb",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "fsHash-12f4ud",
+      "kind": "fsHash",
+      "path": "${CURRENT_FILE}",
+      "prefixLength": 16,
+      "storeAs": "sourceHash"
+    },
+    {
+      "blockId": "stdout-17qdf5",
+      "kind": "stdout",
+      "message": "cache  : ${sourceHash}"
+    },
+    {
+      "blockId": "fsExists-10hb0m",
+      "kind": "fsExists",
+      "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}${PATH_EXT:CURRENT_FILE}",
+      "storeAs": "translatedExists"
+    },
+    {
+      "blockId": "fsExists-1dzqgf",
+      "kind": "fsExists",
+      "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}.${sourceHash}.json",
+      "storeAs": "cacheMetaExists"
+    },
+    {
+      "blockId": "if-lob23h",
+      "condition": "translatedExists && cacheMetaExists",
+      "consequent": [
+        {
+          "blockId": "log-10z76u",
+          "kind": "log",
+          "level": "info",
+          "message": "DeepL cache hit: ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}${PATH_EXT:CURRENT_FILE}"
+        },
+        {
+          "blockId": "stdout-17dhnc",
+          "kind": "stdout",
+          "message": "done   : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}${PATH_EXT:CURRENT_FILE}"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "else-40gobp",
+      "items": [
+        {
+          "blockId": "fetch-4fkivx",
+          "bodyParts": [
+            "target_lang=${lang}",
+            "file@${CURRENT_FILE}"
+          ],
+          "bodyType": "multipart",
+          "connectTimeoutMs": 10000,
+          "decode": "json",
+          "followRedirects": true,
+          "headers": {
+            "Authorization": "DeepL-Auth-Key ${USER:DEEPL_KEY}"
+          },
+          "id": "deepl-document-upload",
+          "items": [],
+          "kind": "fetch",
+          "maxRedirects": 5,
+          "method": "POST",
+          "retries": 2,
+          "retryDelayMs": 250,
+          "storeAs": "documentUpload",
+          "timeoutMs": 30000,
+          "url": "https://api.deepl.com/v2/document"
+        },
+        {
+          "blockId": "log-h4jczx",
+          "kind": "log",
+          "level": "info",
+          "message": "DeepL document upload id: ${documentUpload.document_id}"
+        },
+        {
+          "blockId": "fsWrite-1mkub8",
+          "content": "${documentUpload}",
+          "items": [],
+          "kind": "fsWrite",
+          "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}.${sourceHash}.upload.json",
+          "storeAs": "documentUploadPath"
+        },
+        {
+          "blockId": "log-1di31t",
+          "kind": "log",
+          "level": "debug",
+          "message": "DeepL upload debug JSON written to ${documentUploadPath}"
+        },
+        {
+          "blockId": "while-ws3t9t",
+          "condition": "pollCount < 10 && docStatus.status != \"done\"",
+          "items": [
+            {
+              "blockId": "fetch-1ezrtn",
+              "bodyJson": {
+                "document_key": "${documentUpload.document_key}"
+              },
+              "bodyType": "json",
+              "connectTimeoutMs": 10000,
+              "decode": "json",
+              "followRedirects": true,
+              "headers": {
+                "Authorization": "DeepL-Auth-Key ${USER:DEEPL_KEY}"
+              },
+              "id": "deepl-document-status",
+              "items": [],
+              "kind": "fetch",
+              "maxRedirects": 5,
+              "method": "POST",
+              "retries": 2,
+              "retryDelayMs": 250,
+              "storeAs": "docStatus",
+              "timeoutMs": 30000,
+              "url": "https://api.deepl.com/v2/document/${documentUpload.document_id}"
+            },
+            {
+              "blockId": "log-am4x4g",
+              "kind": "log",
+              "level": "info",
+              "message": "DeepL document status poll ${pollCount}: ${docStatus}"
+            },
+            {
+              "blockId": "if-11at63",
+              "condition": "docStatus.status == \"done\"",
+              "consequent": [
+                {
+                  "blockId": "break-1g87s9",
+                  "kind": "break"
+                }
+              ],
+              "kind": "if"
+            },
+            {
+              "blockId": "wait-3ehe2r",
+              "kind": "wait",
+              "ms": 1000
+            },
+            {
+              "blockId": "setVariable-4kxzvw",
+              "expression": "pollCount + 1",
+              "kind": "setVariable",
+              "name": "pollCount"
+            }
+          ],
+          "kind": "while",
+          "loopLimit": 10
+        },
+        {
+          "blockId": "if-68ux5p",
+          "condition": "docStatus.status == \"done\"",
+          "consequent": [
+            {
+              "blockId": "fetch-178w46",
+              "bodyJson": {
+                "document_key": "${documentUpload.document_key}"
+              },
+              "bodyType": "json",
+              "connectTimeoutMs": 10000,
+              "decode": "raw",
+              "downloadAs": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}${PATH_EXT:CURRENT_FILE}",
+              "followRedirects": true,
+              "headers": {
+                "Authorization": "DeepL-Auth-Key ${USER:DEEPL_KEY}"
+              },
+              "id": "deepl-document-download",
+              "items": [],
+              "kind": "fetch",
+              "maxRedirects": 5,
+              "method": "POST",
+              "retries": 2,
+              "retryDelayMs": 250,
+              "storeAs": "translatedDocument",
+              "timeoutMs": 30000,
+              "url": "https://api.deepl.com/v2/document/${documentUpload.document_id}/result"
+            },
+            {
+              "blockId": "fsWrite-3glx3n",
+              "content": "{\"source\":\"${CURRENT_FILE}\",\"lang\":\"${lang}\",\"sha256\":\"${sourceHash}\",\"output\":\"${translatedDocument}\",\"document_id\":\"${documentUpload.document_id}\",\"status\":\"${docStatus.status}\"}",
+              "items": [],
+              "kind": "fsWrite",
+              "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_${lang}.${sourceHash}.json",
+              "storeAs": "cacheMetaPath"
+            },
+            {
+              "blockId": "log-1luj0k",
+              "kind": "log",
+              "level": "info",
+              "message": "DeepL translated document saved: ${translatedDocument}"
+            },
+            {
+              "blockId": "stdout-uter2y",
+              "kind": "stdout",
+              "message": "done   : ${translatedDocument}"
+            }
+          ],
+          "kind": "if"
+        },
+        {
+          "blockId": "else-dokg3k",
+          "items": [
+            {
+              "blockId": "log-cwcoyx",
+              "kind": "log",
+              "level": "warn",
+              "message": "DeepL document was not ready after ${pollCount} poll(s): ${docStatus}"
+            }
+          ],
+          "kind": "else"
+        }
+      ],
+      "kind": "else"
+    }
+  ],
+  "version": 2
+}

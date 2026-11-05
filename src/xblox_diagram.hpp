@@ -1,7 +1,7 @@
 #pragma once
 
-#include "xblox/xblox_diagram_styles.hpp"
-#include "xblox/xblox_markdown.hpp"
+#include "xblox_diagram_styles.hpp"
+#include "xblox_markdown.hpp"
 
 #include <nlohmann/json.hpp>
 #include <string>

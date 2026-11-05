@@ -1,0 +1,54 @@
+{
+  "context": {
+    "CURRENT_FILE": "tests/service/share-smoke.md",
+    "PAGE_TITLE": "XBlox Share Smoke",
+    "PAGE_CATEGORY": "documentation",
+    "PAGE_TAGS": "xblox,test,share"
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": false
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── service-pages share ───────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "markdown : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "category : ${PAGE_CATEGORY}"
+    },
+    {
+      "auth": "auto",
+      "categoryId": "${PAGE_CATEGORY}",
+      "conflict": "if-newer",
+      "hidden": true,
+      "includeImages": true,
+      "kind": "servicePagesCreate",
+      "markdownFile": "${CURRENT_FILE}",
+      "storeAs": "page",
+      "tags": "${PAGE_TAGS}",
+      "title": "${PAGE_TITLE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "MARK:PAGE_CREATED"
+    },
+    {
+      "filter": ".uploaded_images | length",
+      "input": "page",
+      "kind": "Parse",
+      "storeAs": "uploadCount"
+    },
+    {
+      "kind": "stdout",
+      "message": "MARK:UPLOADS-${uploadCount}"
+    }
+  ],
+  "version": 1
+}

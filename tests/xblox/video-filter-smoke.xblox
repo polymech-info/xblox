@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "roots": [
+    {
+      "kind": "videoSource",
+      "input": "screen:0",
+      "outputPath": "tests/xblox/video-filter-src.jpg",
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "videoGrayscale",
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "videoColor",
+      "contrast": 1.2,
+      "saturation": 0.0,
+      "brightness": 0.05,
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "videoResize",
+      "width": 640,
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "videoCrop",
+      "x": 0,
+      "y": 0,
+      "width": 320,
+      "height": 240,
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "pictureOut",
+      "outputPath": "tests/xblox/video-filter-out.jpg",
+      "quality": 92,
+      "storeAs": "finalPath"
+    }
+  ]
+}

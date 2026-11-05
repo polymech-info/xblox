@@ -4,7 +4,7 @@
 #include "fs/path_sanitizer.hpp"
 #include "core/settings_runtime.hpp"
 #include "logger/logger.h"
-#include "xblox/xblox_session.hpp"
+#include "xblox_session.hpp"
 
 #if defined(FEATURE_COMMAND_IPC_NEXT) && FEATURE_COMMAND_IPC_NEXT
 #include "core/cmd_ipc.hpp"

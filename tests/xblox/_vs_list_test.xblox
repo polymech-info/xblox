@@ -1,0 +1,16 @@
+{
+  "context": {},
+  "roots": [
+    {
+      "kind":    "vectorStoreList",
+      "auth":    "auto",
+      "storeAs": "stores"
+    },
+    {
+      "kind":    "log",
+      "level":   "info",
+      "message": "stores=${stores}"
+    }
+  ],
+  "version": 1
+}

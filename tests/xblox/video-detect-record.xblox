@@ -1,0 +1,38 @@
+{
+  "context": {
+    "detections": {}
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 100,
+    "reset": false
+  },
+  "roots": [
+    {
+      "conf": 0.3,
+      "input": "screen:0",
+      "instance": "rec0",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "burn-in frame"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo11n.onnx",
+      "nms": 0.45,
+      "recordFps": 10,
+      "recordPath": "tests/xblox/video-detect-record.mp4",
+      "smoothAge": 8,
+      "smoothAlpha": 0.35,
+      "storeAs": "detections",
+      "task": "detect",
+      "visualize": true,
+      "visualizeLabels": true,
+      "visualizeMode": "overlay",
+      "visualizeStats": true
+    }
+  ],
+  "version": 1
+}

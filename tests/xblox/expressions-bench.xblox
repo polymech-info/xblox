@@ -1,0 +1,274 @@
+{
+  "context": {
+    "doc": {
+      "data": [
+        2,
+        5,
+        8
+      ],
+      "meta": {
+        "label": "metrics",
+        "rate": 1.5
+      }
+    },
+    "n": 5,
+    "status": "ready",
+    "user": {
+      "age": 30,
+      "name": "kim"
+    }
+  },
+  "roots": [
+    {
+      "expression": "doc.data[0] + doc.data[1]",
+      "kind": "setVariable",
+      "name": "sum"
+    },
+    {
+      "expression": "(doc.data[0] + doc.data[1]) * doc.meta.rate",
+      "kind": "setVariable",
+      "name": "scaled"
+    },
+    {
+      "expression": "min(sum, 5)",
+      "kind": "setVariable",
+      "name": "lo"
+    },
+    {
+      "expression": "sqrt(sum * 7)",
+      "kind": "setVariable",
+      "name": "root"
+    },
+    {
+      "expression": "sum > 5 ? 100 : 50",
+      "kind": "setVariable",
+      "name": "pick"
+    },
+    {
+      "expression": "doc.data[1]",
+      "kind": "setVariable",
+      "name": "viaBracket"
+    },
+    {
+      "expression": "doc.data.1",
+      "kind": "setVariable",
+      "name": "viaDot"
+    },
+    {
+      "expression": "doc.data.length",
+      "kind": "setVariable",
+      "name": "len"
+    },
+    {
+      "expression": "doc.data.count",
+      "kind": "setVariable",
+      "name": "cnt"
+    },
+    {
+      "expression": "${doc.data[2]} - ${doc.data[0]}",
+      "kind": "setVariable",
+      "name": "unwrapped"
+    },
+    {
+      "condition": "status == \"ready\"",
+      "consequent": [
+        {
+          "kind": "setVariable",
+          "name": "_r",
+          "value": 1
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "items": [
+        {
+          "kind": "setVariable",
+          "name": "_r",
+          "value": 0
+        }
+      ],
+      "kind": "else"
+    },
+    {
+      "condition": "user.name != 'kim'",
+      "consequent": [
+        {
+          "kind": "setVariable",
+          "name": "_r",
+          "value": 0
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "items": [
+        {
+          "kind": "setVariable",
+          "name": "_r",
+          "value": 1
+        }
+      ],
+      "kind": "else"
+    },
+    {
+      "condition": "status == \"ready\" && doc.data[0] == 2",
+      "consequent": [
+        {
+          "kind": "setVariable",
+          "name": "_r",
+          "value": 1
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "expression": "(status == \"ready\") * 10 + (n == \"5\")",
+      "kind": "setVariable",
+      "name": "asNumber"
+    },
+    {
+      "kind": "setVariable",
+      "name": "snapshot",
+      "valueFrom": "doc"
+    },
+    {
+      "condition": "PREVIOUS.data[2] == 8",
+      "consequent": [
+        {
+          "kind": "setVariable",
+          "name": "_r",
+          "value": 1
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "expression": "snapshot.meta.rate * 2",
+      "kind": "setVariable",
+      "name": "viaStore"
+    },
+    {
+      "kind": "setVariable",
+      "name": "total",
+      "value": 0
+    },
+    {
+      "kind": "setVariable",
+      "name": "i",
+      "value": 0
+    },
+    {
+      "condition": "i < doc.data.length",
+      "items": [
+        {
+          "expression": "total + i",
+          "kind": "setVariable",
+          "name": "total"
+        },
+        {
+          "expression": "i + 1",
+          "kind": "setVariable",
+          "name": "i"
+        }
+      ],
+      "kind": "while",
+      "loopLimit": 10
+    },
+    {
+      "expression": "nowMs",
+      "kind": "setVariable",
+      "name": "t0"
+    },
+    {
+      "expression": "nowMs - t0 >= 0",
+      "kind": "setVariable",
+      "name": "elapsedOk"
+    },
+    {
+      "filter": ".meta.label",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "label"
+    },
+    {
+      "filter": ".data.1",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "secondElement"
+    },
+    {
+      "filter": ".meta.rate * 2",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "doubleRate"
+    },
+    {
+      "filter": ".data | map(. * 2 | tostring) | join(\", \")",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "doubledData"
+    },
+    {
+      "filter": "[.data[] | select(. > 4) | tostring] | join(\", \")",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "bigValues"
+    },
+    {
+      "filter": "\"hello, \\(.name)! age=\\(.age)\"",
+      "input": "user",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "greeting"
+    },
+    {
+      "filter": "keys | join(\", \")",
+      "input": "user",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "userKeys"
+    },
+    {
+      "filter": ".data | length",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "dataLen"
+    },
+    {
+      "filter": ".data | map(tostring) | join(\", \")",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "dataStr"
+    },
+    {
+      "filter": ".meta.missing // \"fallback\"",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "withFallback"
+    },
+    {
+      "filter": ".data | add",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "dataSum"
+    },
+    {
+      "filter": "[.data[] | . * .] | add",
+      "input": "doc",
+      "items": [],
+      "kind": "Parse",
+      "storeAs": "sumOfSquares"
+    }
+  ],
+  "version": 1
+}

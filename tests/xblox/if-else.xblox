@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "context": { "n": -3 },
+  "roots": [
+    {
+    "kind": "if",
+    "condition": "this.n > 0",
+    "consequent": [{ "kind": "runScript", "method": "return 'pos';" }],
+    "elseIfBlocks": [
+      {
+        "condition": "this.n < 0",
+        "consequent": [{ "kind": "runScript", "method": "return 'neg';" }]
+      }
+    ],
+    "alternate": [{ "kind": "runScript", "method": "return 'zero';" }]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "context": {
+    "answer": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\tests\\xblox",
+    "entries": "Hello. How may I assist you with image editing, file management, or desktop automation?",
+    "entries2": [
+      {
+        "name": "agent.xblox.dump.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/agent.xblox.dump.md",
+        "size": 1660,
+        "type": "file"
+      },
+      {
+        "name": "bench-results.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/bench-results.md",
+        "size": 6428,
+        "type": "file"
+      },
+      {
+        "name": "dir.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/dir.md",
+        "size": 4431,
+        "type": "file"
+      },
+      {
+        "name": "images.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/images.md",
+        "size": 585,
+        "type": "file"
+      },
+      {
+        "name": "markdown-overview.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/markdown-overview.md",
+        "size": 5939,
+        "type": "file"
+      },
+      {
+        "name": "ocr-reciept-1.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/ocr-reciept-1.md",
+        "size": 2033,
+        "type": "file"
+      },
+      {
+        "name": "performance.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/performance.md",
+        "size": 14874,
+        "type": "file"
+      },
+      {
+        "name": "xblox.en.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/xblox.en.md",
+        "size": 9,
+        "type": "file"
+      }
+    ],
+    "models": []
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": true
+  },
+  "roots": [
+    {
+      "blockId": "llmAgent-m1inj1",
+      "enabled": true,
+      "json": true,
+      "kind": "llmAgent",
+      "mcp": false,
+      "model": "qwen2-5-7b-instruct-q4-k-m",
+      "preset": "local",
+      "prompt": "current cwd ? return result only\n",
+      "router": "llama",
+      "skills": false,
+      "storeAs": "answer",
+      "streamLog": true,
+      "system": "none",
+      "tools": true
+    },
+    {
+      "blockId": "log-1vgkgf",
+      "kind": "log",
+      "level": "info",
+      "message": "PREVIOUS"
+    },
+    {
+      "blockId": "fsList-da1m4g",
+      "enabled": false,
+      "items": [
+        {
+          "blockId": "log-1cx64o",
+          "kind": "log",
+          "level": "info",
+          "message": "PREVIOUS"
+        }
+      ],
+      "kind": "fsList",
+      "only": "all",
+      "path": "${CURRENT_PATH}/*.md",
+      "storeAs": "entries2"
+    },
+    {
+      "action": "Unload",
+      "blockId": "modelControl-17794p",
+      "key": "llama:text",
+      "kind": "modelControl",
+      "storeAs": "models"
+    }
+  ],
+  "version": 2
+}

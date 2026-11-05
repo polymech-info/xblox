@@ -1,0 +1,78 @@
+{
+  "context": {
+    "CURRENT_FILE": "tests/xblox/table.jpg",
+    "transcript": {
+      "durationMs": 3015,
+      "duration_seconds": 3.015,
+      "model": "scribe_v2_realtime",
+      "provider": "elevenlabs",
+      "samples": 47840,
+      "stoppedBy": "max_duration",
+      "transcript": "One, two, three."
+    }
+  },
+  "roots": [
+    {
+      "blockId": "stdout-1gki5c",
+      "kind": "stdout",
+      "message": "── image-pipe-blocks ──────────────────────────────────"
+    },
+    {
+      "blockId": "stdout-1po5b2",
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "blockId": "stdout-ododli",
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_illustration${PATH_EXT:CURRENT_FILE}"
+    },
+    {
+      "blockId": "stdout-iqdemd",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "imageTransform-753d3g",
+      "input": "${CURRENT_FILE}",
+      "kind": "imageTransform",
+      "outputPath": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_illustration${PATH_EXT:CURRENT_FILE}",
+      "preresizeRawOnly": true,
+      "prompt": "create as technical illustration",
+      "provider": "replicate",
+      "resizeFirst": true,
+      "resizeWidth": 800,
+      "storeAs": "imagePath"
+    },
+    {
+      "blockId": "log-pmy03u",
+      "kind": "log",
+      "level": "info",
+      "message": "file written to ${imagePath}"
+    },
+    {
+      "blockId": "stdout-balkuj",
+      "kind": "stdout",
+      "message": "done   : ${imagePath}"
+    },
+    {
+      "args": [],
+      "blockId": "command-1uuj2k",
+      "command": {
+        "appCommand": "browse",
+        "args": [
+          "C:\\Users\\zx\\AppData\\Roaming\\PolyMech\\tanit\\"
+        ],
+        "id": "custom.command-mq6i351x-bdb01"
+      },
+      "commandId": "custom.command-mq6i351x-bdb01",
+      "id": "custom.command-mq6i351x-bdb01",
+      "kind": "command",
+      "log": true,
+      "stderr": "error",
+      "stdout": "info",
+      "storeAs": ""
+    }
+  ],
+  "version": 2
+}

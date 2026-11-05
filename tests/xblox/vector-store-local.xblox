@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "context": {
+    "storePath":   "out/vstore-smoke",
+    "docFile":     "docs/embeddings.md",
+    "overviewFile":"tests/xblox/markdown-overview.md",
+    "outDir":      "out",
+    "q1": "how to embed text locally without network",
+    "q2": "xblox block execution and variable scope",
+    "q3": "vector store storage layout manifest"
+  },
+  "roots": [
+
+    {
+      "kind": "stdout",
+      "message": "── vector-store-local smoke test ───────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "  store   : ${storePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  docFile : ${docFile}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[1] open / create local vector store"
+    },
+    {
+      "kind": "vectorLocalOpen",
+      "storePath": "${storePath}",
+      "threads": 4,
+      "storeAs": "storeInfo"
+    },
+    {
+      "kind": "stdout",
+      "message": "  dims=${dims}  docs=${docCount}  model=${modelPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[2] add docs/embeddings.md  (design spec — semantically rich)"
+    },
+    {
+      "kind": "vectorLocalAddFile",
+      "storePath": "${storePath}",
+      "file": "${docFile}",
+      "source": "file",
+      "chunkSize": 500,
+      "chunkOverlap": 100,
+      "storeAs": "addFile1"
+    },
+    {
+      "kind": "stdout",
+      "message": "  chunks added: ${count}  total docs: ${docCount}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[3] add tests/xblox/markdown-overview.md"
+    },
+    {
+      "kind": "vectorLocalAddFile",
+      "storePath": "${storePath}",
+      "file": "${overviewFile}",
+      "source": "file",
+      "chunkSize": 500,
+      "chunkOverlap": 100,
+      "storeAs": "addFile2"
+    },
+    {
+      "kind": "stdout",
+      "message": "  chunks added: ${count}  total docs: ${docCount}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[4] add inline memory text"
+    },
+    {
+      "kind": "vectorLocalAddText",
+      "storePath": "${storePath}",
+      "text": "VectorStore is a local offline semantic index. It embeds text using a GGUF embedding model via llama.cpp, stores vectors in a binary flat file (vectors.bin), and persists document metadata in docs.jsonl. The manifest.json records the model name, dimensionality, and metric.",
+      "source": "memory",
+      "title": "vectorstore-definition",
+      "tags": "[\"vstore\",\"local\",\"offline\",\"gguf\"]",
+      "storeAs": "addMem"
+    },
+    {
+      "kind": "stdout",
+      "message": "  ids=${ids}  total docs: ${docCount}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[5] search: '${q1}'"
+    },
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "${storePath}",
+      "query": "${q1}",
+      "topK": 3,
+      "storeAs": "search1"
+    },
+    {
+      "kind": "stdout",
+      "message": "  hits: ${count}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[6] search: '${q2}'"
+    },
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "${storePath}",
+      "query": "${q2}",
+      "topK": 3,
+      "storeAs": "search2"
+    },
+    {
+      "kind": "stdout",
+      "message": "  hits: ${count}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[7] search: '${q3}'"
+    },
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "${storePath}",
+      "query": "${q3}",
+      "topK": 3,
+      "storeAs": "search3"
+    },
+    {
+      "kind": "stdout",
+      "message": "  hits: ${count}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[8] write results → ${outDir}/vstore-smoke-results.json"
+    },
+    {
+      "kind": "fsWrite",
+      "path": "${outDir}/vstore-smoke-results.json",
+      "content": "{\"q1\":${search1},\"q2\":${search2},\"q3\":${search3}}",
+      "storeAs": "resultsPath"
+    },
+    {
+      "kind": "stdout",
+      "message": "  wrote → ${resultsPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "── done ─────────────────────────────────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "  store persisted at: ${storePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  results at        : ${resultsPath}"
+    }
+
+  ]
+}

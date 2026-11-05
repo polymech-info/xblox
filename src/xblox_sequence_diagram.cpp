@@ -1,7 +1,7 @@
-#include "xblox/xblox_sequence_diagram.hpp"
+#include "xblox_sequence_diagram.hpp"
 
-#include "xblox/blocks/block_registry.hpp"
-#include "xblox/xblox_diagram_text.hpp"
+#include "blocks/block_registry.hpp"
+#include "xblox_diagram_text.hpp"
 
 #include <algorithm>
 #include <cctype>

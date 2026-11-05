@@ -1,0 +1,190 @@
+{
+  "context": {
+    "mcpItemCount": 1,
+    "mcpLiveResult": {
+      "content": [
+        {
+          "text": "{\"query\":\"weather barcelona\",\"follow_up_questions\":null,\"answer\":null,\"images\":[],\"results\":[{\"title\":\"Weather in Barcelona, Spain\",\"url\":\"https://www.weatherapi.com/\",\"content\":\"{'location': {'name': 'Barcelona', 'region': 'Catalonia', 'country': 'Spain', 'lat': 41.3833, 'lon': 2.1833, 'tz_id': 'Europe/Madrid', 'localtime_epoch': 1783700091, 'localtime': '2026-07-10 18:14'}, 'current': {'last_updated_epoch': 1783699200, 'last_updated': '2026-07-10 18:00', 'temp_c': 29.3, 'temp_f': 84.7, 'is_day': 1, 'condition': {'text': 'Sunny', 'icon': '//cdn.weatherapi.com/weather/64x64/day/113.png', 'code': 1000}, 'wind_mph': 8.9, 'wind_kph': 14.4, 'wind_degree': 109, 'wind_dir': 'ESE', 'pressure_mb': 1010.0, 'pressure_in': 29.83, 'precip_mm': 0.0, 'precip_in': 0.0, 'humidity': 66, 'cloud': 0, 'feelslike_c': 31.5, 'feelslike_f': 88.7, 'windchill_c': 29.0, 'windchill_f': 84.2, 'heatindex_c': 31.0, 'heatindex_f': 87.8, 'dewpoint_c': 19.9, 'dewpoint_f': 67.8, 'vis_km': 10.0, 'vis_miles': 6.0, 'uv': 2.2, 'gust_mph': 10.3, 'gust_kph': 16.6, 'will_it_rain': 0, 'chance_of_rain': 3, 'will_it_snow': 0, 'chance_of_snow': 0}}\",\"score\":0.9052928,\"raw_content\":null},{\"url\":\"https://world-weather.info/forecast/spain/barcelona/july-2026\",\"title\":\"Weather in Barcelona in July 2026 (Catalonia)\",\"content\":\"July Day +86°. Average values in July Wind speed 10.3 mph Pressure 30 inHg Humidity 61 % Barcelona +84° Weather\",\"score\":0.8858788,\"raw_content\":null},{\"url\":\"https://www.formula1.com/en/latest/article/what-is-the-weather-forecast-for-the-2026-barcelona-catalunya-grand-prix.4QhqcnQIJ95cclQZwUevR0\",\"title\":\"What is the weather forecast for the 2026 Formula 1 Barcelona-Catalunya Grand Prix?\",\"content\":\"# What is the weather forecast for the 2026 Barcelona-Catalunya Grand Prix? The weather forecast is in ahead of the seventh race weekend of the season from Barcelona in Spain. Drivers and teams will head to Spain for the Barcelona-Catalunya Grand Prix this weekend – but what weather conditions can they expect? A facility that all in the paddock know well with it being used as a pre-season testing venue, the Circuit de Barcelona-Catalunya is expected to have fine weather this weekend. Scroll down for a more detailed look at the current forecast for the Barcelona-Catalunya Grand Prix. ### 2026 Barcelona-Catalunya Grand Prix weekend weather forecast. Day temperatures will range from 13.75°C in the morning to a peak of 27.5°C during the afternoon, with a track temperature reaching 49.34°C. Temperatures will range from 18°C in the morning to a high of 32°C during the day. Clear skies are expected throughout the day, with temperatures ranging from 20.5°C in the morning to a peak of 34°C in the afternoon.\",\"score\":0.8409005,\"raw_content\":null},{\"url\":\"https://www.barcelona-life.com/barcelona/july\",\"title\":\"Visit Barcelona in July 2026 ~ Events, Weather & What to do!\",\"content\":\"The average high temperature during July is 29 degrees Celsius, whilst the average low is 23 degrees, making July reliably warm, even in the evenings.\",\"score\":0.7898345,\"raw_content\":null},{\"url\":\"https://www.accuweather.com/en/es/barcelona/307297/july-weather/307297\",\"title\":\"Barcelona, Catalonia, Spain Monthly Weather | AccuWeather\",\"content\":\"# Barcelona, Catalonia. Today WinterCast Local {stormName} Tracker Hourly 10-Day Radar MinuteCast® Monthly Air Quality Health & Activities. ### Hurricane Tracker ### Severe Weather ### Radar & Maps ### News ### Video. Today   Hourly   10-Day   Radar   MinuteCast®  ## Monthly  Air Quality   Health & Activities. ## July Weather in Barcelona. ## 10-Day. Sunshine, very warm and humid. Mostly cloudy and very warm. Partly sunny and very warm. Sunny, warm and less humid. Very warm with clouds and sun. Mostly sunny and very warm. Sunny and remaining very warm. AccuWeather's monthly forecast extends further ahead than any other source, with day-by-day RealFeel® Temperatures giving a complete picture of how July weather will actually feel in Barcelona. ### Hurricane Tracker ### Severe Weather ### Radar & Maps. 1 hour ago  Weather Forecasts. 1 hour ago  Severe Weather. 1 day ago  Weather News. AccuWeather Ready   Business   Health   Hurricane   Leisure and Recreation   Severe Weather   Space and Astronomy   Sports   Travel   Weather News.\",\"score\":0.68191797,\"raw_content\":null}],\"response_time\":1.24,\"request_id\":\"adf52a8b-ca1d-4c0e-ba51-1f5353fcb4b7\"}",
+          "type": "text"
+        }
+      ],
+      "isError": false,
+      "structuredContent": {
+        "answer": null,
+        "follow_up_questions": null,
+        "images": [],
+        "query": "weather barcelona",
+        "request_id": "adf52a8b-ca1d-4c0e-ba51-1f5353fcb4b7",
+        "response_time": 1.24,
+        "results": [
+          {
+            "content": "{'location': {'name': 'Barcelona', 'region': 'Catalonia', 'country': 'Spain', 'lat': 41.3833, 'lon': 2.1833, 'tz_id': 'Europe/Madrid', 'localtime_epoch': 1783700091, 'localtime': '2026-07-10 18:14'}, 'current': {'last_updated_epoch': 1783699200, 'last_updated': '2026-07-10 18:00', 'temp_c': 29.3, 'temp_f': 84.7, 'is_day': 1, 'condition': {'text': 'Sunny', 'icon': '//cdn.weatherapi.com/weather/64x64/day/113.png', 'code': 1000}, 'wind_mph': 8.9, 'wind_kph': 14.4, 'wind_degree': 109, 'wind_dir': 'ESE', 'pressure_mb': 1010.0, 'pressure_in': 29.83, 'precip_mm': 0.0, 'precip_in': 0.0, 'humidity': 66, 'cloud': 0, 'feelslike_c': 31.5, 'feelslike_f': 88.7, 'windchill_c': 29.0, 'windchill_f': 84.2, 'heatindex_c': 31.0, 'heatindex_f': 87.8, 'dewpoint_c': 19.9, 'dewpoint_f': 67.8, 'vis_km': 10.0, 'vis_miles': 6.0, 'uv': 2.2, 'gust_mph': 10.3, 'gust_kph': 16.6, 'will_it_rain': 0, 'chance_of_rain': 3, 'will_it_snow': 0, 'chance_of_snow': 0}}",
+            "raw_content": null,
+            "score": 0.9052928,
+            "title": "Weather in Barcelona, Spain",
+            "url": "https://www.weatherapi.com/"
+          },
+          {
+            "content": "July Day +86°. Average values in July Wind speed 10.3 mph Pressure 30 inHg Humidity 61 % Barcelona +84° Weather",
+            "raw_content": null,
+            "score": 0.8858788,
+            "title": "Weather in Barcelona in July 2026 (Catalonia)",
+            "url": "https://world-weather.info/forecast/spain/barcelona/july-2026"
+          },
+          {
+            "content": "# What is the weather forecast for the 2026 Barcelona-Catalunya Grand Prix? The weather forecast is in ahead of the seventh race weekend of the season from Barcelona in Spain. Drivers and teams will head to Spain for the Barcelona-Catalunya Grand Prix this weekend – but what weather conditions can they expect? A facility that all in the paddock know well with it being used as a pre-season testing venue, the Circuit de Barcelona-Catalunya is expected to have fine weather this weekend. Scroll down for a more detailed look at the current forecast for the Barcelona-Catalunya Grand Prix. ### 2026 Barcelona-Catalunya Grand Prix weekend weather forecast. Day temperatures will range from 13.75°C in the morning to a peak of 27.5°C during the afternoon, with a track temperature reaching 49.34°C. Temperatures will range from 18°C in the morning to a high of 32°C during the day. Clear skies are expected throughout the day, with temperatures ranging from 20.5°C in the morning to a peak of 34°C in the afternoon.",
+            "raw_content": null,
+            "score": 0.8409005,
+            "title": "What is the weather forecast for the 2026 Formula 1 Barcelona-Catalunya Grand Prix?",
+            "url": "https://www.formula1.com/en/latest/article/what-is-the-weather-forecast-for-the-2026-barcelona-catalunya-grand-prix.4QhqcnQIJ95cclQZwUevR0"
+          },
+          {
+            "content": "The average high temperature during July is 29 degrees Celsius, whilst the average low is 23 degrees, making July reliably warm, even in the evenings.",
+            "raw_content": null,
+            "score": 0.7898345,
+            "title": "Visit Barcelona in July 2026 ~ Events, Weather & What to do!",
+            "url": "https://www.barcelona-life.com/barcelona/july"
+          },
+          {
+            "content": "# Barcelona, Catalonia. Today WinterCast Local {stormName} Tracker Hourly 10-Day Radar MinuteCast® Monthly Air Quality Health & Activities. ### Hurricane Tracker ### Severe Weather ### Radar & Maps ### News ### Video. Today   Hourly   10-Day   Radar   MinuteCast®  ## Monthly  Air Quality   Health & Activities. ## July Weather in Barcelona. ## 10-Day. Sunshine, very warm and humid. Mostly cloudy and very warm. Partly sunny and very warm. Sunny, warm and less humid. Very warm with clouds and sun. Mostly sunny and very warm. Sunny and remaining very warm. AccuWeather's monthly forecast extends further ahead than any other source, with day-by-day RealFeel® Temperatures giving a complete picture of how July weather will actually feel in Barcelona. ### Hurricane Tracker ### Severe Weather ### Radar & Maps. 1 hour ago  Weather Forecasts. 1 hour ago  Severe Weather. 1 day ago  Weather News. AccuWeather Ready   Business   Health   Hurricane   Leisure and Recreation   Severe Weather   Space and Astronomy   Sports   Travel   Weather News.",
+            "raw_content": null,
+            "score": 0.68191797,
+            "title": "Barcelona, Catalonia, Spain Monthly Weather | AccuWeather",
+            "url": "https://www.accuweather.com/en/es/barcelona/307297/july-weather/307297"
+          }
+        ]
+      }
+    },
+    "mcpSummary": {
+      "count": 1,
+      "sample": [
+        {
+          "answer": null,
+          "follow_up_questions": null,
+          "images": [],
+          "query": "weather barcelona",
+          "request_id": "adf52a8b-ca1d-4c0e-ba51-1f5353fcb4b7",
+          "response_time": 1.24,
+          "results": [
+            {
+              "content": "{'location': {'name': 'Barcelona', 'region': 'Catalonia', 'country': 'Spain', 'lat': 41.3833, 'lon': 2.1833, 'tz_id': 'Europe/Madrid', 'localtime_epoch': 1783700091, 'localtime': '2026-07-10 18:14'}, 'current': {'last_updated_epoch': 1783699200, 'last_updated': '2026-07-10 18:00', 'temp_c': 29.3, 'temp_f': 84.7, 'is_day': 1, 'condition': {'text': 'Sunny', 'icon': '//cdn.weatherapi.com/weather/64x64/day/113.png', 'code': 1000}, 'wind_mph': 8.9, 'wind_kph': 14.4, 'wind_degree': 109, 'wind_dir': 'ESE', 'pressure_mb': 1010.0, 'pressure_in': 29.83, 'precip_mm': 0.0, 'precip_in': 0.0, 'humidity': 66, 'cloud': 0, 'feelslike_c': 31.5, 'feelslike_f': 88.7, 'windchill_c': 29.0, 'windchill_f': 84.2, 'heatindex_c': 31.0, 'heatindex_f': 87.8, 'dewpoint_c': 19.9, 'dewpoint_f': 67.8, 'vis_km': 10.0, 'vis_miles': 6.0, 'uv': 2.2, 'gust_mph': 10.3, 'gust_kph': 16.6, 'will_it_rain': 0, 'chance_of_rain': 3, 'will_it_snow': 0, 'chance_of_snow': 0}}",
+              "raw_content": null,
+              "score": 0.9052928,
+              "title": "Weather in Barcelona, Spain",
+              "url": "https://www.weatherapi.com/"
+            },
+            {
+              "content": "July Day +86°. Average values in July Wind speed 10.3 mph Pressure 30 inHg Humidity 61 % Barcelona +84° Weather",
+              "raw_content": null,
+              "score": 0.8858788,
+              "title": "Weather in Barcelona in July 2026 (Catalonia)",
+              "url": "https://world-weather.info/forecast/spain/barcelona/july-2026"
+            },
+            {
+              "content": "# What is the weather forecast for the 2026 Barcelona-Catalunya Grand Prix? The weather forecast is in ahead of the seventh race weekend of the season from Barcelona in Spain. Drivers and teams will head to Spain for the Barcelona-Catalunya Grand Prix this weekend – but what weather conditions can they expect? A facility that all in the paddock know well with it being used as a pre-season testing venue, the Circuit de Barcelona-Catalunya is expected to have fine weather this weekend. Scroll down for a more detailed look at the current forecast for the Barcelona-Catalunya Grand Prix. ### 2026 Barcelona-Catalunya Grand Prix weekend weather forecast. Day temperatures will range from 13.75°C in the morning to a peak of 27.5°C during the afternoon, with a track temperature reaching 49.34°C. Temperatures will range from 18°C in the morning to a high of 32°C during the day. Clear skies are expected throughout the day, with temperatures ranging from 20.5°C in the morning to a peak of 34°C in the afternoon.",
+              "raw_content": null,
+              "score": 0.8409005,
+              "title": "What is the weather forecast for the 2026 Formula 1 Barcelona-Catalunya Grand Prix?",
+              "url": "https://www.formula1.com/en/latest/article/what-is-the-weather-forecast-for-the-2026-barcelona-catalunya-grand-prix.4QhqcnQIJ95cclQZwUevR0"
+            },
+            {
+              "content": "The average high temperature during July is 29 degrees Celsius, whilst the average low is 23 degrees, making July reliably warm, even in the evenings.",
+              "raw_content": null,
+              "score": 0.7898345,
+              "title": "Visit Barcelona in July 2026 ~ Events, Weather & What to do!",
+              "url": "https://www.barcelona-life.com/barcelona/july"
+            },
+            {
+              "content": "# Barcelona, Catalonia. Today WinterCast Local {stormName} Tracker Hourly 10-Day Radar MinuteCast® Monthly Air Quality Health & Activities. ### Hurricane Tracker ### Severe Weather ### Radar & Maps ### News ### Video. Today   Hourly   10-Day   Radar   MinuteCast®  ## Monthly  Air Quality   Health & Activities. ## July Weather in Barcelona. ## 10-Day. Sunshine, very warm and humid. Mostly cloudy and very warm. Partly sunny and very warm. Sunny, warm and less humid. Very warm with clouds and sun. Mostly sunny and very warm. Sunny and remaining very warm. AccuWeather's monthly forecast extends further ahead than any other source, with day-by-day RealFeel® Temperatures giving a complete picture of how July weather will actually feel in Barcelona. ### Hurricane Tracker ### Severe Weather ### Radar & Maps. 1 hour ago  Weather Forecasts. 1 hour ago  Severe Weather. 1 day ago  Weather News. AccuWeather Ready   Business   Health   Hurricane   Leisure and Recreation   Severe Weather   Space and Astronomy   Sports   Travel   Weather News.",
+              "raw_content": null,
+              "score": 0.68191797,
+              "title": "Barcelona, Catalonia, Spain Monthly Weather | AccuWeather",
+              "url": "https://www.accuweather.com/en/es/barcelona/307297/july-weather/307297"
+            }
+          ]
+        }
+      ]
+    },
+    "sampleCount": 8,
+    "server": "tanit",
+    "timeoutMs": 120000,
+    "tool": ""
+  },
+  "description": "Flow to test tavily search mcp on tanit",
+  "roots": [
+    {
+      "blockId": "stdout-1hrr85",
+      "kind": "stdout",
+      "message": "── network-mcp-live ──────────────────────────────────────"
+    },
+    {
+      "blockId": "stdout-114lt6",
+      "kind": "stdout",
+      "message": "server : ${server}"
+    },
+    {
+      "blockId": "stdout-9npg41",
+      "kind": "stdout",
+      "message": "tool   : ${tool}"
+    },
+    {
+      "blockId": "stdout-1t3dup",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "arguments": {
+        "query": "weather barcelona"
+      },
+      "blockId": "mcpCall-jmakox",
+      "id": "mcp-router-call",
+      "kind": "mcpCall",
+      "server": "__custom__",
+      "serverConfig": {
+        "command": "codebase-memory-mcp.exe",
+        "type": "stdio"
+      },
+      "storeAs": "mcpLiveResult",
+      "timeoutMs": "${timeoutMs}",
+      "tool": "tavily-tavily_search"
+    },
+    {
+      "blockId": "Parse-1h5905",
+      "filter": ".content | map(.text | fromjson) | {count: length, sample: .[0:8]}",
+      "input": "mcpLiveResult",
+      "kind": "Parse",
+      "parser": "jq",
+      "storeAs": "mcpSummary"
+    },
+    {
+      "blockId": "Parse-m87dxu",
+      "filter": ".count",
+      "input": "mcpSummary",
+      "kind": "Parse",
+      "parser": "jq",
+      "storeAs": "mcpItemCount"
+    },
+    {
+      "blockId": "stdout-l4iqi8",
+      "kind": "stdout",
+      "message": "count  : ${mcpItemCount}"
+    },
+    {
+      "blockId": "log-1mbx7r",
+      "kind": "log",
+      "level": "info",
+      "message": "mcpSummary"
+    },
+    {
+      "blockId": "stdout-u1t172",
+      "kind": "stdout",
+      "message": "sample : ${mcpSummary}"
+    },
+    {
+      "blockId": "stdout-1u4wt4",
+      "kind": "stdout",
+      "message": "done   : network-mcp-live"
+    }
+  ],
+  "version": 2
+}

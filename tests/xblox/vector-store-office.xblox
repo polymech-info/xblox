@@ -1,0 +1,106 @@
+{
+  "roots": [
+
+    {
+      "kind": "vectorLocalOpen",
+      "storePath": "out/vstore-office",
+      "model": "",
+      "threads": 4,
+      "storeAs": "storeInfo"
+    },
+
+    {
+      "kind": "log",
+      "message": "Store opened — ${docCount} docs, ${dims} dims"
+    },
+
+    {
+      "kind": "vectorLocalAddFile",
+      "storePath": "out/vstore-office",
+      "file": "tests/office/annual-report-2024.xlsx",
+      "source": "office",
+      "tags": "[\"finance\",\"2024\",\"annual-report\"]",
+      "chunkSize": 600,
+      "chunkOverlap": 80,
+      "storeAs": "addXlsx"
+    },
+
+    {
+      "kind": "log",
+      "message": "annual-report-2024.xlsx — ${count} chunk(s) added, total ${docCount} docs"
+    },
+
+    {
+      "kind": "vectorLocalAddFile",
+      "storePath": "out/vstore-office",
+      "file": "tests/office/meeting-notes.docx",
+      "source": "office",
+      "tags": "[\"meetings\",\"product\",\"2024\"]",
+      "chunkSize": 600,
+      "chunkOverlap": 80,
+      "storeAs": "addDocx"
+    },
+
+    {
+      "kind": "log",
+      "message": "meeting-notes.docx — ${count} chunk(s) added, total ${docCount} docs"
+    },
+
+    {
+      "kind": "vectorLocalStats",
+      "storePath": "out/vstore-office",
+      "storeAs": "stats"
+    },
+
+    {
+      "kind": "log",
+      "message": "Store stats — ${docCount} docs, ${dims} dims, ${indexSizeBytes} bytes on disk"
+    },
+
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "out/vstore-office",
+      "query": "annual revenue financial results",
+      "topK": 5,
+      "storeAs": "searchFinance"
+    },
+
+    {
+      "kind": "log",
+      "message": "Search 'revenue financial': ${count} hit(s)"
+    },
+
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "out/vstore-office",
+      "query": "enterprise SSO integration action items",
+      "topK": 5,
+      "storeAs": "searchMeeting"
+    },
+
+    {
+      "kind": "log",
+      "message": "Search 'SSO action items': ${count} hit(s)"
+    },
+
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "out/vstore-office",
+      "query": "quarterly earnings per share growth forecast",
+      "topK": 5,
+      "storeAs": "searchForecast"
+    },
+
+    {
+      "kind": "fsWrite",
+      "path": "out/vstore-office-results.json",
+      "content": "{\"stats\":${stats},\"finance\":${searchFinance},\"meeting\":${searchMeeting},\"forecast\":${searchForecast}}"
+    },
+
+    {
+      "kind": "log",
+      "message": "Done — results in out/vstore-office-results.json"
+    }
+
+  ]
+}

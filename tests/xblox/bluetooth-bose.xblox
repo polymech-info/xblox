@@ -1,0 +1,73 @@
+{
+  "context": {
+    "bluetooth": {
+      "ok": true,
+      "target": "bose"
+    },
+    "bluetoothDevices": [
+      {
+        "address": "CC:C5:0A:83:03:47",
+        "can_pair": false,
+        "connected": false,
+        "device_class": "Audio/Video",
+        "id": "CC:C5:0A:83:03:47",
+        "is_audio_device": true,
+        "name": "Voombox-outdoor",
+        "paired": true
+      },
+      {
+        "address": "C4:30:18:11:1A:F3",
+        "can_pair": false,
+        "connected": false,
+        "device_class": "Audio/Video",
+        "id": "C4:30:18:11:1A:F3",
+        "is_audio_device": true,
+        "name": "RX-V383 Yamaha ",
+        "paired": true
+      },
+      {
+        "address": "78:2B:64:13:D8:A5",
+        "can_pair": false,
+        "connected": true,
+        "device_class": "Audio/Video",
+        "id": "78:2B:64:13:D8:A5",
+        "is_audio_device": true,
+        "name": "Bose NC 700 HP",
+        "paired": true
+      }
+    ]
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": true
+  },
+  "roots": [
+    {
+      "autoRoute": false,
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "PREVIOUS"
+        }
+      ],
+      "kind": "bluetoothListDevices",
+      "nearby": false,
+      "storeAs": "bluetoothDevices"
+    },
+    {
+      "autoRoute": true,
+      "id": "bose",
+      "kind": "bluetoothConnect",
+      "storeAs": "bluetooth",
+      "timeoutMs": 10000
+    },
+    {
+      "kind": "stdout",
+      "message": "bluetooth",
+      "newline": true
+    }
+  ],
+  "version": 1
+}

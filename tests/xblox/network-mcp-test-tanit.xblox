@@ -1,0 +1,31 @@
+{
+  "context": {},
+  "roots": [
+    {
+      "arguments": {},
+      "blockId": "mcpCall-391i1o",
+      "id": "mcp-router-call",
+      "items": [
+        {
+          "blockId": "log-1ejewt",
+          "kind": "log",
+          "level": "info"
+        }
+      ],
+      "kind": "mcpCall",
+      "server": "__custom__",
+      "serverConfig": {
+        "args": [
+          "mcp"
+        ],
+        "command": "tanit-cli.exe",
+        "type": "sse",
+        "url": " http://127.0.0.1:4444/mcp"
+      },
+      "storeAs": "test",
+      "timeoutMs": "${timeoutMs}",
+      "tool": "search_graph"
+    }
+  ],
+  "version": 2
+}

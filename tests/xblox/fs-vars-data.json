@@ -1,0 +1,10 @@
+{
+  "invoice": "INV-2024-001",
+  "vendor": "Pixdrug Store",
+  "items": [
+    { "name": "MILK",  "price": 2.49 },
+    { "name": "BREAD", "price": 3.20 }
+  ],
+  "total": 5.69,
+  "currency": "USD"
+}

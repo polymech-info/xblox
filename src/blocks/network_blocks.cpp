@@ -27,8 +27,8 @@
 #include "blocks/json_templates.hpp"
 #include "lib/net/http_client.hpp"
 #include "string/string_utils.hpp"
-#include "xblox/xblox_constants.hpp"
-#include "xblox/xblox_session.hpp"
+#include "xblox_constants.hpp"
+#include "xblox_session.hpp"
 #include "policy/app_policy.hpp"
 
 #if defined(FEATURE_SSH_XBLOX) && FEATURE_SSH_XBLOX

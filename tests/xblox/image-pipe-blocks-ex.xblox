@@ -1,0 +1,48 @@
+{
+  "context": {
+    "CURRENT_FILE": "tests/xblox/table.jpg"
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── image-pipe-blocks ──────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_illustration${PATH_EXT:CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "input": "${CURRENT_FILE}",
+      "kind": "imageTransform",
+      "model": "google/nano-banana-2",
+      "outputPath": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_illustration${PATH_EXT:CURRENT_FILE}",
+      "preresizeRawOnly": true,
+      "prompt": "create as technical illustration",
+      "provider": "replicate",
+      "providerOptions": {
+        "image_search": false
+      },
+      "resizeFirst": true,
+      "resizeWidth": 800,
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "file written to ${imagePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : ${imagePath}"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "roots": [
+    {
+      "blockId": "follow-start",
+      "kind": "videoCapture",
+      "action": "Start",
+      "instance": "follow-smoke",
+      "input": "screen:0",
+      "outputPath": "tests/audio/test-update-smoke.mp4",
+      "captureEngine": "fast",
+      "encoder": "nvenc",
+      "width": 720,
+      "height": 720,
+      "sizeMode": "fill",
+      "fps": 24
+    },
+    {
+      "blockId": "follow-wait-before",
+      "kind": "wait",
+      "ms": 1500
+    },
+    {
+      "blockId": "follow-update",
+      "kind": "videoCapture",
+      "action": "Update",
+      "instance": "follow-smoke",
+      "zoom": 1.8,
+      "follow": "cursor",
+      "transitionMs": 350
+    },
+    {
+      "blockId": "follow-wait-after",
+      "kind": "wait",
+      "ms": 1500
+    },
+    {
+      "blockId": "follow-stop",
+      "kind": "videoCapture",
+      "action": "Stop",
+      "instance": "follow-smoke"
+    }
+  ]
+}

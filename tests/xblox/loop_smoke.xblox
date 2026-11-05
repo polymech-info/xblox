@@ -1,0 +1,26 @@
+{
+  "context": {
+    "n": 783714
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 100,
+    "reset": false
+  },
+  "roots": [
+    {
+      "blockId": "setVariable-na9acq",
+      "expression": "n+1",
+      "kind": "setVariable",
+      "name": "n"
+    },
+    {
+      "blockId": "log-14kec9",
+      "enabled": true,
+      "kind": "log",
+      "level": "info",
+      "message": "tick n=${n}"
+    }
+  ],
+  "version": 2
+}

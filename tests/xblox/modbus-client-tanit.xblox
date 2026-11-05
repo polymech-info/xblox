@@ -1,0 +1,68 @@
+{
+  "context": {
+    "initial": [
+      1,
+      1,
+      1,
+      0,
+      1
+    ]
+  },
+  "roots": [
+    {
+      "address": 300,
+      "area": "coils",
+      "blockId": "modbusReadHoldingRegisters-14wm0p",
+      "count": 5,
+      "id": "read-initial",
+      "kind": "modbusReadHoldingRegisters",
+      "storeAs": "initial",
+      "url": "tcp:192.168.1.250:502"
+    },
+    {
+      "blockId": "log-1j3z0t",
+      "kind": "log",
+      "level": "info",
+      "message": "initial"
+    },
+    {
+      "address": 303,
+      "area": "coils",
+      "blockId": "modbusWriteRegister-19rfh7",
+      "id": "write-register-1",
+      "kind": "modbusWriteRegister",
+      "storeAs": "writeOne",
+      "url": "tcp:192.168.1.250:502",
+      "value": 1
+    },
+    {
+      "address": 0,
+      "blockId": "modbusReadHoldingRegisters-1j3l9r",
+      "count": 3,
+      "id": "read-final",
+      "kind": "modbusReadHoldingRegisters",
+      "storeAs": "final",
+      "url": "tcp:192.168.1.250:502"
+    },
+    {
+      "blockId": "log-vorz0v",
+      "kind": "log",
+      "level": "info",
+      "message": "final"
+    },
+    {
+      "arguments": {},
+      "blockId": "mcpCall-12mowo",
+      "kind": "mcpCall",
+      "server": "__custom__",
+      "serverConfig": {
+        "command": "codebase-memory-mcp.exe",
+        "type": "stdio"
+      },
+      "storeAs": "mcpResult",
+      "timeoutMs": 60000,
+      "tool": "list_projects"
+    }
+  ],
+  "version": 2
+}

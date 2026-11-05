@@ -1,6 +1,6 @@
-﻿#pragma once
+#pragma once
 
-#include "xblox/xblox_diagram_styles.hpp"
+#include "xblox_diagram_styles.hpp"
 
 #include <nlohmann/json.hpp>
 #include <string>

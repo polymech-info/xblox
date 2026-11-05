@@ -1,0 +1,17 @@
+{
+  "name": "@polymech/pm-xblox",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "XBlox flow runtime and the pm-xblox CLI. The Tanit host compiles the engine and keeps settings, branding, and command registration.",
+  "scripts": {
+    "configure": "node scripts/cmake.mjs --preset dev",
+    "configure:release": "node scripts/cmake.mjs --preset release",
+    "build:cpp": "npm run configure && node scripts/cmake.mjs --build --preset dev --target pm-xblox",
+    "build:cpp-fast": "node scripts/ninja.mjs --preset dev --target pm-xblox",
+    "build:cpp:release": "npm run configure:release && node scripts/cmake.mjs --build --preset release --target pm-xblox",
+    "test": "node tests/run.mjs",
+    "test:usage": "node tests/test-usage.mjs",
+    "test:build": "npm run build:cpp && npm test"
+  }
+}

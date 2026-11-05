@@ -1,0 +1,136 @@
+{
+  "context": {
+    "bluetooth": {
+      "ok": true,
+      "target": "bose"
+    },
+    "bluetoothDevices": [
+      {
+        "address": "CC:C5:0A:83:03:47",
+        "can_pair": false,
+        "connected": false,
+        "device_class": "Audio/Video",
+        "id": "CC:C5:0A:83:03:47",
+        "is_audio_device": true,
+        "name": "Voombox-outdoor",
+        "paired": true
+      },
+      {
+        "address": "C4:30:18:11:1A:F3",
+        "can_pair": false,
+        "connected": false,
+        "device_class": "Audio/Video",
+        "id": "C4:30:18:11:1A:F3",
+        "is_audio_device": true,
+        "name": "RX-V383 Yamaha ",
+        "paired": true
+      },
+      {
+        "address": "78:2B:64:13:D8:A5",
+        "can_pair": false,
+        "connected": true,
+        "device_class": "Audio/Video",
+        "id": "78:2B:64:13:D8:A5",
+        "is_audio_device": true,
+        "name": "Bose NC 700 HP",
+        "paired": true
+      }
+    ],
+    "logLevel": ""
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": true
+  },
+  "roots": [
+    {
+      "autoRoute": false,
+      "blockId": "bluetoothListDevices-ja6xro",
+      "items": [
+        {
+          "blockId": "log-b2xhgx",
+          "kind": "log",
+          "level": "${logLevel}",
+          "message": "PREVIOUS"
+        }
+      ],
+      "kind": "bluetoothListDevices",
+      "nearby": false,
+      "storeAs": "bluetoothDevices"
+    },
+    {
+      "autoRoute": true,
+      "blockId": "bluetoothConnect-1huw01",
+      "id": "bose",
+      "kind": "bluetoothConnect",
+      "storeAs": "bluetooth",
+      "timeoutMs": 10000
+    },
+    {
+      "blockId": "stdout-icv5kw",
+      "kind": "stdout",
+      "message": "bluetooth",
+      "newline": true
+    },
+    {
+      "blockId": "bluetoothDisconnect-1xkzv0",
+      "id": "bose",
+      "kind": "bluetoothDisconnect",
+      "storeAs": "bluetooth"
+    },
+    {
+      "action": "Start",
+      "bind": "127.0.0.1",
+      "blockId": "mqttServer-sovbnn",
+      "instance": "default",
+      "kind": "mqttServer",
+      "port": 1883,
+      "storeAs": "mqttServer"
+    },
+    {
+      "action": "Start",
+      "blockId": "modbusConnection-1gzc1z",
+      "connection": "default",
+      "kind": "modbusConnection",
+      "storeAs": "modbusConnection",
+      "url": "tcp:127.0.0.1:15020"
+    },
+    {
+      "address": 0,
+      "area": "coils",
+      "blockId": "modbusReadCoils-wae0oz",
+      "count": 8,
+      "kind": "modbusReadCoils",
+      "storeAs": "values",
+      "url": "tcp:127.0.0.1:15020"
+    },
+    {
+      "anyKey": false,
+      "blockId": "keyEvent-1th5po",
+      "keys": "F9",
+      "kind": "keyEvent",
+      "storeAs": "key",
+      "toggle": true
+    },
+    {
+      "apiKey": "",
+      "aspectRatio": "",
+      "baseUrl": "",
+      "blockId": "imageCreate-14w2ag",
+      "imageSize": "",
+      "kind": "imageCreate",
+      "model": "",
+      "outputPath": "",
+      "preresizeRawOnly": false,
+      "prompt": "",
+      "provider": "",
+      "references": [],
+      "replicateCollection": "official",
+      "resizeFirst": false,
+      "resizeWidth": 0,
+      "storeAs": "imagePath"
+    }
+  ],
+  "version": 2
+}

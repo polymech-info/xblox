@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Girona 14-Day Weather Forecast — June 2026</title>
+  <style>
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(160deg, #0f2b5b 0%, #1a4e8a 45%, #2e7dd1 100%);
+      min-height: 100vh;
+      color: #fff;
+      padding: 2rem 1rem 4rem;
+    }
+
+    /* ── Header ── */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header .flag { font-size: 2.8rem; }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-top: .35rem;
+    }
+    header p.sub {
+      font-size: .95rem;
+      opacity: .75;
+      margin-top: .35rem;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      border-radius: 999px;
+      padding: .25rem .9rem;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-top: .8rem;
+    }
+
+    /* ── Summary strip ── */
+    .summary-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .8rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      padding: .6rem 1.2rem;
+      text-align: center;
+      min-width: 110px;
+    }
+    .stat-pill .val { font-size: 1.4rem; font-weight: 700; }
+    .stat-pill .lbl { font-size: .72rem; opacity: .75; margin-top: .15rem; text-transform: uppercase; letter-spacing: .06em; }
+
+    /* ── Grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: rgba(255,255,255,.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 18px;
+      padding: 1.1rem .9rem 1rem;
+      text-align: center;
+      transition: transform .18s, box-shadow .18s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+    }
+    .card.today {
+      background: rgba(255,200,50,.18);
+      border-color: rgba(255,220,80,.55);
+    }
+    .card.today::before {
+      content: "TODAY";
+      position: absolute; top: 8px; right: 10px;
+      font-size: .6rem; font-weight: 700;
+      letter-spacing: .1em;
+      color: #ffd84f;
+    }
+    .card .date-day  { font-size: .72rem; opacity: .65; text-transform: uppercase; letter-spacing: .08em; }
+    .card .date-full { font-size: .95rem; font-weight: 600; margin: .15rem 0 .6rem; }
+    .card .icon      { font-size: 2.4rem; line-height: 1; margin-bottom: .4rem; }
+    .card .condition { font-size: .78rem; opacity: .82; min-height: 2.2em; }
+    .card .temps {
+      display: flex; justify-content: center; align-items: baseline;
+      gap: .45rem; margin: .7rem 0 .4rem;
+    }
+    .card .hi  { font-size: 1.55rem; font-weight: 700; }
+    .card .lo  { font-size: 1rem; opacity: .6; }
+    .card .sep { font-size: .8rem; opacity: .35; }
+    .card .meta {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: .35rem .6rem; margin-top: .55rem;
+    }
+    .meta-tag {
+      display: flex; align-items: center; gap: .25rem;
+      font-size: .7rem; opacity: .72;
+      background: rgba(255,255,255,.08);
+      border-radius: 6px;
+      padding: .2rem .45rem;
+    }
+    .rain { color: #7ecfff; }
+    .bar-wrap { margin-top: .75rem; height: 4px; border-radius: 99px; background: rgba(255,255,255,.15); overflow: hidden; }
+    .bar-fill  { height: 100%; border-radius: 99px; background: linear-gradient(90deg,#7ecfff,#a0e9ff); }
+
+    /* ── Sources ── */
+    .sources {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: .73rem;
+      opacity: .5;
+    }
+    .sources a { color: #cde; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="flag">🇪🇸</div>
+  <h1>Girona, Catalonia — Weather Forecast</h1>
+  <p class="sub">Costa Brava · 41.98°N 2.82°E · 71 m asl</p>
+  <span class="badge">📅 14-Day Outlook · June 4 – 17, 2026</span>
+</header>
+
+<!-- Summary pills -->
+<div class="summary-strip">
+  <div class="stat-pill"><div class="val">29°C</div><div class="lbl">Avg High</div></div>
+  <div class="stat-pill"><div class="val">17°C</div><div class="lbl">Avg Low</div></div>
+  <div class="stat-pill"><div class="val">~45%</div><div class="lbl">Avg Humidity</div></div>
+  <div class="stat-pill"><div class="val">10 h</div><div class="lbl">Daily Sunshine</div></div>
+  <div class="stat-pill"><div class="val">5–14 mph</div><div class="lbl">Wind Range</div></div>
+</div>
+
+<!-- Day cards -->
+<div class="grid" id="forecast"></div>
+
+<!-- Sources -->
+<div class="sources">
+  Data aggregated from AccuWeather · TheWeatherOutlook · Weather25 · Tutiempo · Weather.com — compiled 4 Jun 2026
+  &nbsp;|&nbsp; <a href="https://www.accuweather.com/en/es/girona/304357/june-weather/304357" target="_blank">AccuWeather</a>
+  &nbsp;|&nbsp; <a href="https://www.theweatheroutlook.com/forecast/41d99-02d82/girona--girona--spain" target="_blank">TheWeatherOutlook</a>
+</div>
+
+<script>
+const days = [
+  { date:"2026-06-04", day:"Thu", label:"4 Jun",  icon:"🌧️", cond:"Light rain shower / Downpours PM",   hi:28, lo:14, wind:"14 mph SE",  hum:56, rain:15.6, today:true  },
+  { date:"2026-06-05", day:"Fri", label:"5 Jun",  icon:"🌦️", cond:"Showers around in PM",               hi:21, lo:13, wind:"3 mph",     hum:53, rain:0,    today:false },
+  { date:"2026-06-06", day:"Sat", label:"6 Jun",  icon:"⛅", cond:"Mostly cloudy and warmer",            hi:28, lo:14, wind:"9 mph SSW", hum:52, rain:0,    today:false },
+  { date:"2026-06-07", day:"Sun", label:"7 Jun",  icon:"⛅", cond:"Partly cloudy, partial sunshine",     hi:28, lo:16, wind:"10 mph SSE",hum:43, rain:0,    today:false },
+  { date:"2026-06-08", day:"Mon", label:"8 Jun",  icon:"🌤️", cond:"Partly sunny, a few showers",         hi:29, lo:17, wind:"8 mph SSE", hum:48, rain:0,    today:false },
+  { date:"2026-06-09", day:"Tue", label:"9 Jun",  icon:"⛅", cond:"Sun and some clouds",                 hi:27, lo:16, wind:"6 mph NE",  hum:48, rain:0,    today:false },
+  { date:"2026-06-10", day:"Wed", label:"10 Jun", icon:"☀️", cond:"Mostly sunny",                        hi:29, lo:18, wind:"11 mph SE", hum:51, rain:0,    today:false },
+  { date:"2026-06-11", day:"Thu", label:"11 Jun", icon:"☀️", cond:"Sunny and very warm",                 hi:30, lo:18, wind:"8 mph ESE", hum:43, rain:0,    today:false },
+  { date:"2026-06-12", day:"Fri", label:"12 Jun", icon:"☀️", cond:"Sunny and very warm",                 hi:32, lo:18, wind:"8 mph SE",  hum:48, rain:0,    today:false },
+  { date:"2026-06-13", day:"Sat", label:"13 Jun", icon:"🌦️", cond:"Morning rain; then warm & sunny",     hi:32, lo:17, wind:"13 mph ESE",hum:33, rain:0,    today:false },
+  { date:"2026-06-14", day:"Sun", label:"14 Jun", icon:"🌤️", cond:"Mostly sunny and very warm",          hi:29, lo:20, wind:"10 mph E",  hum:51, rain:0,    today:false },
+  { date:"2026-06-15", day:"Mon", label:"15 Jun", icon:"⛈️", cond:"Isolated thunderstorm possible PM",   hi:31, lo:21, wind:"8 mph ESE", hum:46, rain:7.2,  today:false },
+  { date:"2026-06-16", day:"Tue", label:"16 Jun", icon:"🌦️", cond:"Partly cloudy; showers later",        hi:27, lo:22, wind:"7 mph NE",  hum:53, rain:6.0,  today:false },
+  { date:"2026-06-17", day:"Wed", label:"17 Jun", icon:"🌤️", cond:"Sunshine and clouds mixed",           hi:29, lo:17, wind:"7 mph ESE", hum:41, rain:0,    today:false },
+];
+
+const grid = document.getElementById("forecast");
+days.forEach(d => {
+  const pct = Math.round((d.hum / 100) * 100);
+  grid.innerHTML += `
+  <div class="card${d.today?" today":""}">
+    <div class="date-day">${d.day}</div>
+    <div class="date-full">${d.label}</div>
+    <div class="icon">${d.icon}</div>
+    <div class="condition">${d.cond}</div>
+    <div class="temps">
+      <span class="hi">${d.hi}°</span>
+      <span class="sep">/</span>
+      <span class="lo">${d.lo}°</span>
+    </div>
+    <div class="meta">
+      <span class="meta-tag">💨 ${d.wind}</span>
+      <span class="meta-tag">💧 ${d.hum}%</span>
+      ${d.rain > 0 ? `<span class="meta-tag rain">🌧 ${d.rain} mm</span>` : ''}
+    </div>
+    <div class="bar-wrap"><div class="bar-fill" style="width:${pct}%"></div></div>
+  </div>`;
+});
+</script>
+</body>
+</html>

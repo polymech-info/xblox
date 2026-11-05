@@ -1,0 +1,56 @@
+{
+  "context": {
+    "capturePath": "C:\\Users\\zx\\Videos/screen-recordings/12-23.mp4",
+    "pickResult": "screen:0:hwnd=7408848:wintitle=eu-west2 - Microsoft Azure - Google Chrome",
+    "test": "C:\\Users\\zx\\Videos/screen-recordings/21-48.mp4"
+  },
+  "roots": [
+    {
+      "blockId": "picker-1qiosj",
+      "enabled": false,
+      "highlight": true,
+      "kind": "picker",
+      "resolveUia": false,
+      "showHidden": false,
+      "storeAs": "pickResult",
+      "timeoutMs": 60000
+    },
+    {
+      "action": "Record",
+      "audioSource": "none",
+      "bitrateKbps": 18000,
+      "blockId": "videoCapture-1q8o1n",
+      "captureEngine": "auto",
+      "consumeZoomInput": false,
+      "desktopDevice": "",
+      "desktopGain": 1,
+      "device": "",
+      "durationMs": 0,
+      "encoder": "nvenc",
+      "follow": "cursor",
+      "followDeadzone": 30,
+      "followSpeed": 0.05,
+      "fps": 60,
+      "height": 720,
+      "hudCapture": "visible",
+      "includeCursor": true,
+      "input": "screen:0",
+      "instance": "",
+      "interactiveZoom": true,
+      "kind": "videoCapture",
+      "micGain": 1,
+      "outputPath": "${KNOWNFOLDER:Videos}/screen-recordings/${DD}-${SS}.mp4",
+      "pauseKey": "F9",
+      "showZoomStatus": true,
+      "sizeMode": "fill",
+      "storeAs": "test",
+      "timeoutMs": 400,
+      "transitionMs": 100,
+      "updateIntervalMs": 5,
+      "width": 1280,
+      "zoom": 1,
+      "zoomStep": 0.3
+    }
+  ],
+  "version": 2
+}

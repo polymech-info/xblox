@@ -1,0 +1,231 @@
+{
+  "context": {
+    "emitStdout": false,
+    "ocr": [
+      {
+        "elapsedMs": 5920,
+        "layout": {
+          "activeProvider": "cuda",
+          "boxes": [
+            {
+              "classId": 17,
+              "label": "paragraph_title",
+              "readOrder": 1,
+              "score": 0.7065736651420593,
+              "x0": 19.45496940612793,
+              "x1": 278.6796875,
+              "y0": 15.806106567382813,
+              "y1": 39.4257926940918
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 8,
+              "score": 0.627064049243927,
+              "x0": 28.336774826049805,
+              "x1": 151.5727081298828,
+              "y0": 54.32929992675781,
+              "y1": 69.0439224243164
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 14,
+              "score": 0.628517210483551,
+              "x0": 29.746057510375977,
+              "x1": 108.68763732910156,
+              "y0": 73.2572021484375,
+              "y1": 86.63142395019531
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 19,
+              "score": 0.7642651796340942,
+              "x0": 28.714155197143555,
+              "x1": 134.79635620117188,
+              "y0": 91.90314483642578,
+              "y1": 105.7175064086914
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 24,
+              "score": 0.7793763875961304,
+              "x0": 29.307098388671875,
+              "x1": 107.6894760131836,
+              "y0": 110.92088317871094,
+              "y1": 124.45154571533203
+            },
+            {
+              "classId": 21,
+              "label": "table",
+              "readOrder": 30,
+              "score": 0.7979238629341125,
+              "x0": 292.0115661621094,
+              "x1": 545.19580078125,
+              "y0": 50.8908576965332,
+              "y1": 109.07625579833984
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 32,
+              "score": 0.7292273044586182,
+              "x0": 28.794355392456055,
+              "x1": 99.86846923828125,
+              "y0": 130.8076171875,
+              "y1": 143.17214965820313
+            },
+            {
+              "classId": 21,
+              "label": "table",
+              "readOrder": 48,
+              "score": 0.8897499442100525,
+              "x0": 19.010150909423828,
+              "x1": 272.5046691894531,
+              "y0": 146.66514587402344,
+              "y1": 222.59036254882813
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 93,
+              "score": 0.6949664354324341,
+              "x0": 302.12774658203125,
+              "x1": 397.3720397949219,
+              "y0": 130.26382446289063,
+              "y1": 143.64218139648438
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 100,
+              "score": 0.6741989254951477,
+              "x0": 302.1920471191406,
+              "x1": 388.73455810546875,
+              "y0": 149.49649047851563,
+              "y1": 163.1824493408203
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 103,
+              "score": 0.6819632053375244,
+              "x0": 302.9959411621094,
+              "x1": 382.2431640625,
+              "y0": 168.4353790283203,
+              "y1": 181.1513214111328
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 111,
+              "score": 0.7332525849342346,
+              "x0": 302.13360595703125,
+              "x1": 408.0848388671875,
+              "y0": 187.10598754882813,
+              "y1": 200.26380920410156
+            },
+            {
+              "classId": 22,
+              "label": "text",
+              "readOrder": 116,
+              "score": 0.770607054233551,
+              "x0": 302.37432861328125,
+              "x1": 456.6197204589844,
+              "y0": 206.86846923828125,
+              "y1": 220.82427978515625
+            },
+            {
+              "classId": 21,
+              "label": "table",
+              "readOrder": 131,
+              "score": 0.9433344006538391,
+              "x0": 18.237743377685547,
+              "x1": 546.7885131835938,
+              "y0": 231.01199340820313,
+              "y1": 486.7697448730469
+            },
+            {
+              "classId": 21,
+              "label": "table",
+              "readOrder": 206,
+              "score": 0.8636901378631592,
+              "x0": 22.478086471557617,
+              "x1": 547.1355590820313,
+              "y0": 560.8087768554688,
+              "y1": 696.0292358398438
+            }
+          ],
+          "model": "PP-DocLayoutV3.onnx",
+          "ok": true,
+          "timing": {
+            "inferenceMs": 593.8637,
+            "postprocMs": 0.0179,
+            "preprocessMs": 15.0056,
+            "totalMs": 608.8872
+          }
+        },
+        "markdown": "## ocr-reciept-1.png\n\n**Layout:** ok (15 regions)  \n\n| # | label | score | x0 | y0 | x1 | y1 |\n|---|-------|-------|-----|-----|-----|-----|\n| 1 | paragraph_title | 0.706574 | 19 | 15 | 278 | 39 |\n| 8 | text | 0.627064 | 28 | 54 | 151 | 69 |\n| 14 | text | 0.628517 | 29 | 73 | 108 | 86 |\n| 19 | text | 0.764265 | 28 | 91 | 134 | 105 |\n| 24 | text | 0.779376 | 29 | 110 | 107 | 124 |\n| 30 | table | 0.797924 | 292 | 50 | 545 | 109 |\n| 32 | text | 0.729227 | 28 | 130 | 99 | 143 |\n| 48 | table | 0.88975 | 19 | 146 | 272 | 222 |\n| 93 | text | 0.694966 | 302 | 130 | 397 | 143 |\n| 100 | text | 0.674199 | 302 | 149 | 388 | 163 |\n| 103 | text | 0.681963 | 302 | 168 | 382 | 181 |\n| 111 | text | 0.733253 | 302 | 187 | 408 | 200 |\n| 116 | text | 0.770607 | 302 | 206 | 456 | 220 |\n| 131 | table | 0.943334 | 18 | 231 | 546 | 486 |\n| 206 | table | 0.86369 | 22 | 560 | 547 | 696 |\n\n**VLM prompt:** `Table Recognition:`  \n\n### OCR text\n\n```\nBASIC RECEIPT TEMPLATE\nYour Company Name\nDATE\n08/30/17\n123 Main Street\nRECEIPT NO.\nA246\nHamilton, OH 44416\nCUSTOMER NO.\n114H\n(321) 456-7890\nEmail Address\nATTN: Name / Dept\nSALESPERSON\nJohn Smith\nCompany Name\nCREDIT CARD NO.\n0000-0000-0000-0000\n123 Main Street\nCHECK NO.\nHamilton, OH 44416\nMONET ORD. NO.\n(321) 456-789C\nEmail Address\nITEM NO.\nDESCRIPTION\nQTY\nUNIT PRICE\nTOTAL\nA111\nWomen's Tall - M\n10\n10.00\n100.00\n8222\nMen's Tall - M\n5\n20.00\n100.00\nC333\nChildren's - S\n10\n5.00\n50.00\nD444\nMen's - XL\n5\n10.00\n50.00\n0.00\n0.00\n0.00\n0.00\n0.00\n0.00\nRemarks / Instructions:\nSUBTOTAL\n300.00\nTAX (3.8%)\n11.40\nSHIPPING / HANDLING\n30.00\nPlease make check payable to Your Company Name.\nOTHER\n15.00\nTHANK YOU\nTOTAL\n$\n356.40\nCASH\nCREDIT CARD\nMONEY ORDER\nFor questions concerning this receipt please contact Name, (321) 456-7890, Email Address.\nwww.yourwebaddress.com\nCLIENT\nSALES RECEIPT\nATTN: Name / Dept\nCompany Name\nDATE\n08/30/17\n123 Main Street\nRECEIPT NO.\nA246\nHamilton, OH 44416\nAMOUNT PAID\n$\n356.40\nYour Company Name\n123 Main Street\nEmail Address\n(321) 456-7890\nHamilton, OH 44416\nwww.yourwebaddress.com\n```\n",
+        "mmprojPath": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\dist\\models\\PaddleOCR-VL-1.5-mmproj.gguf",
+        "mode": "layout",
+        "model": "paddleocr-vl-1-5",
+        "modelPath": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\dist\\models\\PaddleOCR-VL-1.5.gguf",
+        "nGpuLayers": -1,
+        "ok": true,
+        "path": "tests/onnx/ocr-reciept-1.png",
+        "prompt": "Table Recognition:",
+        "provider": "layout-vlm",
+        "tableRows": [],
+        "text": "BASIC RECEIPT TEMPLATE\nYour Company Name\nDATE\n08/30/17\n123 Main Street\nRECEIPT NO.\nA246\nHamilton, OH 44416\nCUSTOMER NO.\n114H\n(321) 456-7890\nEmail Address\nATTN: Name / Dept\nSALESPERSON\nJohn Smith\nCompany Name\nCREDIT CARD NO.\n0000-0000-0000-0000\n123 Main Street\nCHECK NO.\nHamilton, OH 44416\nMONET ORD. NO.\n(321) 456-789C\nEmail Address\nITEM NO.\nDESCRIPTION\nQTY\nUNIT PRICE\nTOTAL\nA111\nWomen's Tall - M\n10\n10.00\n100.00\n8222\nMen's Tall - M\n5\n20.00\n100.00\nC333\nChildren's - S\n10\n5.00\n50.00\nD444\nMen's - XL\n5\n10.00\n50.00\n0.00\n0.00\n0.00\n0.00\n0.00\n0.00\nRemarks / Instructions:\nSUBTOTAL\n300.00\nTAX (3.8%)\n11.40\nSHIPPING / HANDLING\n30.00\nPlease make check payable to Your Company Name.\nOTHER\n15.00\nTHANK YOU\nTOTAL\n$\n356.40\nCASH\nCREDIT CARD\nMONEY ORDER\nFor questions concerning this receipt please contact Name, (321) 456-7890, Email Address.\nwww.yourwebaddress.com\nCLIENT\nSALES RECEIPT\nATTN: Name / Dept\nCompany Name\nDATE\n08/30/17\n123 Main Street\nRECEIPT NO.\nA246\nHamilton, OH 44416\nAMOUNT PAID\n$\n356.40\nYour Company Name\n123 Main Street\nEmail Address\n(321) 456-7890\nHamilton, OH 44416\nwww.yourwebaddress.com"
+      }
+    ],
+    "ocrInput": "${KNOWNFOLDER:Desktop}/pixlwiz/pixlwiz/tests/onnx/ocr-reciept-1.png",
+    "ocrMarkdown": "## ocr-reciept-1.png\n\n**Layout:** ok (15 regions)  \n\n| # | label | score | x0 | y0 | x1 | y1 |\n|---|-------|-------|-----|-----|-----|-----|\n| 1 | paragraph_title | 0.706574 | 19 | 15 | 278 | 39 |\n| 8 | text | 0.627064 | 28 | 54 | 151 | 69 |\n| 14 | text | 0.628517 | 29 | 73 | 108 | 86 |\n| 19 | text | 0.764265 | 28 | 91 | 134 | 105 |\n| 24 | text | 0.779376 | 29 | 110 | 107 | 124 |\n| 30 | table | 0.797924 | 292 | 50 | 545 | 109 |\n| 32 | text | 0.729227 | 28 | 130 | 99 | 143 |\n| 48 | table | 0.88975 | 19 | 146 | 272 | 222 |\n| 93 | text | 0.694966 | 302 | 130 | 397 | 143 |\n| 100 | text | 0.674199 | 302 | 149 | 388 | 163 |\n| 103 | text | 0.681963 | 302 | 168 | 382 | 181 |\n| 111 | text | 0.733253 | 302 | 187 | 408 | 200 |\n| 116 | text | 0.770607 | 302 | 206 | 456 | 220 |\n| 131 | table | 0.943334 | 18 | 231 | 546 | 486 |\n| 206 | table | 0.86369 | 22 | 560 | 547 | 696 |\n\n**VLM prompt:** `Table Recognition:`  \n\n### OCR text\n\n```\nBASIC RECEIPT TEMPLATE\nYour Company Name\nDATE\n08/30/17\n123 Main Street\nRECEIPT NO.\nA246\nHamilton, OH 44416\nCUSTOMER NO.\n114H\n(321) 456-7890\nEmail Address\nATTN: Name / Dept\nSALESPERSON\nJohn Smith\nCompany Name\nCREDIT CARD NO.\n0000-0000-0000-0000\n123 Main Street\nCHECK NO.\nHamilton, OH 44416\nMONET ORD. NO.\n(321) 456-789C\nEmail Address\nITEM NO.\nDESCRIPTION\nQTY\nUNIT PRICE\nTOTAL\nA111\nWomen's Tall - M\n10\n10.00\n100.00\n8222\nMen's Tall - M\n5\n20.00\n100.00\nC333\nChildren's - S\n10\n5.00\n50.00\nD444\nMen's - XL\n5\n10.00\n50.00\n0.00\n0.00\n0.00\n0.00\n0.00\n0.00\nRemarks / Instructions:\nSUBTOTAL\n300.00\nTAX (3.8%)\n11.40\nSHIPPING / HANDLING\n30.00\nPlease make check payable to Your Company Name.\nOTHER\n15.00\nTHANK YOU\nTOTAL\n$\n356.40\nCASH\nCREDIT CARD\nMONEY ORDER\nFor questions concerning this receipt please contact Name, (321) 456-7890, Email Address.\nwww.yourwebaddress.com\nCLIENT\nSALES RECEIPT\nATTN: Name / Dept\nCompany Name\nDATE\n08/30/17\n123 Main Street\nRECEIPT NO.\nA246\nHamilton, OH 44416\nAMOUNT PAID\n$\n356.40\nYour Company Name\n123 Main Street\nEmail Address\n(321) 456-7890\nHamilton, OH 44416\nwww.yourwebaddress.com\n```\n"
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "backend": "auto",
+      "ctx": 8192,
+      "detModel": "",
+      "dict": "",
+      "enabled": true,
+      "gpuLayers": -1,
+      "input": "${ocrInput}",
+      "items": [
+        {
+          "filter": ".markdown",
+          "items": [],
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "ocrMarkdown"
+        },
+        {
+          "kind": "stdout",
+          "message": "PREVIOUS",
+          "newline": true
+        }
+      ],
+      "json": true,
+      "kind": "ocrText",
+      "layoutConf": 0.5,
+      "layoutModel": "",
+      "markdown": true,
+      "maxTokens": 2048,
+      "mode": "layout",
+      "model": "",
+      "prompt": "OCR: Extract all text verbatim, preserving line breaks and spatial layout.",
+      "provider": "auto",
+      "recModel": "",
+      "storeAs": "ocr",
+      "threads": 4
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "roots": [
+    {
+      "kind": "videoSource",
+      "input": "tests/xblox/video-detect-record.mp4",
+      "items": [
+        { "kind": "videoGrayscale" },
+        { "kind": "videoColor", "contrast": 1.3 },
+        {
+          "kind": "videoWriter",
+          "outputPath": "tests/xblox/video-detect-record-filtered.mp4"
+        }
+      ]
+    }
+  ]
+}

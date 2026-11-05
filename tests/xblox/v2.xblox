@@ -1,0 +1,52 @@
+{
+  "context": {
+    "status": "",
+    "stdout": "hello\n",
+    "test": "",
+    "weather": "{\"latitude\":41.375,\"longitude\":2.125,\"generationtime_ms\":0.057697296142578125,\"utc_offset_seconds\":7200,\"timezone\":\"Europe/Madrid\",\"timezone_abbreviation\":\"GMT+2\",\"elevation\":28.0,\"current_units\":{\"time\":\"iso8601\",\"interval\":\"seconds\",\"temperature_2m\":\"°C\",\"weather_code\":\"wmo code\",\"wind_speed_10m\":\"km/h\"},\"current\":{\"time\":\"2026-07-13T01:15\",\"interval\":900,\"temperature_2m\":25.6,\"weather_code\":2,\"wind_speed_10m\":3.9}}",
+    "weather_data": 25.6
+  },
+  "roots": [
+    {
+      "blockId": "fetch-18hpwp",
+      "followRedirects": true,
+      "id": "weather-fetch",
+      "kind": "fetch",
+      "parse": "${test}",
+      "storeAs": "status",
+      "url": "https://api.open-meteo.com/v1/forecast?latitude=41.3851&longitude=2.1734&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe/Madrid"
+    },
+    {
+      "blockId": "log-922gk1",
+      "kind": "log",
+      "level": "${test}",
+      "message": "PREVIOUS"
+    },
+    {
+      "blockId": "Parse-7qn7dl",
+      "filter": ".current.temperature_2m",
+      "kind": "Parse",
+      "parser": "${test}",
+      "storeAs": "weather_data"
+    },
+    {
+      "blockId": "audioSpeak-uel76z",
+      "instance": "",
+      "kind": "audioSpeak",
+      "model": "eleven_multilingual_v2",
+      "provider": "elevenlabs",
+      "refAudio": "",
+      "storeAs": "",
+      "text": "The temperature is ${weather_data} and rising !!",
+      "tokenizer": "",
+      "voice": "Xb7hH8MSUJpSbSDYk0k2"
+    },
+    {
+      "blockId": "log-4fix5g",
+      "kind": "log",
+      "level": "info",
+      "message": "Weather is ${weather_data}"
+    }
+  ],
+  "version": 2
+}

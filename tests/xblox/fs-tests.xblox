@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "context": {
+    "workDir": "${KNOWNFOLDER:DESKTOP}/xblox-fs-tests",
+    "sampleFile": "tests/xblox/fs-vars-data.json"
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── fs-tests playground ────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "workDir  = ${workDir}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[1] write a JSON file — path via ${KNOWNFOLDER:DESKTOP} (inline)"
+    },
+    {
+      "kind": "fsWrite",
+      "path": "${workDir}/invoice.json",
+      "content": "{\n  \"invoice\": \"INV-2024-001\",\n  \"vendor\": \"Pixdrug Store\",\n  \"items\": [\n    { \"name\": \"MILK\",  \"price\": 2.49 },\n    { \"name\": \"BREAD\", \"price\": 3.20 }\n  ],\n  \"total\": 5.69,\n  \"currency\": \"USD\"\n}",
+      "storeAs": "invoicePath"
+    },
+    {
+      "kind": "stdout",
+      "message": "  wrote → ${invoicePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[2] read it back (json encoding) + Parse / jq filters"
+    },
+    {
+      "kind": "fsRead",
+      "path": "${invoicePath}",
+      "encoding": "json",
+      "storeAs": "invoice"
+    },
+    {
+      "kind": "Parse",
+      "input": "invoice",
+      "filter": ".vendor",
+      "storeAs": "vendor"
+    },
+    {
+      "kind": "Parse",
+      "input": "invoice",
+      "filter": "\"  total    = \" + (.total | tostring)",
+      "storeAs": "totalLine"
+    },
+    {
+      "kind": "Parse",
+      "input": "invoice",
+      "filter": "[.items[] | .name] | join(\", \")",
+      "storeAs": "itemNames"
+    },
+    {
+      "kind": "stdout",
+      "message": "  vendor   = ${vendor}"
+    },
+    {
+      "kind": "stdout",
+      "message": "${totalLine}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  items    = ${itemNames}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[3] hash the written file for content-addressed caches"
+    },
+    {
+      "kind": "fsHash",
+      "path": "${invoicePath}",
+      "storeAs": "invoiceHash"
+    },
+    {
+      "kind": "stdout",
+      "message": "  sha256   = ${invoiceHash}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[4] PATH_* decomposition of invoicePath"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_DIR  : ${PATH_DIR:invoicePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_NAME : ${PATH_NAME:invoicePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_EXT  : ${PATH_EXT:invoicePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_BASE : ${PATH_BASE:invoicePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[5] write _modified sibling using PATH_* to build the output path"
+    },
+    {
+      "kind": "fsWrite",
+      "path": "${PATH_DIR:invoicePath}/${PATH_NAME:invoicePath}_modified${PATH_EXT:invoicePath}",
+      "content": "",
+      "storeAs": "modifiedPath"
+    },
+    {
+      "kind": "stdout",
+      "message": "  wrote → ${modifiedPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[6] PATH_ABS — relative path resolved against CWD"
+    },
+    {
+      "kind": "stdout",
+      "message": "  sampleFile (relative) = ${sampleFile}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_ABS:sampleFile   = ${PATH_ABS:sampleFile}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[7] fsList — glob over the temp dir, iterate entries"
+    },
+    {
+      "kind": "fsList",
+      "path": "${workDir}/*.json",
+      "only": "file",
+      "storeAs": "jsonFiles",
+      "items": [
+        {
+          "kind": "stdout",
+          "message": "  file[${index}] = ${PREVIOUS.name}"
+        }
+      ]
+    },
+    {
+      "kind": "setVariable",
+      "name": "fileCount",
+      "expression": "jsonFiles.length"
+    },
+    {
+      "kind": "stdout",
+      "message": "  total .json files in dir = ${fileCount}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[8] deep resolution — context var holds ${KNOWNFOLDER:…} template"
+    },
+    {
+      "kind": "stdout",
+      "message": "  workDir (context var)   = ${workDir}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  note: stdout resolves one pass — a context var that holds another"
+    },
+    {
+      "kind": "stdout",
+      "message": "        KNOWNFOLDER token stays literal. Path params (fsWrite/fsRead)"
+    },
+    {
+      "kind": "stdout",
+      "message": "        carry ParamResolve::Deep and expand fully in multiple passes."
+    },
+    {
+      "kind": "fsWrite",
+      "path": "${workDir}/deep-test.txt",
+      "content": "deep resolved",
+      "storeAs": "deepPath"
+    },
+    {
+      "kind": "stdout",
+      "message": "  fsWrite path (deep)     = ${deepPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[9] CURRENT_FILE — set via CLI arg or app Explorer selection"
+    },
+    {
+      "kind": "stdout",
+      "message": "  CURRENT_FILE           = ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_DIR:CURRENT_FILE  = ${PATH_DIR:CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  PATH_BASE:CURRENT_FILE = ${PATH_BASE:CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  (unset if no --CURRENT_FILE arg was passed)"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[10] missing variable → literal token (no crash)"
+    },
+    {
+      "kind": "stdout",
+      "message": "  ${PATH_NAME:noSuchVar}  → ${PATH_NAME:noSuchVar}"
+    },
+    {
+      "kind": "stdout",
+      "message": "  ${PATH_DIR:noSuchVar}   → ${PATH_DIR:noSuchVar}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "[11] clean up"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+
+    {
+      "kind": "stdout",
+      "message": "── done ───────────────────────────────────────────────"
+    }
+  ]
+}

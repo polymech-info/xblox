@@ -1,0 +1,44 @@
+{
+  "context": {
+    "stream": {
+      "bind": "0.0.0.0",
+      "bitrateKbps": 8000,
+      "encoder": "auto",
+      "fps": 30,
+      "includeCursor": true,
+      "input": "screen:1",
+      "instance": "default",
+      "mjpegQuality": 85,
+      "pid": 14984,
+      "port": 8787,
+      "running": true,
+      "statusUrl": "http://127.0.0.1:8787/status",
+      "token": "pQnT62uO7pUq",
+      "uptimeMs": 0,
+      "url": "http://127.0.0.1:8787/"
+    }
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 100,
+    "reset": false
+  },
+  "roots": [
+    {
+      "action": "Record",
+      "device": "",
+      "durationMs": 0,
+      "fps": 30,
+      "height": 0,
+      "includeCursor": true,
+      "input": "screen:1:wintitle=Tanit*",
+      "instance": "",
+      "kind": "videoCapture",
+      "outputPath": "${KNOWNFOLDER:Videos}/screen-recordings/${DD}-${SS}.mp4",
+      "storeAs": "capturePath",
+      "timeoutMs": 5000,
+      "width": 0
+    }
+  ],
+  "version": 1
+}

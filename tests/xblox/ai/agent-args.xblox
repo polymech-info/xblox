@@ -1,0 +1,55 @@
+{
+  "context": {
+    "answer": "5"
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 1000,
+    "reset": false
+  },
+  "roots": [
+    {
+      "blockId": "log-d72sgp",
+      "kind": "log",
+      "level": "info",
+      "message": "Os : ${os}"
+    },
+    {
+      "blockId": "log-1lt8k2",
+      "kind": "log",
+      "level": "info",
+      "message": "Args : ${argv_str}"
+    },
+    {
+      "blockId": "llmAgent-1vk6nj",
+      "enabled": true,
+      "json": true,
+      "kind": "llmAgent",
+      "mcp": false,
+      "model": "gemma-4-e4b-it-q4-k-m",
+      "preset": "local",
+      "prompt": "answer+2=?\n",
+      "skills": false,
+      "storeAs": "answer",
+      "streamLog": true,
+      "system": "none",
+      "tools": true
+    },
+    {
+      "blockId": "setVariable-zbp3np",
+      "enabled": true,
+      "expression": "answer + 10",
+      "kind": "setVariable",
+      "name": "answer",
+      "value": null
+    },
+    {
+      "blockId": "log-hzq766",
+      "enabled": true,
+      "kind": "log",
+      "level": "info",
+      "message": "answer + 2 + extra"
+    }
+  ],
+  "version": 2
+}

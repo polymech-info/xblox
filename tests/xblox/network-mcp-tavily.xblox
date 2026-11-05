@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "context": {
+    "server": "tanit",
+    "tool": "",
+    "timeoutMs": 120000,
+    "sampleCount": 8
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── network-mcp-live ──────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "server : ${server}"
+    },
+    {
+      "kind": "stdout",
+      "message": "tool   : ${tool}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "id": "mcp-router-call",
+      "kind": "mcpCall",
+      "server": "${server}",
+      "tool": "${tool}",
+      "arguments": {},
+      "timeoutMs": "${timeoutMs}",
+      "storeAs": "mcpLiveResult"
+    },
+    {
+      "kind": "Parse",
+      "parser": "jq",
+      "input": "mcpLiveResult",
+      "filter": ".content | map(.text | fromjson) | {count: length, sample: .[0:8]}",
+      "storeAs": "mcpSummary"
+    },
+    {
+      "kind": "Parse",
+      "parser": "jq",
+      "input": "mcpSummary",
+      "filter": ".count",
+      "storeAs": "mcpItemCount"
+    },
+    {
+      "kind": "stdout",
+      "message": "count  : ${mcpItemCount}"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "mcpSummary"
+    },
+    {
+      "kind": "stdout",
+      "message": "sample : ${mcpSummary}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : network-mcp-live"
+    }
+  ]
+}

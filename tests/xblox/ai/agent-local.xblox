@@ -1,0 +1,140 @@
+{
+  "context": {
+    "answer": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\tests\\xblox",
+    "entries": "Hello. How may I assist you with image editing, file management, or desktop automation?",
+    "entries2": [
+      {
+        "name": "agent-local-qwen-7b.en.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/agent-local-qwen-7b.en.md",
+        "size": 41748,
+        "type": "file"
+      },
+      {
+        "name": "agent.xblox.dump.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/agent.xblox.dump.md",
+        "size": 1660,
+        "type": "file"
+      },
+      {
+        "name": "bench-results.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/bench-results.md",
+        "size": 7747,
+        "type": "file"
+      },
+      {
+        "name": "dir.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/dir.md",
+        "size": 338,
+        "type": "file"
+      },
+      {
+        "name": "images.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/images.md",
+        "size": 585,
+        "type": "file"
+      },
+      {
+        "name": "markdown-overview.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/markdown-overview.md",
+        "size": 5939,
+        "type": "file"
+      },
+      {
+        "name": "ocr-reciept-1.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/ocr-reciept-1.md",
+        "size": 2033,
+        "type": "file"
+      },
+      {
+        "name": "performance.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/performance.md",
+        "size": 10780,
+        "type": "file"
+      },
+      {
+        "name": "xblox.en.md",
+        "path": "C:/Users/zx/Desktop/pixlwiz/pixlwiz/tests/xblox/xblox.en.md",
+        "size": 9,
+        "type": "file"
+      }
+    ],
+    "key": {
+      "down": false,
+      "key": "F9",
+      "pressed": false,
+      "released": false,
+      "toggle": false
+    },
+    "models": "llama:text",
+    "test-var": ""
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": true
+  },
+  "roots": [
+    {
+      "blockId": "llmAgent-1mgp98",
+      "enabled": true,
+      "json": true,
+      "kind": "llmAgent",
+      "mcp": false,
+      "model": "gemma4-e4b-it-q4-k-m",
+      "preset": "local",
+      "prompt": "current cwd ? return result only\n",
+      "router": "llama",
+      "skills": false,
+      "storeAs": "answer",
+      "streamLog": true,
+      "system": "none",
+      "tools": true
+    },
+    {
+      "blockId": "log-1lk036",
+      "kind": "log",
+      "level": "debug",
+      "message": "PREVIOUS212-2"
+    },
+    {
+      "blockId": "fsList-1ret4d",
+      "enabled": true,
+      "items": [
+        {
+          "blockId": "log-1esbxo",
+          "kind": "log",
+          "level": "info",
+          "message": "PREVIOUS"
+        }
+      ],
+      "kind": "fsList",
+      "only": "all",
+      "path": "${CURRENT_PATH}/*.md",
+      "storeAs": "entries2"
+    },
+    {
+      "action": "List",
+      "blockId": "modelControl-1qlz1i",
+      "enabled": true,
+      "key": "",
+      "kind": "modelControl",
+      "storeAs": "models"
+    },
+    {
+      "action": "Unload",
+      "blockId": "modelControl-fujvka",
+      "key": "llama:text",
+      "kind": "modelControl",
+      "storeAs": "models"
+    },
+    {
+      "anyKey": false,
+      "blockId": "keyEvent-9u9w85",
+      "keys": "F9",
+      "kind": "keyEvent",
+      "storeAs": "key",
+      "toggle": true
+    }
+  ],
+  "version": 2
+}

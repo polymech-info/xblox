@@ -1,4 +1,4 @@
-#include "xblox/xblox_diagram_pathfinding.hpp"
+#include "xblox_diagram_pathfinding.hpp"
 
 #include <algorithm>
 #include <cmath>

@@ -1,0 +1,50 @@
+{
+  "context": {
+    "answer": "# screen-dump\n\n*Source*: `C:\\Users\\zx\\AppData\\Local\\Temp/screen-dump.png`\n\n**Alt text**: ```\nBlock Palette       ⚙️   >\n\nFilter blocks or command\n\n› AI                        1\n› App                      17\n\n## Description\n\n```\nBlock Palette       ⚙️   >\n\nFilter blocks or command\n\n› AI                        1\n› App                      17\n› Audio                     8\n› Bluetooth                 7\n› Context                   6\n› Data                      2\n› Files                     7\n› Flow                     13\n˅ Image                     6\n  Create Image\n  Generate an image from a\n  prompt using the same core\n  create_image API as the CLI...\n\n  Unload Model\n  List or unload loaded local\n  model instances for this xblox\n  process.\n\n  Resize Image\n  Resize/transform one or more\n  image files using the same\n  libvips pipeline as the resize C...\n\n  Screenshot\n  Capture a monitor, window, or\n  webcam to an image file and/or\n  clipboard. The input source...\n\n  Transform Image\n  Edit one or more images with\n  an AI prompt using the same\n  core transform_image API as...\n\n  Image Understand\n  Ask the vision/recognition\n  model a question about one or\n  more images. Same pipeline a...\n\n› Input                     2\n› MQTT                      2\n› Modbus                   12\n› Models                    1\n```\n\n**Scene**: unknown\n\n**Estimated location**: unknown\n\n*Confidence*: 0\n\n## EXIF\n\n\n",
+    "imagePath": "C:\\Users\\zx\\AppData\\Local\\Temp/screen-dump.png",
+    "pickResult": "screen:1:hwnd=12454514:wintitle=Tanit ** Viewer ** screenocr.xblox:rrect=27,296,831,26"
+  },
+  "roots": [
+    {
+      "blockId": "picker-lih73j",
+      "highlight": true,
+      "kind": "picker",
+      "resolveUia": true,
+      "showHidden": true,
+      "storeAs": "pickResult",
+      "timeoutMs": 60000
+    },
+    {
+      "blockId": "imageScreenshot-17jk34",
+      "copyToClipboard": false,
+      "input": "${pickResult}",
+      "kind": "imageScreenshot",
+      "outputPath": "${KNOWNFOLDER:Temp}/screen-dump.png",
+      "storeAs": "imagePath"
+    },
+    {
+      "blockId": "imageUnderstand-sb1650",
+      "input": "${imagePath}",
+      "kind": "imageUnderstand",
+      "model": "image-vision-deep",
+      "prompt": "OCR: Extract all text verbatim from this image, preserving line breaks and spatial layout.",
+      "provider": "tanit",
+      "storeAs": "answer"
+    },
+    {
+      "blockId": "clipboardPaste-p9e6uj",
+      "files": [],
+      "kind": "clipboardPaste",
+      "text": "${answer}",
+      "trigger": false,
+      "type": "text"
+    },
+    {
+      "blockId": "log-fp3bd7",
+      "kind": "log",
+      "level": "info",
+      "message": "${answer}"
+    }
+  ],
+  "version": 2
+}

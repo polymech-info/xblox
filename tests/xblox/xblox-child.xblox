@@ -1,0 +1,19 @@
+{
+  "context": {
+    "left": 2,
+    "right": 5
+  },
+  "roots": [
+    {
+      "kind": "setVariable",
+      "name": "sum",
+      "expression": "left + right"
+    },
+    {
+      "kind": "getVariable",
+      "name": "sum",
+      "target": "childSum"
+    }
+  ],
+  "version": 1
+}

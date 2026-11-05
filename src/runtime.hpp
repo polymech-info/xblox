@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 
 #include "core/command_variables.hpp"
 #include "video/creator_fx.hpp"
 #include "video/filters/beauty_config.hpp"
 #include "video/video_recording_status.hpp"
 #include "types.hpp"
-#include "xblox/xblox_constants.hpp"
+#include "xblox_constants.hpp"
 
 #include <nlohmann/json.hpp>
 

@@ -1,0 +1,80 @@
+{
+  "context": {
+    "CURRENT_FILE": "tests/onnx/ocr-reciept-1.png",
+    "VISION_PROMPT": "Convert the visible tabular/numeric data in this image into CSV. Return ONLY CSV text, no reasoning, no preamble, no markdown, no code fences. Use one header row. Prefer columns: Section, Field, Item No, Description, Qty, Unit Price, Total, Value. Leave unavailable cells empty. Include line items and totals when visible."
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── vision-pipe ──────────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.csv"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "ctx": 4096,
+      "gpuLayers": -1,
+      "input": "${CURRENT_FILE}",
+      "json": true,
+      "kind": "visionAsk",
+      "maxTokens": 768,
+      "model": "",
+      "normalizers": 15,
+      "prompt": "${VISION_PROMPT}",
+      "slot": "vision",
+      "storeAs": "vision",
+      "threads": 8
+    },
+    {
+      "filter": ".text",
+      "input": "vision",
+      "kind": "Parse",
+      "storeAs": "csvText"
+    },
+    {
+      "kind": "stdout",
+      "message": "${csvText}"
+    },
+    {
+      "content": "${csvText}\n",
+      "kind": "fsWrite",
+      "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.csv",
+      "storeAs": "csvPath"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "csv written to ${csvPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : ${csvPath}"
+    },
+    {
+      "command": "echo hello",
+      "kind": "shell",
+      "log": false,
+      "mode": "shell",
+      "shell": "auto",
+      "stderr": "error",
+      "stdout": "info",
+      "storeAs": "stdout",
+      "timeoutMs": 30000
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "${USER:MY_VARIABLE}${USER:BOOL_VAR}${USER:INT_VAR}${USER:SECRET_VAR}${USER:STRING_VAR}"
+    }
+  ],
+  "version": 1
+}

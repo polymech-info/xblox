@@ -1,0 +1,49 @@
+{
+  "context": {
+    "mcpLiveResult": {
+      "content": [
+        {
+          "text": "{\"projects\":[{\"name\":\"C-Users-zx-Desktop-pixlwiz-pixlwiz-docs\",\"root_path\":\"C:/Users/zx/Desktop/pixlwiz/pixlwiz/docs\",\"nodes\":4382,\"edges\":4337,\"size_bytes\":6750208},{\"name\":\"C-Users-zx-Desktop-pixlwiz-pixlwiz-src\",\"root_path\":\"C:/Users/zx/Desktop/pixlwiz/pixlwiz/src\",\"nodes\":22467,\"edges\":75693,\"size_bytes\":57016320}]}",
+          "type": "text"
+        }
+      ]
+    },
+    "sampleCount": 8,
+    "server": "tanit",
+    "test": {
+      "content": [
+        {
+          "text": "{\"projects\":[{\"name\":\"C-Users-zx-Desktop-pixlwiz-pixlwiz-docs\",\"root_path\":\"C:/Users/zx/Desktop/pixlwiz/pixlwiz/docs\",\"nodes\":4382,\"edges\":4337,\"size_bytes\":6750208},{\"name\":\"C-Users-zx-Desktop-pixlwiz-pixlwiz-src\",\"root_path\":\"C:/Users/zx/Desktop/pixlwiz/pixlwiz/src\",\"nodes\":22467,\"edges\":75693,\"size_bytes\":57016320}]}",
+          "type": "text"
+        }
+      ]
+    },
+    "timeoutMs": 120000,
+    "tool": ""
+  },
+  "roots": [
+    {
+      "arguments": {},
+      "blockId": "mcpCall-391i1o",
+      "id": "mcp-router-call",
+      "items": [
+        {
+          "blockId": "log-1ejewt",
+          "kind": "log",
+          "level": "info"
+        }
+      ],
+      "kind": "mcpCall",
+      "server": "__custom__",
+      "serverConfig": {
+        "args": [],
+        "command": "codebase-memory-mcp.exe",
+        "type": "stdio"
+      },
+      "storeAs": "test",
+      "timeoutMs": "${timeoutMs}",
+      "tool": "search_graph"
+    }
+  ],
+  "version": 2
+}

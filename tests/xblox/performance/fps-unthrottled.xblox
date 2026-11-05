@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "context": {
+    "frames": 0,
+    "fps": 0
+  },
+  "roots": [
+    {
+      "kind": "setVariable",
+      "name": "lastReportMs",
+      "expression": "nowMs"
+    },
+    {
+      "kind": "while",
+      "condition": "1",
+      "loopLimit": 2147483647,
+      "items": [
+        {
+          "kind": "setVariable",
+          "name": "frames",
+          "expression": "frames + 1"
+        },
+        {
+          "kind": "if",
+          "condition": "nowMs - lastReportMs >= 5000",
+          "consequent": [
+            {
+              "kind": "setVariable",
+              "name": "fps",
+              "expression": "frames * 1000 / (nowMs - lastReportMs)"
+            },
+            {
+              "kind": "log",
+              "level": "info",
+              "message": "fps"
+            },
+            {
+              "kind": "setVariable",
+              "name": "frames",
+              "value": 0
+            },
+            {
+              "kind": "setVariable",
+              "name": "lastReportMs",
+              "expression": "nowMs"
+            }
+          ],
+          "alternate": []
+        }
+      ]
+    }
+  ]
+}

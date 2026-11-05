@@ -1,0 +1,37 @@
+{
+  "context": {
+    "detections": {}
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "conf": 0.3,
+      "gpuStats": true,
+      "input": "screen:0",
+      "instance": "obb0",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "obb pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo11n-obb.onnx",
+      "nms": 0.45,
+      "smoothAge": 8,
+      "smoothAlpha": 0.35,
+      "storeAs": "detections",
+      "task": "obb",
+      "visualize": true,
+      "visualizeLabels": true,
+      "visualizeMode": "overlay",
+      "visualizeStats": true
+    }
+  ],
+  "version": 1
+}

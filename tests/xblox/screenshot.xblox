@@ -1,0 +1,32 @@
+{
+  "context": {
+    "imagePath": "C:\\Users\\zx\\Desktop/pixlwiz/pixlwiz/releases/assets/screenshots/07_14_17_40.png",
+    "pickResult": "screen:0:hwnd=1706514:wintitle=Tanit ** Viewer ** screenshot.xblox:rrect=329,180,1563,592"
+  },
+  "roots": [
+    {
+      "blockId": "picker-1t6wu9",
+      "highlight": true,
+      "kind": "picker",
+      "resolveUia": true,
+      "showHidden": true,
+      "storeAs": "pickResult",
+      "timeoutMs": 60000
+    },
+    {
+      "blockId": "wait-42t793",
+      "kind": "wait",
+      "ms": 4000
+    },
+    {
+      "blockId": "imageScreenshot-1jjkn9",
+      "copyToClipboard": true,
+      "input": "${pickResult}",
+      "kind": "imageScreenshot",
+      "outputPath": "${KNOWNFOLDER:Desktop}/pixlwiz/pixlwiz/releases/assets/screenshots/${MM}_${DD}_${HH}_${SS}.png",
+      "storeAs": "imagePath",
+      "timeoutMs": 5000
+    }
+  ],
+  "version": 2
+}

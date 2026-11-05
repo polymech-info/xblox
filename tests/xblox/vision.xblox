@@ -1,0 +1,73 @@
+{
+  "context": {
+    "visionInput": "tests/onnx/ocr-reciept-1.png",
+    "visionPrompt": "Convert this image into practical end-user markdown. Return ONLY the final markdown, no reasoning, no preamble, no code fences. Prefer concise data tables over prose. If the image contains a form, invoice, receipt, menu, report, or UI, extract the visible fields into tables and include totals or important numbers when present. If a value is not visible, leave the cell empty.",
+    "visionReport": "tests/onnx/report-vision.md"
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 5000,
+    "reset": false
+  },
+  "roots": [
+    {
+      "ctx": 4096,
+      "frames": [],
+      "gpuLayers": -1,
+      "includeRaw": false,
+      "input": "${visionInput}",
+      "items": [
+        {
+          "filter": ".model",
+          "input": "vision",
+          "items": [
+            {
+              "kind": "log",
+              "level": "info",
+              "message": "PREVIOUS"
+            }
+          ],
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "childVisionModel"
+        }
+      ],
+      "json": true,
+      "kind": "visionAsk",
+      "maxTokens": 512,
+      "model": "",
+      "normalizers": 15,
+      "prompt": "${visionPrompt}",
+      "slot": "vision",
+      "storeAs": "vision",
+      "threads": 8
+    },
+    {
+      "filter": ".text",
+      "input": "vision",
+      "kind": "Parse",
+      "parser": "jq",
+      "storeAs": "visionText"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "PREVIOUS"
+    },
+    {
+      "append": false,
+      "content": "# Vision Data\n\n_Source image: `${visionInput}`_\n\n${visionText}\n",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "wrote markdown report: ${PREVIOUS}"
+        }
+      ],
+      "kind": "fsWrite",
+      "path": "${visionReport}",
+      "storeAs": "visionReportPath"
+    }
+  ],
+  "version": 1
+}

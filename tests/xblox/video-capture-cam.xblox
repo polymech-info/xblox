@@ -1,0 +1,41 @@
+{
+  "context": {
+    "capturePath": ""
+  },
+  "roots": [
+    {
+      "blockId": "stdout-1ydt3m",
+      "kind": "stdout",
+      "message": "Webcam → Tanit Cam (mirror + meeting grade + blur). Close preview or cancel to stop."
+    },
+    {
+      "action": "Record",
+      "blockId": "videoCapture-1kdn5u",
+      "blur": true,
+      "blurBlend": 0.65,
+      "eyeSharpen": true,
+      "faceGain": 0.35,
+      "featherPx": 8,
+      "fps": 30,
+      "height": 720,
+      "includeCursor": false,
+      "input": "NexiGo N930E FHD Webcam",
+      "kind": "videoCapture",
+      "landmarks": true,
+      "lips": true,
+      "mirror": true,
+      "outputPath": "",
+      "preview": true,
+      "redness": true,
+      "skin": true,
+      "storeAs": "capturePath",
+      "teeth": true,
+      "undereye": true,
+      "virtualOut": true,
+      "virtualOutName": "Tanit Cam",
+      "warmth": 0.3,
+      "width": 1280
+    }
+  ],
+  "version": 2
+}

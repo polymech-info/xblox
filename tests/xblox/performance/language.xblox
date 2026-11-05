@@ -1,0 +1,415 @@
+{
+  "context": {
+    "labels": {
+      "a": "red",
+      "b": "blue"
+    },
+    "mode": "beta",
+    "n": 3,
+    "numbers": [
+      1,
+      2,
+      3
+    ],
+    "score": 7,
+    "single": "solo",
+    "user": {
+      "name": "kim"
+    }
+  },
+  "roots": [
+    {
+      "blockId": "stdout-u1voz6",
+      "kind": "stdout",
+      "message": "── xblox language showcase ─────────────────────────────────"
+    },
+    {
+      "blockId": "stdout-z8zu0s",
+      "kind": "stdout",
+      "message": "[1] if / elseIf / else — sibling chain, first match wins"
+    },
+    {
+      "blockId": "if-1cuw2x",
+      "condition": "score >= 9",
+      "consequent": [
+        {
+          "blockId": "stdout-1tzkli",
+          "kind": "stdout",
+          "message": "  score=${score} → grade A (UNEXPECTED)"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "elseIf-2amzma",
+      "condition": "score >= 6",
+      "items": [
+        {
+          "blockId": "stdout-1ruhf2",
+          "kind": "stdout",
+          "message": "  score=${score} → grade B (elseIf matched)"
+        }
+      ],
+      "kind": "elseIf"
+    },
+    {
+      "blockId": "elseIf-xdpwdl",
+      "condition": "score >= 3",
+      "items": [
+        {
+          "blockId": "stdout-149o2p",
+          "kind": "stdout",
+          "message": "  score=${score} → grade C (skipped — chain already matched)"
+        }
+      ],
+      "kind": "elseIf"
+    },
+    {
+      "blockId": "else-u76ndc",
+      "items": [
+        {
+          "blockId": "stdout-1ac2mq",
+          "kind": "stdout",
+          "message": "  score=${score} → grade F (skipped — chain already matched)"
+        }
+      ],
+      "kind": "else"
+    },
+    {
+      "blockId": "stdout-1936o7",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-3ikhj0",
+      "kind": "stdout",
+      "message": "[2] nested chain — a fresh chain inside a consequent"
+    },
+    {
+      "blockId": "if-1smz03",
+      "condition": "score > 0",
+      "consequent": [
+        {
+          "blockId": "if-5wm21t",
+          "condition": "user.name == \"alex\"",
+          "consequent": [
+            {
+              "blockId": "stdout-u5vw99",
+              "kind": "stdout",
+              "message": "  hello alex (UNEXPECTED)"
+            }
+          ],
+          "kind": "if"
+        },
+        {
+          "blockId": "else-1c5ris",
+          "items": [
+            {
+              "blockId": "stdout-1wz5t4",
+              "kind": "stdout",
+              "message": "  hello ${user.name} (inner else ran)"
+            }
+          ],
+          "kind": "else"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "stdout-1emu0d",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-13bczh",
+      "kind": "stdout",
+      "message": "[3] switch / case / default — first match, no fallthrough"
+    },
+    {
+      "blockId": "switch-11ag24",
+      "items": [
+        {
+          "blockId": "case-e8dip9",
+          "comparator": "===",
+          "consequent": [
+            {
+              "blockId": "stdout-1e9p48",
+              "kind": "stdout",
+              "message": "  mode=alpha (UNEXPECTED)"
+            }
+          ],
+          "expression": "\"alpha\"",
+          "kind": "case"
+        },
+        {
+          "blockId": "case-1ac706",
+          "comparator": "===",
+          "consequent": [
+            {
+              "blockId": "stdout-1h13eb",
+              "kind": "stdout",
+              "message": "  mode=${mode} → beta case ran"
+            }
+          ],
+          "expression": "\"beta\"",
+          "kind": "case"
+        },
+        {
+          "blockId": "switchDefault-z791um",
+          "consequent": [
+            {
+              "blockId": "stdout-1w0ef3",
+              "kind": "stdout",
+              "message": "  mode=${mode} → default (UNEXPECTED)"
+            }
+          ],
+          "kind": "switchDefault"
+        }
+      ],
+      "kind": "switch",
+      "variable": "mode"
+    },
+    {
+      "blockId": "stdout-4x8rm6",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-1krcil",
+      "kind": "stdout",
+      "message": "[4] while + break — break exits the nearest loop only"
+    },
+    {
+      "blockId": "setVariable-sryv7v",
+      "kind": "setVariable",
+      "name": "n",
+      "value": 0
+    },
+    {
+      "blockId": "while-1il1ks",
+      "condition": "n < 10",
+      "items": [
+        {
+          "blockId": "setVariable-ip0o0c",
+          "expression": "n + 1",
+          "kind": "setVariable",
+          "name": "n"
+        },
+        {
+          "blockId": "stdout-trtnc6",
+          "kind": "stdout",
+          "message": "  while tick n=${n}"
+        },
+        {
+          "blockId": "if-1tze7j",
+          "condition": "n == 3",
+          "consequent": [
+            {
+              "blockId": "stdout-08m1v1",
+              "kind": "stdout",
+              "message": "  n reached 3 → break"
+            },
+            {
+              "blockId": "break-1hn9hk",
+              "kind": "break"
+            }
+          ],
+          "kind": "if"
+        }
+      ],
+      "kind": "while",
+      "loopLimit": 20
+    },
+    {
+      "blockId": "stdout-n17eg0",
+      "kind": "stdout",
+      "message": "  after while: n=${n} (execution continues)"
+    },
+    {
+      "blockId": "stdout-joizme",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-s32xee",
+      "kind": "stdout",
+      "message": "[5] for + nested while — inner break never exits the outer loop"
+    },
+    {
+      "blockId": "for-1lskyq",
+      "comparator": "<",
+      "final": "2",
+      "initial": "0",
+      "items": [
+        {
+          "blockId": "stdout-96myqe",
+          "kind": "stdout",
+          "message": "  outer for i=${i}"
+        },
+        {
+          "blockId": "while-1bq81i",
+          "condition": "1 == 1",
+          "items": [
+            {
+              "blockId": "stdout-1xv9x1",
+              "kind": "stdout",
+              "message": "    inner while → break immediately"
+            },
+            {
+              "blockId": "break-z8njff",
+              "kind": "break"
+            }
+          ],
+          "kind": "while",
+          "loopLimit": 10
+        }
+      ],
+      "kind": "for",
+      "modifier": "+1",
+      "variable": "i"
+    },
+    {
+      "blockId": "stdout-15f7fe",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-106zii",
+      "kind": "stdout",
+      "message": "[6] soft placement — orphans warn at run time, never fail the run"
+    },
+    {
+      "blockId": "else-u9vm23",
+      "items": [
+        {
+          "blockId": "stdout-1828dg",
+          "kind": "stdout",
+          "message": "  orphan else body (UNEXPECTED — must be skipped)"
+        }
+      ],
+      "kind": "else"
+    },
+    {
+      "blockId": "case-1v79au",
+      "comparator": "===",
+      "consequent": [
+        {
+          "blockId": "stdout-gtt98v",
+          "kind": "stdout",
+          "message": "  orphan case body (UNEXPECTED — must be skipped)"
+        }
+      ],
+      "expression": "\"loose\"",
+      "kind": "case"
+    },
+    {
+      "blockId": "break-6amr21",
+      "kind": "break"
+    },
+    {
+      "blockId": "stdout-0kzg1b",
+      "kind": "stdout",
+      "message": "  still running after orphan else / case / break (warnings only)"
+    },
+    {
+      "blockId": "stdout-mx9b5x",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-k9lj9d",
+      "kind": "stdout",
+      "message": "[7] iterator — fan out arbitrary scope/context values"
+    },
+    {
+      "blockId": "iterator-lhmv8l",
+      "filter": ".",
+      "input": "numbers",
+      "items": [
+        {
+          "blockId": "stdout-pq58b8",
+          "kind": "stdout",
+          "message": "  array item ${CURRENT_INDEX}: ${CURRENT}"
+        }
+      ],
+      "kind": "iterator"
+    },
+    {
+      "blockId": "iterator-ai1e9r",
+      "filter": ".",
+      "input": "labels",
+      "items": [
+        {
+          "blockId": "stdout-1af5bz",
+          "kind": "stdout",
+          "message": "  object entry ${CURRENT_INDEX}: ${CURRENT}"
+        }
+      ],
+      "kind": "iterator"
+    },
+    {
+      "blockId": "iterator-1tpp4o",
+      "filter": ".",
+      "input": "single",
+      "items": [
+        {
+          "blockId": "stdout-3jehe8",
+          "kind": "stdout",
+          "message": "  scalar item ${CURRENT_INDEX}: ${CURRENT}"
+        }
+      ],
+      "kind": "iterator"
+    },
+    {
+      "blockId": "stdout-1035hh",
+      "filter": ".a",
+      "input": "labels",
+      "kind": "stdout",
+      "message": "ignored when input/filter are present"
+    },
+    {
+      "blockId": "log-016bat",
+      "filter": ".b",
+      "input": "labels",
+      "kind": "log",
+      "level": "warn",
+      "message": "ignored when input/filter are present"
+    },
+    {
+      "blockId": "stdout-1nhl0n",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-71tqip",
+      "kind": "stdout",
+      "message": "done."
+    },
+    {
+      "blockId": "command-1u9tya",
+      "command": {
+        "appCommand": "nextfile",
+        "description": "navigates to next file",
+        "enabled": true,
+        "icon": "arrow-big-right",
+        "id": "file.next",
+        "label": "Next",
+        "output": {},
+        "runOptions": {
+          "runInConsole": false,
+          "showInQueue": false
+        },
+        "source": {
+          "kind": "selection"
+        },
+        "tint": "#9EB300",
+        "tooltip": "navigates to next file",
+        "type": "button",
+        "userData": {},
+        "visible": true
+      },
+      "kind": "command"
+    }
+  ],
+  "version": 2
+}

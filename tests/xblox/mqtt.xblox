@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "context": {},
+  "roots": [
+    {
+      "kind": "mqttServer",
+      "action": "Start",
+      "instance": "smoke",
+      "bind": "127.0.0.1",
+      "port": 18884,
+      "storeAs": "mqttServer"
+    },
+    {
+      "kind": "mqttClient",
+      "action": "RoundTrip",
+      "host": "127.0.0.1",
+      "port": 18884,
+      "topic": "xblox/smoke",
+      "payload": "hello mqtt child blocks",
+      "timeoutMs": 5000,
+      "storeAs": "mqtt",
+      "items": [
+        {
+          "kind": "Parse",
+          "parser": "jq",
+          "filter": ".payload",
+          "storeAs": "mqttPayload"
+        },
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "mqttPayload"
+        }
+      ]
+    },
+    {
+      "kind": "mqttServer",
+      "action": "Status",
+      "instance": "smoke",
+      "storeAs": "mqttServerStatus"
+    },
+    {
+      "kind": "mqttServer",
+      "action": "Stop",
+      "instance": "smoke"
+    }
+  ]
+}

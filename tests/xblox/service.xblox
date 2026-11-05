@@ -1,0 +1,67 @@
+{
+  "context": {
+    "outDir": "out"
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": false
+  },
+  "roots": [
+    {
+      "auth": "auto",
+      "kind": "serviceFilesList",
+      "mount": "home",
+      "path": "",
+      "storeAs": "files"
+    },
+    {
+      "append": false,
+      "content": "${files}",
+      "kind": "fsWrite",
+      "path": "${outDir}/service-files.json"
+    },
+    {
+      "auth": "auto",
+      "kind": "servicePagesList",
+      "limit": 50,
+      "storeAs": "pages"
+    },
+    {
+      "append": false,
+      "content": "${pages}",
+      "kind": "fsWrite",
+      "path": "${outDir}/service-pages.json"
+    },
+    {
+      "auth": "auto",
+      "kind": "servicePicturesList",
+      "limit": 50,
+      "storeAs": "pictures"
+    },
+    {
+      "append": false,
+      "content": "${pictures}",
+      "kind": "fsWrite",
+      "path": "${outDir}/service-pictures.json"
+    },
+    {
+      "auth": "auto",
+      "kind": "servicePostsList",
+      "limit": 50,
+      "storeAs": "posts"
+    },
+    {
+      "append": false,
+      "content": "${posts}",
+      "kind": "fsWrite",
+      "path": "${outDir}/service-posts.json"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "service lists saved to ${outDir}"
+    }
+  ],
+  "version": 1
+}

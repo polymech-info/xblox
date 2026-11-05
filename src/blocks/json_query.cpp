@@ -1,5 +1,5 @@
-﻿#include "blocks/json_query.hpp"
-#include "xblox/xblox_perf.hpp"
+#include "blocks/json_query.hpp"
+#include "xblox_perf.hpp"
 
 #include <cctype>
 #include <string>

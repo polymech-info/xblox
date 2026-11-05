@@ -1,0 +1,30 @@
+{
+  "context": {
+    "detections": {}
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "input": "screen:0",
+      "instance": "cls0",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "classify pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo11n-cls.onnx",
+      "storeAs": "detections",
+      "task": "classify",
+      "topK": 5,
+      "visualize": true
+    }
+  ],
+  "version": 1
+}

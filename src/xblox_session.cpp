@@ -2,8 +2,8 @@
 // winsock2 ordering is established before winsock1 leaks in (Windows).
 #include <asio.hpp>
 
-#include "xblox/xblox_constants.hpp"
-#include "xblox/xblox_session.hpp"
+#include "xblox_constants.hpp"
+#include "xblox_session.hpp"
 
 #include "core/settings_store.hpp"
 #include "logger/logger.h"

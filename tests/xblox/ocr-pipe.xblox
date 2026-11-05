@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "context": {
+    "CURRENT_FILE": "tests/onnx/ocr-reciept-1.png"
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── ocr-pipe ───────────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.md"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "kind": "ocrText",
+      "input": "${CURRENT_FILE}",
+      "provider": "auto",
+      "mode": "layout",
+      "json": true,
+      "markdown": true,
+      "maxTokens": 2048,
+      "ctx": 8192,
+      "gpuLayers": -1,
+      "threads": 4,
+      "layoutConf": 0.5,
+      "backend": "auto",
+      "storeAs": "ocr",
+      "items": [
+        {
+          "kind": "Parse",
+          "filter": ".markdown",
+          "storeAs": "ocrMarkdown"
+        }
+      ]
+    },
+    {
+      "kind": "fsWrite",
+      "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.md",
+      "content": "${ocrMarkdown}",
+      "storeAs": "outputPath"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "file written to ${outputPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : ${outputPath}"
+    }
+  ]
+}

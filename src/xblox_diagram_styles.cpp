@@ -1,4 +1,4 @@
-#include "xblox/xblox_diagram_styles.hpp"
+#include "xblox_diagram_styles.hpp"
 
 #include "core/command_variables.hpp"
 #include "fs/path_sanitizer.hpp"

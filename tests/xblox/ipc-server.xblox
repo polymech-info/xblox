@@ -1,0 +1,43 @@
+{
+  "context": {
+    "clientKey": "name:demo-ipc-client",
+    "serverKey": "name:demo-ipc-server"
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "kind": "ipcSession",
+      "name": "${serverKey}",
+      "storeAs": "serverSession"
+    },
+    {
+      "items": [
+        {
+          "filter": ".message // \"\"",
+          "input": "CURRENT",
+          "kind": "log",
+          "level": "info"
+        },
+        {
+          "data": {
+            "received": "${CURRENT.message}"
+          },
+          "from": "${serverKey}",
+          "kind": "ipcSend",
+          "message": "server-ack",
+          "storeAs": "reply",
+          "target": "${clientKey}"
+        }
+      ],
+      "kind": "ipcReceive",
+      "storeAs": "inbox",
+      "target": "${serverKey}",
+      "waitMs": 50
+    }
+  ],
+  "version": 1
+}

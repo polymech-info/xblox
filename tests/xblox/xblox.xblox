@@ -1,0 +1,64 @@
+{
+  "context": {
+    "accumulated": 259511.0,
+    "iteration": 37073.0
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "expression": "iteration + 1",
+      "kind": "setVariable",
+      "name": "iteration"
+    },
+    {
+      "action": "Run",
+      "args": [],
+      "background": false,
+      "context": {
+        "left": 2,
+        "right": 5
+      },
+      "items": [
+        {
+          "filter": ".lastBlockResult.value",
+          "kind": "Parse",
+          "storeAs": "childSum"
+        },
+        {
+          "expression": "accumulated + childSum",
+          "kind": "setVariable",
+          "name": "accumulated"
+        },
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "iteration=${iteration}; childSum=${childSum}; accumulated=${accumulated}"
+        }
+      ],
+      "kind": "xbloxRun",
+      "logLevel": "off",
+      "loop": false,
+      "loopIntervalMs": 1000,
+      "path": "${ENV:PIXLWIZ}/tests/xblox/xblox-child.xblox",
+      "storeAs": "xbloxResult"
+    },
+    {
+      "keys": [
+        "iteration",
+        "accumulated"
+      ],
+      "kind": "saveState",
+      "mode": "existing",
+      "scope": "context"
+    },
+    {
+      "kind": "stdout",
+      "message": "iteration=${iteration}; accumulated=${accumulated}"
+    }
+  ],
+  "version": 1
+}

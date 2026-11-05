@@ -1,0 +1,33 @@
+{
+  "context": {
+    "cassandra": "Cassandra - 65cm"
+  },
+  "roots": [
+    {
+      "blockId": "fetch-109mcz",
+      "connectTimeoutMs": 10000,
+      "followRedirects": true,
+      "id": "cassandra-fetch",
+      "kind": "fetch",
+      "maxRedirects": 5,
+      "retries": 2,
+      "retryDelayMs": 250,
+      "timeoutMs": 30000,
+      "url": "https://service.polymech.info/user/3bb4cfbf-318b-44d3-a9d3-35680e738421/pages/cassandra-65cm.json"
+    },
+    {
+      "blockId": "Parse-136zd1",
+      "filter": ".page.title",
+      "kind": "Parse",
+      "parser": "jq",
+      "storeAs": "cassandra"
+    },
+    {
+      "blockId": "log-2bja1d",
+      "kind": "log",
+      "level": "info",
+      "message": "cassandra"
+    }
+  ],
+  "version": 2
+}

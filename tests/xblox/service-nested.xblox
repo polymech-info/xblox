@@ -1,0 +1,83 @@
+{
+  "context": {
+    "outDir": "out"
+  },
+  "roots": [
+    {
+      "auth": "auto",
+      "items": [
+        {
+          "content": "",
+          "items": [],
+          "kind": "fsWrite",
+          "path": "${outDir}/service-files.json"
+        }
+      ],
+      "kind": "serviceFilesList",
+      "mount": "home",
+      "path": "",
+      "storeAs": "files"
+    },
+    {
+      "auth": "auto",
+      "items": [
+        {
+          "content": "",
+          "items": [],
+          "kind": "fsWrite",
+          "path": "${outDir}/service-pages.json"
+        }
+      ],
+      "kind": "servicePagesList",
+      "limit": 50
+    },
+    {
+      "auth": "auto",
+      "items": [
+        {
+          "content": "",
+          "items": [],
+          "kind": "fsWrite",
+          "path": "${outDir}/service-pictures.json"
+        }
+      ],
+      "kind": "servicePicturesList",
+      "limit": 50
+    },
+    {
+      "auth": "auto",
+      "items": [
+        {
+          "content": "",
+          "items": [],
+          "kind": "fsWrite",
+          "path": "${outDir}/service-posts.json"
+        }
+      ],
+      "kind": "servicePostsList",
+      "limit": 50
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "service lists saved to ${outDir}"
+    },
+    {
+      "auth": "auto",
+      "items": [
+        {
+          "content": "",
+          "items": [],
+          "kind": "fsWrite",
+          "path": "${outDir}/search.json"
+        }
+      ],
+      "kind": "serviceSearch",
+      "limit": 20,
+      "q": "blocks",
+      "storeAs": "search",
+      "type": "all"
+    }
+  ],
+  "version": 1
+}

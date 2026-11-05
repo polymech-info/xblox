@@ -1,0 +1,49 @@
+{
+  "context": {
+    "CURRENT_FILE": "tests/xblox/1.mp3",
+    "transcript": "[BLANK_AUDIO]",
+    "transcriptPath": "tests/xblox/1.txt"
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── audio-transcribe ───────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.txt"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "device": "Microphone (Yeti Stereo Microphone)",
+      "kind": "audioTranscribe",
+      "maxDurationMs": 3000,
+      "model": "tiny.en",
+      "provider": "whisper",
+      "storeAs": "transcript"
+    },
+    {
+      "content": "${transcript}",
+      "kind": "fsWrite",
+      "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.txt",
+      "storeAs": "transcriptPath"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "file written to ${transcriptPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : ${transcriptPath}"
+    }
+  ],
+  "version": 1
+}

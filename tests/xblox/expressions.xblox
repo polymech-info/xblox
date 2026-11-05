@@ -1,0 +1,679 @@
+{
+  "context": {
+    "asNumber": 11,
+    "bigValues": "5, 8",
+    "cnt": 3,
+    "dataLen": 3,
+    "dataStr": "2, 5, 8",
+    "dataSum": 15,
+    "doc": {
+      "data": [
+        2,
+        5,
+        8
+      ],
+      "meta": {
+        "label": "metrics",
+        "rate": 1.5
+      }
+    },
+    "doubleRate": 3,
+    "doubledData": "4, 10, 16",
+    "elapsedOk": 1,
+    "fileCount": 2,
+    "files": [
+      {
+        "name": "xblox-expr-alpha.txt",
+        "path": "C:/Users/zx/AppData/Local/Temp/xblox-expr-alpha.txt",
+        "size": 3,
+        "type": "file"
+      },
+      {
+        "name": "xblox-expr-beta.txt",
+        "path": "C:/Users/zx/AppData/Local/Temp/xblox-expr-beta.txt",
+        "size": 51,
+        "type": "file"
+      }
+    ],
+    "greeting": "hello, kim! age=30",
+    "i": 3,
+    "label": "metrics",
+    "len": 3,
+    "lo": 5,
+    "n": 5,
+    "pick": 100,
+    "root": 7,
+    "scaled": 10.5,
+    "secondElement": 5,
+    "snapshot": {
+      "data": [
+        2,
+        5,
+        8
+      ],
+      "meta": {
+        "label": "metrics",
+        "rate": 1.5
+      }
+    },
+    "status": "ready",
+    "sum": 7,
+    "sumOfSquares": 93,
+    "t0": 1042717621,
+    "total": 3,
+    "unwrapped": 6,
+    "user": {
+      "age": 30,
+      "name": "kim"
+    },
+    "userKeys": "age, name",
+    "viaBracket": 5,
+    "viaDot": 5,
+    "viaStore": 3,
+    "withFallback": "fallback"
+  },
+  "roots": [
+    {
+      "blockId": "stdout-12jrrf",
+      "kind": "stdout",
+      "message": "── expressions playground ─────────────────────────────"
+    },
+    {
+      "blockId": "stdout-1uostg",
+      "kind": "stdout",
+      "message": "context: doc.data=[2,5,8] rate=1.5 status=ready user.name=kim n=5"
+    },
+    {
+      "blockId": "stdout-kvcaba",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-17qoor",
+      "kind": "stdout",
+      "message": "[1] arithmetic + functions + ternary"
+    },
+    {
+      "blockId": "setVariable-9636je",
+      "expression": "doc.data[0] + doc.data[1]",
+      "kind": "setVariable",
+      "name": "sum"
+    },
+    {
+      "blockId": "setVariable-0dikbk",
+      "expression": "(doc.data[0] + doc.data[1]) * doc.meta.rate",
+      "kind": "setVariable",
+      "name": "scaled"
+    },
+    {
+      "blockId": "setVariable-65r7ep",
+      "expression": "min(sum, 5)",
+      "kind": "setVariable",
+      "name": "lo"
+    },
+    {
+      "blockId": "setVariable-1767mm",
+      "expression": "sqrt(sum * 7)",
+      "kind": "setVariable",
+      "name": "root"
+    },
+    {
+      "blockId": "setVariable-0bhdt0",
+      "expression": "sum > 5 ? 100 : 50",
+      "kind": "setVariable",
+      "name": "pick"
+    },
+    {
+      "blockId": "stdout-bj4prt",
+      "kind": "stdout",
+      "message": "  doc.data[0] + doc.data[1]            = ${sum}"
+    },
+    {
+      "blockId": "stdout-3le4r0",
+      "kind": "stdout",
+      "message": "  (…) * doc.meta.rate                  = ${scaled}"
+    },
+    {
+      "blockId": "stdout-1w04qi",
+      "kind": "stdout",
+      "message": "  min(sum, 5) · sqrt(sum*7) · ternary  = ${lo} · ${root} · ${pick}"
+    },
+    {
+      "blockId": "stdout-17bp8y",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-wtnvpp",
+      "kind": "stdout",
+      "message": "[2] one reference grammar — dot, bracket, pseudo-fields"
+    },
+    {
+      "blockId": "setVariable-1gq81h",
+      "expression": "doc.data[1]",
+      "kind": "setVariable",
+      "name": "viaBracket"
+    },
+    {
+      "blockId": "setVariable-c06amz",
+      "expression": "doc.data.1",
+      "kind": "setVariable",
+      "name": "viaDot"
+    },
+    {
+      "blockId": "setVariable-1xrkfg",
+      "expression": "doc.data.length",
+      "kind": "setVariable",
+      "name": "len"
+    },
+    {
+      "blockId": "setVariable-18tvci",
+      "expression": "doc.data.count",
+      "kind": "setVariable",
+      "name": "cnt"
+    },
+    {
+      "blockId": "stdout-xij0bi",
+      "kind": "stdout",
+      "message": "  doc.data[1] = ${viaBracket} ≡ doc.data.1 = ${viaDot}"
+    },
+    {
+      "blockId": "stdout-1srxjd",
+      "kind": "stdout",
+      "message": "  doc.data.length = ${len} · doc.data.count = ${cnt}"
+    },
+    {
+      "blockId": "stdout-1o36kb",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-10rev5",
+      "kind": "stdout",
+      "message": "[3] template-style refs unwrap inside expression fields"
+    },
+    {
+      "blockId": "setVariable-aomt26",
+      "expression": "${doc.data[2]} - ${doc.data[0]}",
+      "kind": "setVariable",
+      "name": "unwrapped"
+    },
+    {
+      "blockId": "stdout-k3j3gu",
+      "kind": "stdout",
+      "message": "  template-style refs in the expression field unwrap → 8 - 2 = ${unwrapped}"
+    },
+    {
+      "blockId": "stdout-1gbi3u",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-1wc8x8",
+      "kind": "stdout",
+      "message": "[4] string equality folds against the context"
+    },
+    {
+      "blockId": "if-4nwyel",
+      "condition": "status == \"ready\"",
+      "consequent": [
+        {
+          "blockId": "stdout-brfm4a",
+          "kind": "stdout",
+          "message": "  status == \"ready\"            → true branch"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "else-lfkv2o",
+      "items": [
+        {
+          "blockId": "stdout-1mgws5",
+          "kind": "stdout",
+          "message": "  status == \"ready\"            → UNEXPECTED false"
+        }
+      ],
+      "kind": "else"
+    },
+    {
+      "bindings": {
+        "condition": {
+          "blockId": "else-lfkv2o",
+          "kind": "blockOutput",
+          "output": "result"
+        }
+      },
+      "blockId": "if-10kc3e",
+      "condition": "user.name != 'kim'",
+      "consequent": [
+        {
+          "blockId": "stdout-1knfs3",
+          "kind": "stdout",
+          "message": "  user.name != 'kim'           → UNEXPECTED true"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "else-0wx6pp",
+      "items": [
+        {
+          "blockId": "stdout-2c9759",
+          "kind": "stdout",
+          "message": "  user.name != 'kim'           → false branch (else)"
+        }
+      ],
+      "kind": "else"
+    },
+    {
+      "blockId": "if-rnb6wg",
+      "condition": "status == \"ready\" && doc.data[0] == 2",
+      "consequent": [
+        {
+          "blockId": "stdout-1asb8g",
+          "kind": "stdout",
+          "message": "  string fold && numeric ref   → composes (true)"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "setVariable-dbl5dv",
+      "expression": "(status == \"ready\") * 10 + (n == \"5\")",
+      "kind": "setVariable",
+      "name": "asNumber"
+    },
+    {
+      "blockId": "stdout-183fth",
+      "kind": "stdout",
+      "message": "  folded comparisons are numbers: (…)*10 + (n == \"5\") = ${asNumber}"
+    },
+    {
+      "blockId": "stdout-1o0n69",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-1t9vny",
+      "kind": "stdout",
+      "message": "[5] PREVIOUS carries structures"
+    },
+    {
+      "blockId": "setVariable-ci8o67",
+      "kind": "setVariable",
+      "name": "snapshot",
+      "valueFrom": "doc"
+    },
+    {
+      "blockId": "if-1ai7ly",
+      "condition": "PREVIOUS.data[2] == 8",
+      "consequent": [
+        {
+          "blockId": "stdout-13dbeo",
+          "kind": "stdout",
+          "message": "  PREVIOUS.data[2] == 8        → reaches into the copied object"
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "blockId": "setVariable-19humo",
+      "expression": "snapshot.meta.rate * 2",
+      "kind": "setVariable",
+      "name": "viaStore"
+    },
+    {
+      "blockId": "stdout-9nrr51",
+      "kind": "stdout",
+      "message": "  snapshot.meta.rate * 2       = ${viaStore}"
+    },
+    {
+      "blockId": "stdout-x5kpr7",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-f2snd6",
+      "kind": "stdout",
+      "message": "[6] templates speak the same grammar"
+    },
+    {
+      "blockId": "stdout-1ay2gz",
+      "kind": "stdout",
+      "message": "  ${user.name} (${user.age}) reads ${doc.meta.label}: first=${doc.data[0]} rate=${doc.meta.rate}"
+    },
+    {
+      "blockId": "stdout-2njme8",
+      "kind": "stdout",
+      "message": "  unresolved path degrades to key text → [${doc.nope[3]}]"
+    },
+    {
+      "blockId": "stdout-1wtjvd",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-bxwm8y",
+      "kind": "stdout",
+      "message": "[7] loops + scoping (locals isolate, outer writes stick)"
+    },
+    {
+      "blockId": "setVariable-178r80",
+      "kind": "setVariable",
+      "name": "total",
+      "value": 0
+    },
+    {
+      "blockId": "setVariable-hmv0x9",
+      "kind": "setVariable",
+      "name": "i",
+      "value": 0
+    },
+    {
+      "blockId": "while-14om3a",
+      "condition": "i < doc.data.length",
+      "items": [
+        {
+          "blockId": "setVariable-1cc9z2",
+          "expression": "total + i",
+          "kind": "setVariable",
+          "name": "total"
+        },
+        {
+          "blockId": "setVariable-lf89q2",
+          "expression": "i + 1",
+          "kind": "setVariable",
+          "name": "i"
+        }
+      ],
+      "kind": "while",
+      "loopLimit": 10
+    },
+    {
+      "blockId": "stdout-pfdo94",
+      "kind": "stdout",
+      "message": "  while i < doc.data.length → total accumulates 0+1+2 = ${total}"
+    },
+    {
+      "blockId": "stdout-2procs",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-89emq6",
+      "kind": "stdout",
+      "message": "[8] iteration: iterable producer (fsList) + items children"
+    },
+    {
+      "blockId": "fsWrite-1xuwy4",
+      "kind": "fsWrite",
+      "path": "${KNOWNFOLDER:TEMP}/xblox-expr-alpha.txt",
+      "value": "alpha"
+    },
+    {
+      "blockId": "fsWrite-vj8rya",
+      "kind": "fsWrite",
+      "path": "${KNOWNFOLDER:TEMP}/xblox-expr-beta.txt",
+      "value": "beta"
+    },
+    {
+      "blockId": "fsList-7ffs5n",
+      "items": [
+        {
+          "blockId": "stdout-14pw3v",
+          "kind": "stdout",
+          "message": "  file[${index}] = ${PREVIOUS.name}"
+        }
+      ],
+      "kind": "fsList",
+      "only": "file",
+      "path": "${KNOWNFOLDER:TEMP}/xblox-expr-*.txt",
+      "storeAs": "files"
+    },
+    {
+      "blockId": "setVariable-0us121",
+      "expression": "files.length",
+      "kind": "setVariable",
+      "name": "fileCount"
+    },
+    {
+      "blockId": "stdout-11eulz",
+      "kind": "stdout",
+      "message": "  files.length on the stored array = ${fileCount}"
+    },
+    {
+      "blockId": "stdout-1mxrjn",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-1ihbs4",
+      "kind": "stdout",
+      "message": "[9] nowMs — monotonic clock for durations (expression-only)"
+    },
+    {
+      "blockId": "setVariable-1ap0y0",
+      "expression": "nowMs",
+      "kind": "setVariable",
+      "name": "t0"
+    },
+    {
+      "blockId": "setVariable-1c6k9t",
+      "expression": "nowMs - t0 >= 0",
+      "kind": "setVariable",
+      "name": "elapsedOk"
+    },
+    {
+      "blockId": "stdout-935r4u",
+      "kind": "stdout",
+      "message": "  nowMs - t0 >= 0 → ${elapsedOk}"
+    },
+    {
+      "blockId": "stdout-v9wsqt",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-3olpef",
+      "kind": "stdout",
+      "message": "[10] Parse block — jq filters (libjq)"
+    },
+    {
+      "blockId": "stdout-yghhoa",
+      "kind": "stdout",
+      "message": "  — fast path (simple dot-path, no libjq overhead) —"
+    },
+    {
+      "blockId": "Parse-1orc7u",
+      "filter": ".meta.label",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "label"
+    },
+    {
+      "blockId": "Parse-n3nl3h",
+      "filter": ".data.1",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "secondElement"
+    },
+    {
+      "blockId": "stdout-1x8f3d",
+      "kind": "stdout",
+      "message": "  .meta.label = ${label}  ·  .data.1 = ${secondElement}"
+    },
+    {
+      "blockId": "stdout-1fdmzb",
+      "kind": "stdout",
+      "message": "  — arithmetic & pipe —"
+    },
+    {
+      "blockId": "Parse-1w66oa",
+      "filter": ".meta.rate * 2",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "doubleRate"
+    },
+    {
+      "blockId": "Parse-1sxv9d",
+      "filter": ".data | map(. * 2 | tostring) | join(\", \")",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "doubledData"
+    },
+    {
+      "blockId": "stdout-1y84r8",
+      "kind": "stdout",
+      "message": "  .meta.rate * 2 = ${doubleRate}"
+    },
+    {
+      "blockId": "stdout-d73kmn",
+      "kind": "stdout",
+      "message": "  .data | map(. * 2) = ${doubledData}"
+    },
+    {
+      "blockId": "stdout-1dmu2t",
+      "kind": "stdout",
+      "message": "  — collect + select —"
+    },
+    {
+      "blockId": "Parse-8o865j",
+      "filter": "[.data[] | select(. > 4) | tostring] | join(\", \")",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "bigValues"
+    },
+    {
+      "blockId": "stdout-12m6pg",
+      "kind": "stdout",
+      "message": "  [.data[] | select(. > 4)] = ${bigValues}"
+    },
+    {
+      "blockId": "stdout-1ng903",
+      "kind": "stdout",
+      "message": "  — string interpolation —"
+    },
+    {
+      "blockId": "Parse-g5tsfg",
+      "filter": "\"hello, \\(.name)! age=\\(.age)\"",
+      "input": "user",
+      "kind": "Parse",
+      "storeAs": "greeting"
+    },
+    {
+      "blockId": "stdout-1f8lf1",
+      "kind": "stdout",
+      "message": "  \"hello, \\(.name)! age=\\(.age)\" = ${greeting}"
+    },
+    {
+      "blockId": "stdout-pgbhzq",
+      "kind": "stdout",
+      "message": "  — builtins: keys / length / tonumber —"
+    },
+    {
+      "blockId": "Parse-lqd4f6",
+      "filter": "keys | join(\", \")",
+      "input": "user",
+      "kind": "Parse",
+      "storeAs": "userKeys"
+    },
+    {
+      "blockId": "Parse-11rn71",
+      "filter": ".data | length",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "dataLen"
+    },
+    {
+      "blockId": "Parse-jtg1qp",
+      "filter": ".data | map(tostring) | join(\", \")",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "dataStr"
+    },
+    {
+      "blockId": "stdout-gmpu8h",
+      "kind": "stdout",
+      "message": "  keys(user) = ${userKeys}  ·  .data | length = ${dataLen}"
+    },
+    {
+      "blockId": "stdout-dnxgcg",
+      "kind": "stdout",
+      "message": "  .data | map(tostring) | join(\", \") = ${dataStr}"
+    },
+    {
+      "blockId": "stdout-u9sq9w",
+      "kind": "stdout",
+      "message": "  — alternative operator (//) —"
+    },
+    {
+      "blockId": "Parse-1tr45b",
+      "filter": ".meta.missing // \"fallback\"",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "withFallback"
+    },
+    {
+      "blockId": "stdout-zdi04r",
+      "kind": "stdout",
+      "message": "  .meta.missing // \"fallback\" = ${withFallback}"
+    },
+    {
+      "blockId": "stdout-0vznvg",
+      "kind": "stdout",
+      "message": "  — add / reduce —"
+    },
+    {
+      "blockId": "Parse-tkbdba",
+      "filter": ".data | add",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "dataSum"
+    },
+    {
+      "blockId": "Parse-oiz27o",
+      "filter": "[.data[] | . * .] | add",
+      "input": "doc",
+      "kind": "Parse",
+      "storeAs": "sumOfSquares"
+    },
+    {
+      "blockId": "stdout-1ffqk8",
+      "kind": "stdout",
+      "message": "  .data | add = ${dataSum}  ·  sum-of-squares = ${sumOfSquares}"
+    },
+    {
+      "blockId": "stdout-1anleh",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-1qxnye",
+      "kind": "stdout",
+      "message": "── known holes (deliberate) ───────────────────────────"
+    },
+    {
+      "blockId": "stdout-pxx504",
+      "kind": "stdout",
+      "message": "  · arr[i] variable index — not supported, iterate instead"
+    },
+    {
+      "blockId": "stdout-ccxmwm",
+      "kind": "stdout",
+      "message": "  · strings: == / != against a literal only (no <, contains)"
+    },
+    {
+      "blockId": "stdout-ltr23b",
+      "kind": "stdout",
+      "message": "  · unresolved ref in a condition → truthy-string fallback"
+    },
+    {
+      "blockId": "log-1nggib",
+      "kind": "log",
+      "level": "info",
+      "message": "${USER:STRING_VAR}"
+    }
+  ],
+  "version": 2
+}

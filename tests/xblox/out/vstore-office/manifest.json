@@ -1,0 +1,9 @@
+{
+  "backend": "llama",
+  "created_at": "2026-06-20T08:53:43Z",
+  "dims": 384,
+  "embedding_model": "all-MiniLM-L6-v2.Q4_K_M.gguf",
+  "metric": "cosine",
+  "updated_at": "2026-06-20T08:53:43Z",
+  "version": 1
+}

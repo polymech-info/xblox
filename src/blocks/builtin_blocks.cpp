@@ -67,7 +67,7 @@
 #include "fs/path_sanitizer.hpp"
 #include "logger/logger.h"
 #include "policy/app_policy.hpp"
-#include "xblox/xblox_constants.hpp"
+#include "xblox_constants.hpp"
 
 #include <algorithm>
 #include <chrono>

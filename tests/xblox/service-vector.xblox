@@ -1,0 +1,69 @@
+{
+  "context": {
+    "outDir":  "out",
+    "storeId": "31c840c1-1b24-418f-b3e2-f3bdd074f9bc",
+    "file":    "markdown-overview.md",
+    "query":   "xblox block execution flow"
+  },
+  "loop": {
+    "enabled":    false,
+    "intervalMs": 5000,
+    "reset":      false
+  },
+  "roots": [
+    {
+      "kind":     "log",
+      "level":    "info",
+      "message":  "── step 1: embed + insert file into vector store ──────────────────────"
+    },
+    {
+      "kind":     "vectorStoreAddFile",
+      "auth":     "auto",
+      "storeId":  "${storeId}",
+      "file":     "${file}",
+      "metadata": "{\"src\":\"service-vector.xblox\",\"file\":\"${file}\"}",
+      "storeAs":  "docResult"
+    },
+    {
+      "kind":     "log",
+      "level":    "info",
+      "message":  "inserted → docId=${docId}  dims=${dims}  store=${storeId}"
+    },
+    {
+      "kind":     "fsWrite",
+      "path":     "${outDir}/vector-insert.json",
+      "content":  "${docResult}",
+      "append":   false
+    },
+    {
+      "kind":     "log",
+      "level":    "info",
+      "message":  "── step 2: semantic search in vector store ─────────────────────────────"
+    },
+    {
+      "kind":       "vectorStoreSearch",
+      "auth":       "auto",
+      "storeId":    "${storeId}",
+      "query":      "${query}",
+      "maxResults": 5,
+      "storeAs":    "searchResult"
+    },
+    {
+      "kind":    "log",
+      "level":   "info",
+      "message": "search '${query}' → ${count} hit(s)"
+    },
+    {
+      "kind":    "fsWrite",
+      "path":    "${outDir}/vector-search.json",
+      "content": "${searchResult}",
+      "append":  false
+    },
+    {
+      "kind":    "log",
+      "level":   "info",
+      "message": "done — results written to ${outDir}/vector-insert.json and ${outDir}/vector-search.json"
+    }
+  ],
+  "version": 1
+}

@@ -14,7 +14,7 @@
 #include "blocks/audio_blocks.hpp"
 
 #include "logger/logger.h"
-#include "xblox/xblox_constants.hpp"
+#include "xblox_constants.hpp"
 
 #include <cctype>
 #include <memory>

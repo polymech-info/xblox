@@ -1,0 +1,61 @@
+{
+  "context": {
+    "capturePath": "C:\\Users\\zx\\Videos/screen-recordings/12-23.mp4",
+    "pickResult": "screen:0:hwnd=2034552:wintitle=Tanit Viewer ** Viewer ** video-recorder.xblox",
+    "test": "C:\\Users\\zx\\Videos/screen-recordings/21-38.mp4"
+  },
+  "roots": [
+    {
+      "blockId": "picker-1qiosj",
+      "enabled": false,
+      "highlight": true,
+      "kind": "picker",
+      "resolveUia": false,
+      "showHidden": false,
+      "storeAs": "pickResult",
+      "timeoutMs": 60000
+    },
+    {
+      "action": "Record",
+      "audioDevice": "",
+      "audioSource": "mix",
+      "bindings": {
+        "input": {
+          "blockId": "picker-1qiosj",
+          "kind": "blockOutput",
+          "output": "result"
+        }
+      },
+      "bitrateKbps": 18000,
+      "blockId": "videoCapture-1q8o1n",
+      "captureEngine": "auto",
+      "desktopDevice": "",
+      "desktopGain": 1,
+      "device": "",
+      "durationMs": 0,
+      "encoder": "auto",
+      "follow": "cursor",
+      "followDeadzone": 3,
+      "followSpeed": 0.2,
+      "fps": 24,
+      "height": 720,
+      "hudCapture": "visible",
+      "includeCursor": true,
+      "input": "screen:0",
+      "instance": "",
+      "interactiveZoom": true,
+      "kind": "videoCapture",
+      "micGain": 1,
+      "outputPath": "${KNOWNFOLDER:Videos}/screen-recordings/${DD}-${SS}.mp4",
+      "showZoomStatus": true,
+      "sizeMode": "fill",
+      "timeoutMs": 400,
+      "width": 720,
+      "zoom": 1,
+      "zoomMax": 4,
+      "zoomMin": 1,
+      "zoomStep": 0.15
+    }
+  ],
+  "version": 2
+}

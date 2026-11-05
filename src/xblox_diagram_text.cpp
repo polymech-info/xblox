@@ -1,4 +1,4 @@
-#include "xblox/xblox_diagram_text.hpp"
+#include "xblox_diagram_text.hpp"
 
 #include <sstream>
 

@@ -1,0 +1,79 @@
+{
+  "context": {
+    "detections": {
+      "activeProvider": "cuda",
+      "boxes": [],
+      "error": "",
+      "gpuMemory": {
+        "available": true,
+        "baseline_used_mib": 1605,
+        "devices": [
+          {
+            "index": 0,
+            "name": "NVIDIA GeForce RTX 3060",
+            "total_mib": 12288,
+            "used_mib": 1605
+          }
+        ],
+        "peak_delta_mib": 0,
+        "peak_used_mib": 1605,
+        "total_mib": 12288
+      },
+      "image_h": 742,
+      "image_w": 728,
+      "infer_ms": 46.3072,
+      "ok": true,
+      "provider": "auto",
+      "task": "pose"
+    }
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "blockId": "videoDetect-p3xigr",
+      "conf": 0.8,
+      "enabled": true,
+      "gpuStats": false,
+      "input": "screen:0:layer=monitor",
+      "inputSize": 320,
+      "instance": "y26pose0",
+      "items": [
+        {
+          "blockId": "log-1a88lf",
+          "enabled": true,
+          "kind": "log",
+          "level": "info",
+          "message": ""
+        }
+      ],
+      "kind": "videoDetect",
+      "kptMinScore": 0.1,
+      "model": "${MODELS_DIR}/yolo26n-pose.onnx\r\n",
+      "nms": 0.6,
+      "provider": "auto",
+      "recordFps": 30,
+      "smoothAge": 1,
+      "smoothAlpha": 0.5,
+      "smoothMinHits": 0,
+      "storeAs": "detections",
+      "task": "pose",
+      "threads": 8,
+      "topK": 1,
+      "trackCenter": false,
+      "trackCenterDist": 1.5,
+      "trackConfHigh": 0.1,
+      "trackIds": false,
+      "trackTwoStage": false,
+      "trackVelBlend": 1,
+      "visualize": true,
+      "visualizeLabels": false,
+      "visualizeMode": "overlay",
+      "visualizeStats": false
+    }
+  ],
+  "version": 2
+}

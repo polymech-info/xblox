@@ -1,0 +1,61 @@
+{
+  "context": {
+    "clientKey": "name:demo-ipc-client",
+    "clientSession": {
+      "cwd": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\tests\\xblox",
+      "endpoint": "57713",
+      "key": "name:demo-ipc-client",
+      "label": "name:demo-ipc-client",
+      "loop": true,
+      "pid": 23672,
+      "source": "",
+      "startedUnixMs": 1781543770699,
+      "transport": "tcp"
+    },
+    "sent": {
+      "inbox": 1,
+      "key": "name:demo-ipc-server",
+      "pid": 23584,
+      "ts": 1781543802446,
+      "type": "send_ack"
+    },
+    "serverKey": "name:demo-ipc-server"
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "kind": "ipcSession",
+      "name": "${clientKey}",
+      "storeAs": "clientSession"
+    },
+    {
+      "data": {
+        "round": 1
+      },
+      "from": "${clientKey}",
+      "kind": "ipcSend",
+      "message": "client-ping",
+      "storeAs": "sent",
+      "target": "${serverKey}"
+    },
+    {
+      "items": [
+        {
+          "filter": ".message // \"\"",
+          "input": "CURRENT",
+          "kind": "log",
+          "level": "info"
+        }
+      ],
+      "kind": "ipcReceive",
+      "storeAs": "replies",
+      "target": "${clientKey}",
+      "waitMs": 3000
+    }
+  ],
+  "version": 1
+}

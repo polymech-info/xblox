@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "context": {
+    "score": 7,
+    "mode": "beta",
+    "user": { "name": "kim" },
+    "numbers": [1, 2, 3],
+    "labels": { "a": "red", "b": "blue" },
+    "single": "solo"
+  },
+  "roots": [
+    {
+      "kind": "if",
+      "condition": "score >= 9",
+      "consequent": [{ "kind": "setVariable", "name": "_g", "value": "A" }]
+    },
+    {
+      "kind": "elseIf",
+      "condition": "score >= 6",
+      "items": [{ "kind": "setVariable", "name": "_g", "value": "B" }]
+    },
+    {
+      "kind": "elseIf",
+      "condition": "score >= 3",
+      "items": [{ "kind": "setVariable", "name": "_g", "value": "C" }]
+    },
+    {
+      "kind": "else",
+      "items": [{ "kind": "setVariable", "name": "_g", "value": "F" }]
+    },
+    {
+      "kind": "if",
+      "condition": "score > 0",
+      "consequent": [
+        {
+          "kind": "if",
+          "condition": "user.name == \"alex\"",
+          "consequent": [{ "kind": "setVariable", "name": "_g", "value": "alex" }]
+        },
+        {
+          "kind": "else",
+          "items": [{ "kind": "setVariable", "name": "_g", "value": "other" }]
+        }
+      ]
+    },
+    {
+      "kind": "switch",
+      "variable": "mode",
+      "items": [
+        {
+          "kind": "case",
+          "comparator": "===",
+          "expression": "\"alpha\"",
+          "consequent": [{ "kind": "setVariable", "name": "_m", "value": "alpha" }]
+        },
+        {
+          "kind": "case",
+          "comparator": "===",
+          "expression": "\"beta\"",
+          "consequent": [{ "kind": "setVariable", "name": "_m", "value": "beta" }]
+        },
+        {
+          "kind": "switchDefault",
+          "consequent": [{ "kind": "setVariable", "name": "_m", "value": "default" }]
+        }
+      ]
+    },
+    {
+      "kind": "setVariable", "name": "n", "value": 0
+    },
+    {
+      "kind": "while",
+      "condition": "n < 10",
+      "loopLimit": 20,
+      "items": [
+        { "kind": "setVariable", "name": "n", "expression": "n + 1" },
+        {
+          "kind": "if",
+          "condition": "n == 3",
+          "consequent": [{ "kind": "break" }]
+        }
+      ]
+    },
+    {
+      "kind": "for",
+      "variable": "i",
+      "initial": "0",
+      "final": "2",
+      "comparator": "<",
+      "modifier": "+1",
+      "items": [
+        {
+          "kind": "while",
+          "condition": "1 == 1",
+          "loopLimit": 10,
+          "items": [{ "kind": "break" }]
+        }
+      ]
+    },
+    {
+      "kind": "iterator",
+      "input": "numbers",
+      "filter": ".",
+      "items": [{ "kind": "setVariable", "name": "_v", "value": "${CURRENT}" }]
+    },
+    {
+      "kind": "iterator",
+      "input": "labels",
+      "filter": ".",
+      "items": [{ "kind": "setVariable", "name": "_v", "value": "${CURRENT_INDEX}" }]
+    },
+    {
+      "kind": "iterator",
+      "input": "single",
+      "filter": ".",
+      "items": [{ "kind": "setVariable", "name": "_v", "value": "${CURRENT}" }]
+    }
+  ]
+}

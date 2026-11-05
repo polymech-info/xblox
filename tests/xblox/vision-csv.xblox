@@ -1,0 +1,92 @@
+{
+  "context": {
+    "childVisionModel": "minicpm-v-4-5-q4-k-m",
+    "emitStdout": false,
+    "vision": {
+      "elapsedMs": 8576,
+      "inputs": [
+        "tests/onnx/ocr-reciept-1.png"
+      ],
+      "mmprojPath": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\dist\\models\\MiniCPM-V-4_5-mmproj-f16.gguf",
+      "model": "minicpm-v-4-5-q4-k-m",
+      "modelPath": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\dist\\models\\MiniCPM-V-4_5-Q4_K_M.gguf",
+      "nGpuLayers": -1,
+      "normalizers": {
+        "mask": 15,
+        "stripFences": true,
+        "stripRoleLabels": true,
+        "stripThinking": true,
+        "trimOutput": true
+      },
+      "ok": true,
+      "prompt": "Convert the visible tabular/numeric data in this image into CSV. Return ONLY CSV text, no reasoning, no preamble, no markdown, no code fences. Use one header row. Prefer columns: Section, Field, Item No, Description, Qty, Unit Price, Total, Value. Leave unavailable cells empty. Include line items and totals when visible.",
+      "provider": "local-vlm",
+      "slot": "vision",
+      "text": "RECEIPT\nRECEIPT NO., A246\nCUSTOMER NO., 114H\nRECEIPT DATE, 08/30/17\nATN: Name / Dept, Company Name\nCompany Name, Your Company Name\nAddress, 123 Main Street\nCity, Hamilton, OH 44416\nPhone, (321) 456-7890\nEmail Address, \nSALESPERSON, JohnSmith\nCREDIT CARD NO., 0000-0000-0000-0000\nCHECK NO., -\nMONEY ORD. NO., -\nITEM NO., DESCRIPTION, QTY, UNIT PRICE, TOTAL\nA111, Women'sTail-M, 10, 10.00, 100.00\nB222, Men'sTail-M, 5, 20.00, 100.00\nC333, Children's-$, 10, 5.00, 50.00\nD444, Men's-XL, 5, 10.00, 50.00\nSUBTOTAL, , , , 300.00\nTAX (3.8%), , , , 11.40\nSHIPPING / HANDLING, , , , 30.00\nOTHER, , , , 15.00\nTOTAL, , , , 356.40\nCASH, , , , \nCREDIT CARD, , , , \nMONEY ORDER, , , , \nRECEIPT NO., A246\nAMOUNT PAID, $ 356.40"
+    },
+    "visionCsv": "tests/onnx/report-vision.csv",
+    "visionCsvPath": "tests/onnx/report-vision.csv",
+    "visionCsvText": "RECEIPT\nRECEIPT NO., A246\nCUSTOMER NO., 114H\nRECEIPT DATE, 08/30/17\nATN: Name / Dept, Company Name\nCompany Name, Your Company Name\nAddress, 123 Main Street\nCity, Hamilton, OH 44416\nPhone, (321) 456-7890\nEmail Address, \nSALESPERSON, JohnSmith\nCREDIT CARD NO., 0000-0000-0000-0000\nCHECK NO., -\nMONEY ORD. NO., -\nITEM NO., DESCRIPTION, QTY, UNIT PRICE, TOTAL\nA111, Women'sTail-M, 10, 10.00, 100.00\nB222, Men'sTail-M, 5, 20.00, 100.00\nC333, Children's-$, 10, 5.00, 50.00\nD444, Men's-XL, 5, 10.00, 50.00\nSUBTOTAL, , , , 300.00\nTAX (3.8%), , , , 11.40\nSHIPPING / HANDLING, , , , 30.00\nOTHER, , , , 15.00\nTOTAL, , , , 356.40\nCASH, , , , \nCREDIT CARD, , , , \nMONEY ORDER, , , , \nRECEIPT NO., A246\nAMOUNT PAID, $ 356.40",
+    "visionInput": "tests/onnx/ocr-reciept-1.png",
+    "visionPrompt": "Convert the visible tabular/numeric data in this image into CSV. Return ONLY CSV text, no reasoning, no preamble, no markdown, no code fences. Use one header row. Prefer columns: Section, Field, Item No, Description, Qty, Unit Price, Total, Value. Leave unavailable cells empty. Include line items and totals when visible."
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "ctx": 4096,
+      "frames": [],
+      "gpuLayers": -1,
+      "includeRaw": false,
+      "input": "${visionInput}",
+      "items": [
+        {
+          "filter": ".model",
+          "input": "vision",
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "childVisionModel"
+        }
+      ],
+      "json": true,
+      "kind": "visionAsk",
+      "maxTokens": 768,
+      "model": "",
+      "normalizers": 15,
+      "prompt": "${visionPrompt}",
+      "slot": "vision",
+      "storeAs": "vision",
+      "threads": 8
+    },
+    {
+      "filter": ".text",
+      "input": "vision",
+      "kind": "Parse",
+      "parser": "jq",
+      "storeAs": "visionCsvText"
+    },
+    {
+      "kind": "stdout",
+      "message": "${visionCsvText}",
+      "newline": true
+    },
+    {
+      "append": false,
+      "content": "${visionCsvText}\n",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "wrote CSV report: ${visionCsvPath}"
+        }
+      ],
+      "kind": "fsWrite",
+      "path": "${visionCsv}",
+      "storeAs": "visionCsvPath"
+    }
+  ],
+  "version": 1
+}

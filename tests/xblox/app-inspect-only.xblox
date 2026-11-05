@@ -1,0 +1,32 @@
+{
+  "context": {
+    "foregroundDump": "# App Inspect\n\nwindows: 0 | controls: all\n\n"
+  },
+  "roots": [
+    {
+      "blockId": "log-hrb3eo",
+      "kind": "log",
+      "level": "info",
+      "message": "app-inspect-only: starting"
+    },
+    {
+      "blockId": "appInspectDump-15rcj7",
+      "foreground": true,
+      "format": "json",
+      "id": "dump-foreground",
+      "input": "screen:0:hwnd=787514:wintitle=Tax Agency* Form 036. Census of entrepreneurs, professionals and withholding agents - Census declaration of registration, modification... - Google Chrome:rrect=0,121,1905,959",
+      "kind": "appInspectDump",
+      "limit": 50,
+      "probeCells": true,
+      "storeAs": "foregroundDump",
+      "textMaxChars": 120
+    },
+    {
+      "blockId": "log-s02eud",
+      "kind": "log",
+      "level": "info",
+      "message": "foregroundDump"
+    }
+  ],
+  "version": 2
+}

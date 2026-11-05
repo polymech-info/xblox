@@ -1,0 +1,53 @@
+{
+  "context": {
+    "CURRENT_FILE": "tests/xblox/table.jpg",
+    "transcript": {
+      "durationMs": 3015,
+      "duration_seconds": 3.015,
+      "model": "scribe_v2_realtime",
+      "provider": "elevenlabs",
+      "samples": 47840,
+      "stoppedBy": "max_duration",
+      "transcript": "One, two, three."
+    }
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── image-pipe-blocks ──────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_illustration${PATH_EXT:CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "input": "${CURRENT_FILE}",
+      "kind": "imageTransform",
+      "outputPath": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}_illustration${PATH_EXT:CURRENT_FILE}",
+      "preresizeRawOnly": true,
+      "prompt": "create as technical illustration",
+      "provider": "replicate",
+      "resizeFirst": true,
+      "resizeWidth": 800,
+      "storeAs": "imagePath"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "file written to ${imagePath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : ${imagePath}"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "context": {
+    "CURRENT_FILE": "tests/onnx/ocr-reciept-1.png"
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── ocr-pipe-csv ─────────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "input  : ${CURRENT_FILE}"
+    },
+    {
+      "kind": "stdout",
+      "message": "output : ${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.csv"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "kind": "ocrText",
+      "input": "${CURRENT_FILE}",
+      "provider": "table",
+      "json": true,
+      "markdown": false,
+      "maxTokens": 2048,
+      "ctx": 8192,
+      "gpuLayers": -1,
+      "threads": 4,
+      "layoutConf": 0.3,
+      "backend": "auto",
+      "storeAs": "ocr",
+      "items": [
+        {
+          "kind": "Parse",
+          "filter": "if (.tableRows | length) > 0 then (.tableRows | map(map(. // \"\" | tostring) | @csv) | join(\"\\n\")) else (.text // \"\") end",
+          "storeAs": "csvRows"
+        }
+      ]
+    },
+    {
+      "kind": "fsWrite",
+      "path": "${PATH_DIR:CURRENT_FILE}/${PATH_NAME:CURRENT_FILE}.csv",
+      "content": "${csvRows}",
+      "storeAs": "csvPath"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "csv written to ${csvPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : ${csvPath}"
+    }
+  ]
+}

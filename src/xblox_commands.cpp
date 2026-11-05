@@ -4,8 +4,8 @@
 #include "xblox_json.hpp"
 #include "xblox_strings.hpp"
 #include "xblox_types.hpp"
-#include "xblox/xblox_constants.hpp"
-#include "xblox/xblox_perf.hpp"
+#include "xblox_constants.hpp"
+#include "xblox_perf.hpp"
 #include "xblox_expressions.hpp"
 
 #include "blocks/builtin_blocks.hpp"

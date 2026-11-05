@@ -9,9 +9,9 @@
 #include "logger/logger.h"
 #include "pm_branding_config.hpp"
 #include "string/string_utils.hpp"
-#include "xblox/xblox_constants.hpp"
-#include "xblox/xblox_commands.hpp"
-#include "xblox/xblox_prepared_run.hpp"
+#include "xblox_constants.hpp"
+#include "xblox_commands.hpp"
+#include "xblox_prepared_run.hpp"
 
 #include <algorithm>
 #include <atomic>

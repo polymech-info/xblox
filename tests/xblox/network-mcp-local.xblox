@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "context": {
+    "server": "code-mcp",
+    "repoPath": "./src",
+    "project": "",
+    "query": "mcp",
+    "indexMode": "fast",
+    "searchLimit": 10
+  },
+  "roots": [
+    {
+      "kind": "stdout",
+      "message": "── network-mcp-local ─────────────────────────────────────"
+    },
+    {
+      "kind": "stdout",
+      "message": "server : ${server}"
+    },
+    {
+      "kind": "stdout",
+      "message": "repo   : ${repoPath}"
+    },
+    {
+      "kind": "stdout",
+      "message": "project: ${project}"
+    },
+    {
+      "kind": "stdout",
+      "message": "query  : ${query}"
+    },
+    {
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "id": "mcp-index",
+      "kind": "mcpCall",
+      "server": "${server}",
+      "tool": "index_repository",
+      "arguments": {
+        "repo_path": "${repoPath}",
+        "mode": "${indexMode}"
+      },
+      "timeoutMs": 300000,
+      "storeAs": "mcpIndex"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "mcp index complete: ${repoPath}"
+    },
+    {
+      "id": "mcp-search",
+      "kind": "mcpCall",
+      "server": "${server}",
+      "tool": "search_graph",
+      "arguments": {
+        "project": "${project}",
+        "query": "${query}",
+        "limit": "${searchLimit}"
+      },
+      "timeoutMs": 300000,
+      "storeAs": "mcpSearch"
+    },
+    {
+      "kind": "getVariable",
+      "name": "mcpSearch",
+      "target": "searchOut"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "mcp search stored in mcpSearch (project=${project})"
+    },
+    {
+      "kind": "stdout",
+      "message": "done   : network-mcp-local"
+    }
+  ]
+}

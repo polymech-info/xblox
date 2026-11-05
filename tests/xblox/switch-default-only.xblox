@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "context": { "mode": 99 },
+  "roots": [
+    {
+    "kind": "switch",
+    "variable": "mode",
+    "items": [
+      {
+        "kind": "case",
+        "comparator": "==",
+        "expression": "1",
+        "consequent": [{ "kind": "runScript", "method": "return 'one';" }]
+      },
+      {
+        "kind": "switchDefault",
+        "consequent": [{ "kind": "runScript", "method": "return 'def';" }]
+      }
+    ]
+    }
+  ]
+}

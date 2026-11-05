@@ -1,0 +1,46 @@
+{
+  "context": {
+    "stream": {
+      "bind": "0.0.0.0",
+      "bitrateKbps": 8000,
+      "encoder": "auto",
+      "fps": 30,
+      "includeCursor": true,
+      "input": "screen:1",
+      "instance": "default",
+      "mjpegQuality": 85,
+      "pid": 14984,
+      "port": 8787,
+      "running": true,
+      "statusUrl": "http://127.0.0.1:8787/status",
+      "token": "pQnT62uO7pUq",
+      "uptimeMs": 0,
+      "url": "http://127.0.0.1:8787/"
+    }
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 100,
+    "reset": false
+  },
+  "roots": [
+    {
+      "action": "Start",
+      "bind": "0.0.0.0",
+      "bitrateKbps": 8000,
+      "blockId": "videoStream-1265wq",
+      "encoder": "auto",
+      "fps": 30,
+      "includeCursor": true,
+      "input": "screen:1:hwnd=527462:wintitle=● shell_blocks.cpp - dev (Workspace) - Cursor:rrect=0,0,1920,1030",
+      "instance": "default2",
+      "kind": "videoStream",
+      "mjpegQuality": 85,
+      "open": true,
+      "port": 8788,
+      "storeAs": "stream",
+      "token": ""
+    }
+  ],
+  "version": 2
+}

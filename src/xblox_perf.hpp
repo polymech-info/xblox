@@ -1,8 +1,8 @@
-﻿#pragma once
+#pragma once
 // xblox_perf.hpp  -  lightweight per-thread performance counters for xblox.
 //
 // Usage:
-//   #include "xblox/xblox_perf.hpp"
+//   #include "xblox_perf.hpp"
 //
 //   { ScopedPerfTimer t(g_xblox_perf.jq_vm_ns); /* ... */ }
 //   g_xblox_perf.jq_calls++;

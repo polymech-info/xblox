@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "comment": "Modbus TCP server sample. Start this in one terminal, then run tests/xblox/modbus-client.xblox in another. It exposes holding/input registers plus coils/discrete inputs. Run: tanit-cli xblox run --json --no-wait --src tests/xblox/modbus-server.xblox",
+  "roots": [
+    {
+      "kind": "modbusServer",
+      "id": "sample-server",
+      "url": "tcp:127.0.0.1:15020",
+      "unitId": 1,
+      "holdingRegisters": [11, 22, 33],
+      "inputRegisters": [44, 55, 66],
+      "coils": [1, 0, 1, 0],
+      "discreteInputs": [0, 1, 0, 1],
+      "registerCount": 16,
+      "inputRegisterCount": 16,
+      "coilCount": 16,
+      "discreteInputCount": 16,
+      "maxRequests": 8,
+      "durationMs": 30000,
+      "storeAs": "serverStats"
+    },
+    { "kind": "log", "level": "info", "message": "serverStats" }
+  ]
+}

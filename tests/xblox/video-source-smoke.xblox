@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "roots": [
+    {
+      "kind": "videoSource",
+      "input": "screen:0",
+      "outputPath": "tests/xblox/video-source-smoke.jpg",
+      "storeAs": "imagePath",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "videoSource captured: {{imagePath}}"
+        }
+      ]
+    }
+  ]
+}

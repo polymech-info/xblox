@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "roots": [
+    {
+      "kind": "videoSource",
+      "input": "",
+      "outputPath": "tests/xblox/video-source-cam.jpg",
+      "storeAs": "imagePath"
+    }
+  ]
+}

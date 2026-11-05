@@ -1,0 +1,45 @@
+{
+  "context": {
+    "capturePath": "C:\\Users\\zx\\Desktop\\pixlwiz\\pixlwiz\\tests\\xblox/out.mp4"
+  },
+  "roots": [
+    {
+      "action": "Stop",
+      "device": "",
+      "durationMs": 0,
+      "fps": 30,
+      "height": 0,
+      "input": "screen:1:rrect=1323,78,603,948",
+      "instance": "xblox22",
+      "kind": "videoCapture",
+      "outputPath": "${CURRENT_PATH}/out.mp4",
+      "storeAs": "capturePath",
+      "timeoutMs": 5000,
+      "width": 0
+    },
+    {
+      "action": "Start",
+      "device": "",
+      "durationMs": 0,
+      "fps": 30,
+      "height": 0,
+      "input": "screen:1",
+      "instance": "xblox22",
+      "kind": "videoCapture",
+      "outputPath": "${CURRENT_PATH}/out.mp4",
+      "storeAs": "capturePath",
+      "timeoutMs": 5000,
+      "width": 0
+    },
+    {
+      "embed": [],
+      "enabled": false,
+      "include": [],
+      "kind": "llmAgent",
+      "prompt": "",
+      "storeAs": "answer",
+      "tools": true
+    }
+  ],
+  "version": 1
+}

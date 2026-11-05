@@ -1,0 +1,28 @@
+{
+  "context": {
+    "outDir": "dist/tts-out"
+  },
+  "roots": [
+    {
+      "blockId": "audioTtsScripted-sample",
+      "kind": "audioTtsScripted",
+      "comment": "SRT → 48 kHz voice-over bed. Merges 'If you open' + 'the settings panel.'; keeps 'Next,...' separate. Narration voice settings (not chat stability 0.9).",
+      "input": "tests/xblox/audio_tts_scripted.srt",
+      "outputPath": "dist/tts-out/audio_tts_scripted.wav",
+      "provider": "elevenlabs",
+      "model": "eleven_multilingual_v2",
+      "voice": "tLK6fPv15M0oKv4V3ACR",
+      "overflow": "resolve",
+      "maxStretchPercent": 12,
+      "minGapMs": 80,
+      "stability": 0.45,
+      "similarityBoost": 0.8,
+      "style": 0.2,
+      "speakerBoost": true,
+      "textNormalization": "auto",
+      "json": true,
+      "storeAs": "voiceoverPath"
+    }
+  ],
+  "version": 2
+}

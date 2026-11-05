@@ -1,0 +1,164 @@
+{
+  "context": {
+    "audioDevices": [
+      {
+        "channels": 0,
+        "is_default": false,
+        "name": "Microphone (Sonic Studio Virtual Mixer)",
+        "sample_rate": 0
+      },
+      {
+        "channels": 0,
+        "is_default": true,
+        "name": "Microphone (Yeti Stereo Microphone)",
+        "sample_rate": 0
+      }
+    ],
+    "detections": {
+      "activeProvider": "cuda",
+      "boxes": [
+        {
+          "cls": 0,
+          "conf": 0.664,
+          "h": 393.1,
+          "keypoints": [
+            {
+              "score": 0.971,
+              "x": 190.8,
+              "y": 207.1
+            },
+            {
+              "score": 0.906,
+              "x": 195.7,
+              "y": 187.7
+            },
+            {
+              "score": 0.944,
+              "x": 169.1,
+              "y": 194.7
+            },
+            {
+              "score": 0.401,
+              "x": 207.3,
+              "y": 196.6
+            },
+            {
+              "score": 0.746,
+              "x": 139.7,
+              "y": 214.4
+            },
+            {
+              "score": 0.969,
+              "x": 241.9,
+              "y": 291.6
+            },
+            {
+              "score": 0.909,
+              "x": 121.2,
+              "y": 321.7
+            },
+            {
+              "score": 0.829,
+              "x": 293.9,
+              "y": 400.9
+            },
+            {
+              "score": 0.578,
+              "x": 147.4,
+              "y": 457.2
+            },
+            {
+              "score": 0.725,
+              "x": 312.4,
+              "y": 459.1
+            },
+            {
+              "score": 0.568,
+              "x": 262.7,
+              "y": 475.9
+            },
+            {
+              "score": 0.487,
+              "x": 251.4,
+              "y": 494.3
+            },
+            {
+              "score": 0.34,
+              "x": 170.8,
+              "y": 516.9
+            },
+            {
+              "score": 0.067,
+              "x": 348.4,
+              "y": 492.2
+            },
+            {
+              "score": 0.045,
+              "x": 267.9,
+              "y": 525.3
+            },
+            {
+              "score": 0.016,
+              "x": 310.7,
+              "y": 522.7
+            },
+            {
+              "score": 0.011,
+              "x": 253.4,
+              "y": 559.5
+            }
+          ],
+          "label": "person",
+          "w": 256,
+          "x": 100.7,
+          "y": 138.3
+        }
+      ],
+      "error": "",
+      "image_h": 541,
+      "image_w": 1187,
+      "infer_ms": 17.1003,
+      "ok": true,
+      "provider": "cuda",
+      "task": "pose"
+    }
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "blockId": "videoDetect-4hj2fq",
+      "conf": 0.4,
+      "gpuStats": false,
+      "input": "screen:0:hwnd=1903196:wintitle=Tanit ** Viewer:rrect=0,84,1920,971",
+      "inputSize": 0,
+      "instance": "pose0",
+      "items": [
+        {
+          "blockId": "log-8aufcu",
+          "enabled": false,
+          "kind": "log",
+          "level": "info",
+          "message": "pose pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo11n-pose.onnx",
+      "nms": 0.45,
+      "recordPath": "",
+      "smoothAge": 1,
+      "smoothAlpha": 0.35,
+      "storeAs": "detections",
+      "task": "pose",
+      "trackCenter": false,
+      "visualize": true,
+      "visualizeLabels": false,
+      "visualizeMode": "overlay",
+      "visualizeStats": false
+    }
+  ],
+  "version": 2
+}

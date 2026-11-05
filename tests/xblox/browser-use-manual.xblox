@@ -1,0 +1,37 @@
+{
+  "context": {},
+  "roots": [
+    {
+      "blockId": "browser-read-before",
+      "kind": "browserRead",
+      "limit": 40,
+      "storeAs": "before"
+    },
+    {
+      "blockId": "browser-find-body",
+      "kind": "browserFind",
+      "selector": "body",
+      "limit": 1,
+      "storeAs": "bodyMatch"
+    },
+    {
+      "blockId": "browser-click-body",
+      "kind": "browserClick",
+      "storeAs": "clickResult"
+    },
+    {
+      "blockId": "browser-read-after",
+      "kind": "browserRead",
+      "selector": "body",
+      "limit": 40,
+      "storeAs": "after"
+    },
+    {
+      "blockId": "browser-output",
+      "kind": "stdout",
+      "message": "PREVIOUS",
+      "newline": true
+    }
+  ],
+  "version": 2
+}

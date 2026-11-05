@@ -1,0 +1,86 @@
+{
+  "context": {
+    "loopPath": "dist/tts-out/loop-1.wav",
+    "model": "${MODELS_DIR}/vibevoice-realtime-0.5B-q8_0.gguf",
+    "outDir": "dist/tts-out",
+    "tokenizer": "${MODELS_DIR}/tokenizer.gguf",
+    "voice": "${MODELS_DIR}/voice-en-Carter_man.gguf"
+  },
+  "roots": [
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "VibeVoice TTS demo starting — model: ${model}"
+    },
+    {
+      "comment": "Single one-shot synthesis — saves WAV, plays through speakers.",
+      "instance": "vv-loop",
+      "kind": "audioSpeak",
+      "model": "${model}",
+      "outputPath": "${outDir}/hello.wav",
+      "provider": "vibevoice",
+      "storeAs": "helloPath",
+      "text": "Hello. This is a one-shot vibevoice synthesis from the xblox runtime.",
+      "tokenizer": "${tokenizer}",
+      "voice": "${voice}"
+    },
+    {
+      "comment": "Single one-shot synthesis — saves WAV, plays through speakers.",
+      "instance": "vv-loop",
+      "kind": "audioSpeak",
+      "model": "${model}",
+      "outputPath": "${outDir}/hello.wav",
+      "provider": "vibevoice",
+      "storeAs": "helloPath",
+      "text": "Hello. This is a one-shot vibevoice synthesis from the xblox runtime.",
+      "tokenizer": "${tokenizer}",
+      "voice": "${voice}"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "helloPath"
+    },
+    {
+      "comment": "Loop × 3 with a named cached instance — model loads once, three sentences play back to back.",
+      "comparator": "<",
+      "enabled": false,
+      "final": "3",
+      "initial": "0",
+      "items": [
+        {
+          "instance": "vv-loop",
+          "kind": "audioSpeak",
+          "model": "${model}",
+          "outputPath": "${outDir}/loop-${i}.wav",
+          "provider": "vibevoice",
+          "storeAs": "loopPath",
+          "text": "This is loop pass ${i}. The engine stays warm between iterations.",
+          "tokenizer": "${tokenizer}",
+          "voice": "${voice}"
+        },
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "loopPath"
+        }
+      ],
+      "kind": "for",
+      "loopLimit": 10,
+      "modifier": "+1",
+      "variable": "i"
+    },
+    {
+      "comment": "Chain: previous audioSpeak result (loopPath) flows into audioPlay via PREVIOUS.",
+      "kind": "audioPlay",
+      "path": "",
+      "storeAs": ""
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "Done — all vibevoice passes complete."
+    }
+  ],
+  "version": 1
+}

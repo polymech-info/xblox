@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "context": {
+    "sshHost": "polymech"
+  },
+  "roots": [
+    {
+      "kind": "sshExec",
+      "id": "local-ssh-echo",
+      "host": "${sshHost}",
+      "password": "",
+      "privateKey": "",
+      "passphrase": "",
+      "configFile": "",
+      "knownHosts": "",
+      "verifyHost": true,
+      "acceptUnknownHost": true,
+      "command": "printf 'xblox-ssh user=%s home=%s\\n' \"$USER\" \"$HOME\"",
+      "timeoutMs": 30000,
+      "storeAs": "ssh"
+    },
+    {
+      "kind": "Parse",
+      "parser": "jq",
+      "input": "ssh",
+      "filter": ".stdout",
+      "storeAs": "sshStdout"
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "sshStdout"
+    }
+  ]
+}

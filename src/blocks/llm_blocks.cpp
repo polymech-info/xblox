@@ -28,7 +28,7 @@
 #endif
 
 #include "blocks/block_variables.hpp"
-#include "xblox/xblox_commands.hpp"
+#include "xblox_commands.hpp"
 #include "llm/agent.hpp"
 #include "llm/chat_host_events.hpp"
 #include "llm/agent_launch.hpp"

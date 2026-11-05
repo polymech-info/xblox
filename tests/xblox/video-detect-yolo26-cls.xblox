@@ -1,0 +1,67 @@
+{
+  "context": {
+    "detections": {
+      "activeProvider": "cuda",
+      "classes": [
+        {
+          "cls": 916,
+          "label": "web site",
+          "score": 0.8819
+        },
+        {
+          "cls": 664,
+          "label": "monitor",
+          "score": 0.0158
+        },
+        {
+          "cls": 399,
+          "label": "abaya",
+          "score": 0.0117
+        },
+        {
+          "cls": 799,
+          "label": "sliding door",
+          "score": 0.0094
+        },
+        {
+          "cls": 760,
+          "label": "refrigerator",
+          "score": 0.0059
+        }
+      ],
+      "error": "",
+      "image_h": 1080,
+      "image_w": 1920,
+      "infer_ms": 8.127,
+      "ok": true,
+      "provider": "cuda",
+      "task": "classify"
+    }
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "gpuStats": true,
+      "input": "screen:0",
+      "instance": "y26cls0",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "yolo26 classify pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo26n-cls.onnx",
+      "storeAs": "detections",
+      "task": "classify",
+      "topK": 5,
+      "visualize": true
+    }
+  ],
+  "version": 1
+}

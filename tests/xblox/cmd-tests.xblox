@@ -1,0 +1,49 @@
+{
+  "context": {
+    "answer": "Here's what's in `agent.xblox` — it's a **version 1 XBlox workflow file** (JSON format) with the following structure:\n\n---\n\n### `context` (stored state)\n| Key | Value |\n|---|---|\n| `answer` | A pre-stored LLM reply string |\n| `entries` | `[]` (empty list) |\n| `fps` | `0` |\n| `frames` | `0` |\n\n---\n\n### `roots` (pipeline nodes, in order)\n\n1. **`llmAgent`** — Calls an LLM with the prompt `\"whats in here ${CURRENT_FILE}\"`, streams the response, expects JSON back, and stores the result as `answer`. Tools are enabled (`\"tools\": true`).\n\n2. **`log`** — Logs an empty `info`-level message.\n\n3. **`fsList`** — Lists all files matching `${CURRENT_PATH}/*.*` and stores the result as `entries`.\n\n4. **`log`** — Logs the string `\"PREVIOUS\"` at `info` level.\n\n---\n\n**In short:** this is a test workflow that, when run against a file, asks an AI agent what's in it (with tool access), then lists all files in the current directory. The `context` block holds results from a previous execution — notably a cached `answer` where the agent incorrectly said tools were disabled.",
+    "answer2": "",
+    "fps": 0,
+    "frames": 0,
+    "test": ""
+  },
+  "loop": {
+    "enabled": false,
+    "intervalMs": 5000,
+    "reset": true
+  },
+  "roots": [
+    {
+      "blockId": "llmAgent-1mvim7",
+      "enabled": false,
+      "json": true,
+      "kind": "llmAgent",
+      "preset": "${test}",
+      "prompt": "tell me the time over the speaker",
+      "storeAs": "answer2",
+      "streamLog": true,
+      "tools": true
+    },
+    {
+      "blockId": "log-1wg6ir",
+      "kind": "log",
+      "level": "info",
+      "message": ""
+    },
+    {
+      "blockId": "fsList-g2iesn",
+      "items": [
+        {
+          "blockId": "log-1kxo2s",
+          "kind": "log",
+          "level": "info",
+          "message": ""
+        }
+      ],
+      "kind": "fsList",
+      "only": "all",
+      "path": "${CURRENT_PATH}/*.*",
+      "storeAs": "entries"
+    }
+  ],
+  "version": 2
+}

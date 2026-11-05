@@ -1,0 +1,130 @@
+{
+  "context": {
+    "f12": {
+      "down": false,
+      "key": "Shift+F12",
+      "pressed": false,
+      "released": false,
+      "toggle": false
+    },
+    "recordSession": "",
+    "recording": false,
+    "started": false,
+    "transcript": "",
+    "wavPath": ""
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 50,
+    "reset": false
+  },
+  "roots": [
+    {
+      "condition": "started == 0",
+      "consequent": [
+        {
+          "kind": "stdout",
+          "message": "── stt-paste ───────────────────────────────────────────────"
+        },
+        {
+          "kind": "stdout",
+          "message": "Focus a text field, then press Shift+F12 to start recording."
+        },
+        {
+          "kind": "stdout",
+          "message": "Press Shift+F12 again to stop — transcript is pasted into the focused control."
+        },
+        {
+          "kind": "stdout",
+          "message": "Ctrl+C to exit."
+        },
+        {
+          "kind": "stdout",
+          "message": " "
+        },
+        {
+          "kind": "setVariable",
+          "name": "started",
+          "value": true
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "anyKey": false,
+      "keys": "Shift+F12",
+      "kind": "keyEvent",
+      "storeAs": "f12",
+      "toggle": true
+    },
+    {
+      "condition": "f12.pressed",
+      "consequent": [
+        {
+          "condition": "recording",
+          "consequent": [
+            {
+              "kind": "stdout",
+              "message": "stop recording"
+            },
+            {
+              "kind": "audioRecordStop",
+              "session": "${recordSession}",
+              "storeAs": "wavPath"
+            },
+            {
+              "kind": "setVariable",
+              "name": "recording",
+              "value": false
+            },
+            {
+              "input": "${wavPath}",
+              "kind": "audioTranscribe",
+              "model": "base.en",
+              "provider": "whisper",
+              "providerOptions": {
+                "backend": "cpu"
+              },
+              "storeAs": "transcript"
+            },
+            {
+              "kind": "stdout",
+              "message": "transcript: ${transcript}"
+            },
+            {
+              "kind": "stdout",
+              "message": "pasting to focused control…"
+            },
+            {
+              "kind": "clipboardPaste",
+              "text": "${transcript}",
+              "trigger": true,
+              "type": "text"
+            }
+          ],
+          "kind": "if"
+        },
+        {
+          "items": [
+            {
+              "kind": "stdout",
+              "message": "start recording"
+            },
+            {
+              "kind": "audioRecordStart",
+              "storeAs": "recordSession"
+            },
+            {
+              "kind": "setVariable",
+              "name": "recording",
+              "value": true
+            }
+          ],
+          "kind": "else"
+        }
+      ],
+      "kind": "if"
+    }
+  ],
+  "version": 1
+}

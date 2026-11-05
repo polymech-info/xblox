@@ -1,0 +1,37 @@
+{
+  "context": {
+    "detections": {}
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "blockId": "videoDetect-qob6ba",
+      "conf": 0.3,
+      "input": "screen:0",
+      "instance": "y26det0",
+      "items": [
+        {
+          "blockId": "log-1whj6b",
+          "kind": "log",
+          "level": "info",
+          "message": "yolo26 detect pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo26n.onnx\r\n",
+      "smoothAge": 8,
+      "smoothAlpha": 0.35,
+      "storeAs": "detections",
+      "task": "detect",
+      "visualize": true,
+      "visualizeLabels": true,
+      "visualizeMode": "overlay",
+      "visualizeStats": true
+    }
+  ],
+  "version": 2
+}

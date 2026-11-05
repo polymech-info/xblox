@@ -1,0 +1,25 @@
+{
+  "context": {
+    "loopPath": "dist/tts-out/loop-1.wav",
+    "model": "${MODELS_DIR}/vibevoice-realtime-0.5B-q8_0.gguf",
+    "outDir": "dist/tts-out",
+    "tokenizer": "${MODELS_DIR}/tokenizer.gguf",
+    "voice": "${MODELS_DIR}/voice-en-Carter_man.gguf"
+  },
+  "roots": [
+    {
+      "blockId": "audioSpeak-s7a8kr",
+      "chunkSentences": false,
+      "chunkTargetChars": 400,
+      "comment": "Single one-shot synthesis — saves WAV, plays through speakers.",
+      "instance": "vv-loop",
+      "kind": "audioSpeak",
+      "model": "eleven_multilingual_v2",
+      "provider": "elevenlabs",
+      "sendVoiceSettings": false,
+      "text": "Hello. This is a one-shot vibevoice synthesis from the xblox runtime.",
+      "voice": "tLK6fPv15M0oKv4V3ACR"
+    }
+  ],
+  "version": 2
+}

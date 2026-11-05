@@ -1,0 +1,170 @@
+{
+  "context": {
+    "audioDevices": [
+      {
+        "channels": 0,
+        "is_default": true,
+        "name": "Microphone (Yeti Stereo Microphone)",
+        "sample_rate": 0
+      },
+      {
+        "channels": 0,
+        "is_default": false,
+        "name": "Microphone (Sonic Studio Virtual Mixer)",
+        "sample_rate": 0
+      },
+      {
+        "channels": 0,
+        "is_default": false,
+        "name": "Headset (Bose NC 700 HP Hands-Free AG Audio)",
+        "sample_rate": 0
+      }
+    ],
+    "journal": "${KNOWNFOLDER:Documents}\\journal.txt",
+    "journalPath": "C:\\Users\\zx/Documents/journal.txt",
+    "openJournal": "",
+    "recordSession": "",
+    "recording": false,
+    "started": false,
+    "transcript": "",
+    "wavPath": "C:\\Users\\zx\\Documents\\1.wav"
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 50,
+    "reset": false
+  },
+  "roots": [
+    {
+      "condition": "started == 0",
+      "consequent": [
+        {
+          "kind": "stdout",
+          "message": "── stt-journal ─────────────────────────────────────────────"
+        },
+        {
+          "kind": "stdout",
+          "message": "Recording starts now. Stop the command or press Ctrl+C to finish and append."
+        },
+        {
+          "kind": "stdout",
+          "message": " "
+        },
+        {
+          "kind": "audioRecordStart",
+          "storeAs": "recordSession"
+        },
+        {
+          "kind": "setVariable",
+          "name": "recording",
+          "value": true
+        },
+        {
+          "kind": "setVariable",
+          "name": "started",
+          "value": true
+        }
+      ],
+      "kind": "if"
+    },
+    {
+      "event": "On End",
+      "items": [
+        {
+          "condition": "recording",
+          "consequent": [
+            {
+              "kind": "stdout",
+              "message": "stop recording"
+            },
+            {
+              "kind": "audioRecordStop",
+              "outputPath": "${wavPath}",
+              "session": "${recordSession}",
+              "storeAs": "wavPath"
+            },
+            {
+              "kind": "setVariable",
+              "name": "recording",
+              "value": false
+            },
+            {
+              "input": "${wavPath}",
+              "kind": "audioTranscribe",
+              "model": "base.en",
+              "provider": "whisper",
+              "providerOptions": {
+                "backend": "cpu"
+              },
+              "storeAs": "transcript"
+            },
+            {
+              "kind": "stdout",
+              "message": "recording stopped; transcript: ${transcript}"
+            },
+            {
+              "append": true,
+              "content": "[${YYYY}-${MM}-${DD} ${HH}:${mm}:${SS}] ${transcript}\n",
+              "items": [],
+              "kind": "fsWrite",
+              "path": "${journal}",
+              "storeAs": "journalPath"
+            },
+            {
+              "kind": "stdout",
+              "message": "appended: [${YYYY}-${MM}-${DD} ${HH}:${mm}:${SS}] ${transcript} - ${journal}"
+            },
+            {
+              "kind": "stdout",
+              "message": "pasting transcript to focused control…"
+            },
+            {
+              "kind": "clipboardPaste",
+              "text": "${transcript}",
+              "trigger": true,
+              "type": "text"
+            },
+            {
+              "kind": "openPath",
+              "path": "${journal}",
+              "storeAs": "openJournal"
+            }
+          ],
+          "kind": "if"
+        }
+      ],
+      "kind": "onStart"
+    },
+    {
+      "kind": "audioListDevices",
+      "storeAs": "audioDevices"
+    },
+    {
+      "kind": "audioPlay",
+      "outputDevice": "",
+      "path": "",
+      "storeAs": ""
+    },
+    {
+      "device": "",
+      "durationMs": 3000,
+      "kind": "audioRecord",
+      "outputPath": "",
+      "storeAs": "audioPath"
+    },
+    {
+      "instance": "",
+      "kind": "audioSpeak",
+      "model": "eleven_v3",
+      "outputDevice": "Speakers (2- RX-V383 Yamaha  Stereo)",
+      "outputPath": "",
+      "provider": "elevenlabs",
+      "refAudio": "",
+      "storeAs": "",
+      "text": "Journal Updated",
+      "tokenizer": "",
+      "voice": "tLK6fPv15M0oKv4V3ACR"
+    }
+  ],
+  "version": 1
+}

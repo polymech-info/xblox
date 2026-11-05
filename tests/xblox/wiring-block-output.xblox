@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "context": {
+    "answer": "Berlin is the capital of Germany."
+  },
+  "roots": [
+    {
+      "blockId": "setVariable-producer",
+      "kind": "setVariable",
+      "name": "foo",
+      "value": "Berlin is the capital of Germany."
+    },
+    {
+      "blockId": "log-consumer",
+      "kind": "log",
+      "level": "info",
+      "bindings": {
+        "message": {
+          "kind": "blockOutput",
+          "blockId": "setVariable-producer",
+          "output": "result"
+        }
+      }
+    }
+  ]
+}

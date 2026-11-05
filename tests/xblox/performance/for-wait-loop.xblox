@@ -1,0 +1,23 @@
+{
+  "context": {
+    "type": "2",
+    "x": 0
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 1000,
+    "reset": false
+  },
+  "roots": [
+    {
+      "kind": "wait",
+      "ms": 2000
+    },
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "xb loop ${type} : ${ctx}"
+    }
+  ],
+  "version": 1
+}

@@ -1,0 +1,87 @@
+{
+  "roots": [
+
+    {
+      "kind": "vectorLocalOpen",
+      "storePath": "out/vstore-smoke",
+      "model": "",
+      "threads": 4,
+      "storeAs": "storeInfo"
+    },
+
+    {
+      "kind": "log",
+      "message": "Store opened — ${docCount} docs, ${dims} dims"
+    },
+
+    {
+      "kind": "vectorLocalAddFile",
+      "storePath": "out/vstore-smoke",
+      "file": "docs/llm/local-llms.md",
+      "source": "docs",
+      "chunkSize": 600,
+      "chunkOverlap": 0,
+      "storeAs": "addResult1"
+    },
+
+    {
+      "kind": "log",
+      "message": "Added local-llms.md: ${count} chunks, total ${docCount} docs"
+    },
+
+    {
+      "kind": "vectorLocalAddFile",
+      "storePath": "out/vstore-smoke",
+      "file": "tests/cms/chat.md",
+      "source": "docs",
+      "chunkSize": 600,
+      "chunkOverlap": 0,
+      "storeAs": "addResult2"
+    },
+
+    {
+      "kind": "log",
+      "message": "Added chat.md: ${count} chunks, total ${docCount} docs"
+    },
+
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "out/vstore-smoke",
+      "query": "how does embedding work locally with llama",
+      "topK": 5,
+      "storeAs": "search1"
+    },
+
+    {
+      "kind": "log",
+      "message": "Search 'local embedding': ${count} hits"
+    },
+
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "out/vstore-smoke",
+      "query": "markdown front matter YAML tags",
+      "topK": 5,
+      "storeAs": "search2"
+    },
+
+    {
+      "kind": "vectorLocalSearch",
+      "storePath": "out/vstore-smoke",
+      "query": "chat conversation history messages",
+      "topK": 5,
+      "storeAs": "search3"
+    },
+
+    {
+      "kind": "writeFile",
+      "path": "out/vstore-smoke-results.json",
+      "content": "{\"search1\":${search1},\"search2\":${search2},\"search3\":${search3}}"
+    },
+
+    {
+      "kind": "log",
+      "message": "Done. Results in out/vstore-smoke-results.json"
+    }
+  ]
+}

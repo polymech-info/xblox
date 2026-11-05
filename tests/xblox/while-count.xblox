@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "context": {
+    "tick": 0,
+    "deltaMs": 0
+  },
+  "roots": [
+    {
+      "kind": "while",
+      "condition": "tick < 60",
+      "loopLimit": 60,
+      "items": [
+        {
+          "kind": "wait",
+          "ms": 1000
+        },
+        {
+          "kind": "setVariable",
+          "name": "tick",
+          "expression": "tick + 1"
+        },
+        {
+          "kind": "setVariable",
+          "name": "deltaMs",
+          "expression": "tick * 1000"
+        },
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "deltaMs"
+        }
+      ]
+    }
+  ]
+}

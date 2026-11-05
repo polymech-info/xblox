@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "comment": "Modbus TCP client sample for tests/xblox/modbus-server.xblox. Demonstrates ModbusPoll-style register/coil reads and single/multi writes.",
+  "roots": [
+    {
+      "kind": "modbusConnection",
+      "action": "Start",
+      "connection": "sample",
+      "url": "tcp:127.0.0.1:15020",
+      "storeAs": "modbusConn"
+    },
+    {
+      "kind": "modbusReadHoldingRegisters",
+      "id": "read-initial",
+      "connection": "sample",
+      "address": 0,
+      "count": 3,
+      "storeAs": "initial"
+    },
+    { "kind": "log", "level": "info", "message": "initial" },
+    {
+      "kind": "modbusRead",
+      "id": "read-input-registers",
+      "connection": "sample",
+      "area": "inputRegisters",
+      "address": 0,
+      "regCount": 3,
+      "storeAs": "inputRegs"
+    },
+    { "kind": "log", "level": "info", "message": "inputRegs" },
+    {
+      "kind": "modbusReadCoils",
+      "id": "read-coils",
+      "connection": "sample",
+      "address": 0,
+      "count": 4,
+      "storeAs": "coils"
+    },
+    { "kind": "log", "level": "info", "message": "coils" },
+    {
+      "kind": "modbusWriteRegister",
+      "id": "write-register-1",
+      "connection": "sample",
+      "address": 1,
+      "value": 77,
+      "storeAs": "writeOne"
+    },
+    {
+      "kind": "modbusWrite",
+      "id": "write-registers-multi",
+      "connection": "sample",
+      "area": "holdingRegisters",
+      "address": 2,
+      "values": [88, 99],
+      "storeAs": "writeMany"
+    },
+    {
+      "kind": "modbusWriteCoils",
+      "id": "write-coils-multi",
+      "connection": "sample",
+      "address": 0,
+      "values": [0, 1, 0, 1],
+      "storeAs": "writeCoils"
+    },
+    {
+      "kind": "modbusReadHoldingRegisters",
+      "id": "read-final",
+      "connection": "sample",
+      "address": 0,
+      "count": 4,
+      "storeAs": "final"
+    },
+    { "kind": "log", "level": "info", "message": "final" },
+    {
+      "kind": "modbusReadCoils",
+      "id": "read-coils-final",
+      "connection": "sample",
+      "address": 0,
+      "count": 4,
+      "storeAs": "coilsFinal"
+    },
+    { "kind": "log", "level": "info", "message": "coilsFinal" },
+    {
+      "kind": "modbusConnection",
+      "action": "Status",
+      "connection": "sample",
+      "storeAs": "modbusConnStatus"
+    },
+    {
+      "kind": "modbusConnection",
+      "action": "Stop",
+      "connection": "sample"
+    }
+  ]
+}

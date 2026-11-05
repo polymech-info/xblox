@@ -1,0 +1,59 @@
+{
+  "context": {
+    "detections": {},
+    "stream": {
+      "bind": "0.0.0.0",
+      "bitrateKbps": 8000,
+      "encoder": "auto",
+      "fps": 30,
+      "includeCursor": true,
+      "input": "screen:1:hwnd=196832:wintitle=v1.0.md - dev (Workspace) - Cursor:rrect=1332,78,597,948",
+      "instance": "default",
+      "mjpegQuality": 85,
+      "pid": 20788,
+      "port": 8787,
+      "running": true,
+      "statusUrl": "http://127.0.0.1:8787/status",
+      "token": "6b38JwaJo7pf",
+      "uptimeMs": 0,
+      "url": "http://127.0.0.1:8787/"
+    }
+  },
+  "roots": [
+    {
+      "action": "Stop",
+      "bind": "0.0.0.0",
+      "bitrateKbps": 8000,
+      "blockId": "videoStream-m9xj00",
+      "encoder": "auto",
+      "fps": 30,
+      "includeCursor": true,
+      "input": "screen:0:hwnd=7539120:wintitle=Tanit ** Viewer ** video-filter-smoke.xblox:rrect=1,31,1223,719",
+      "instance": "default",
+      "kind": "videoStream",
+      "mjpegQuality": 85,
+      "open": false,
+      "port": 8787,
+      "storeAs": "stream",
+      "token": ""
+    },
+    {
+      "action": "Start",
+      "bind": "0.0.0.0",
+      "bitrateKbps": 8000,
+      "blockId": "videoStream-njmkja",
+      "encoder": "auto",
+      "fps": 30,
+      "includeCursor": true,
+      "input": "screen:1:hwnd=196832:wintitle=v1.0.md - dev (Workspace) - Cursor:rrect=1332,78,597,948",
+      "instance": "default",
+      "kind": "videoStream",
+      "mjpegQuality": 85,
+      "open": true,
+      "port": 8787,
+      "storeAs": "stream",
+      "token": ""
+    }
+  ],
+  "version": 2
+}

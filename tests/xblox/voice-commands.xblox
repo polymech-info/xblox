@@ -1,0 +1,237 @@
+{
+  "context": {
+    "commandId": "",
+    "heard": "screenshot",
+    "voice": {},
+    "wake": "Tanit"
+  },
+  "roots": [
+    {
+      "blockId": "stdout-754i52",
+      "kind": "stdout",
+      "message": "── voice-commands ──────────────────────────────────────────"
+    },
+    {
+      "blockId": "stdout-17c011",
+      "kind": "stdout",
+      "message": "Replay is offline (no mic). Enable the Start / Still blocks to listen."
+    },
+    {
+      "blockId": "stdout-168m13",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "action": "Start",
+      "blockId": "voiceListen-1yldwi",
+      "comment": "Replay --text: wake + command. On Match children see PREVIOUS = trigger envelope.",
+      "dispatch": false,
+      "durationMs": 0,
+      "instance": "demo",
+      "items": [
+        {
+          "blockId": "Parse-x6mv11",
+          "filter": ".text",
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "heard"
+        },
+        {
+          "blockId": "Parse-ktgqro",
+          "filter": ".intent.commandId // \"\"",
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "commandId"
+        },
+        {
+          "blockId": "stdout-1gqmv4",
+          "kind": "stdout",
+          "message": "  [any]     heard=${heard}  commandId=${commandId}"
+        }
+      ],
+      "kind": "voiceListen",
+      "model": "ggml-small.en.bin",
+      "phrase": "",
+      "provider": "whisper",
+      "storeAs": "voice",
+      "text": "Tanit screenshot",
+      "wakePhrase": "sonic"
+    },
+    {
+      "action": "Replay",
+      "blockId": "voiceListen-1reelu",
+      "comment": "Possessive leftover after the wake word (Tanit's screenshot → screenshot).",
+      "dispatch": false,
+      "instance": "demo",
+      "items": [
+        {
+          "blockId": "Parse-0ar59v",
+          "filter": ".text",
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "heard"
+        },
+        {
+          "blockId": "stdout-1bkd5m",
+          "kind": "stdout",
+          "message": "  [possess] heard=${heard}"
+        }
+      ],
+      "kind": "voiceListen",
+      "phrase": "",
+      "storeAs": "voice",
+      "text": "Tanit's screenshot",
+      "wakePhrase": "${wake}"
+    },
+    {
+      "action": "Replay",
+      "blockId": "voiceListen-54dxpt",
+      "comment": "phrase=screenshot — only that command runs children (videoDetect filterClasses analog).",
+      "dispatch": false,
+      "instance": "demo",
+      "items": [
+        {
+          "blockId": "stdout-d9wcqs",
+          "kind": "stdout",
+          "message": "  [filter]  screenshot matched — child ran"
+        }
+      ],
+      "kind": "voiceListen",
+      "phrase": "screenshot",
+      "storeAs": "voice",
+      "text": "Tanit screenshot",
+      "wakePhrase": "${wake}"
+    },
+    {
+      "action": "Replay",
+      "blockId": "voiceListen-blyvds",
+      "comment": "Same phrase filter, different utterance — no match, children skipped.",
+      "dispatch": false,
+      "instance": "demo",
+      "items": [
+        {
+          "blockId": "stdout-10kxf8",
+          "kind": "stdout",
+          "message": "  [filter]  UNEXPECTED — open settings should not match phrase=screenshot"
+        }
+      ],
+      "kind": "voiceListen",
+      "phrase": "screenshot",
+      "storeAs": "voice",
+      "text": "Tanit open settings",
+      "wakePhrase": "${wake}"
+    },
+    {
+      "action": "Replay",
+      "blockId": "voiceListen-6k24wd",
+      "comment": "No wake word — matcher rejects, On Match does not run.",
+      "dispatch": false,
+      "instance": "demo",
+      "items": [
+        {
+          "blockId": "stdout-1ju9kk",
+          "kind": "stdout",
+          "message": "  [nowake]  UNEXPECTED — utterance without Tanit should not match"
+        }
+      ],
+      "kind": "voiceListen",
+      "phrase": "",
+      "storeAs": "voice",
+      "text": "screenshot",
+      "wakePhrase": "${wake}"
+    },
+    {
+      "blockId": "stdout-1920xw",
+      "kind": "stdout",
+      "message": " "
+    },
+    {
+      "blockId": "stdout-1f0r4w",
+      "kind": "stdout",
+      "message": "── live (disabled) ── enable Start, say “Tanit screenshot”, then Stop"
+    },
+    {
+      "action": "Start",
+      "blockId": "voiceListen-1qskmr",
+      "comment": "Named live instance. With items, Start blocks and runs children on each match until Stop.",
+      "device": "",
+      "dispatch": false,
+      "durationMs": 0,
+      "enabled": false,
+      "filter": "auto",
+      "inputSource": "mic",
+      "instance": "live",
+      "items": [
+        {
+          "blockId": "Parse-1t9b72",
+          "filter": ".text",
+          "kind": "Parse",
+          "parser": "jq",
+          "storeAs": "heard"
+        },
+        {
+          "blockId": "stdout-1vhicl",
+          "kind": "stdout",
+          "message": "  [live]    ${heard} — taking a screenshot"
+        },
+        {
+          "blockId": "imageScreenshot-1clnzw",
+          "input": "screen:0",
+          "kind": "imageScreenshot",
+          "outputPath": "${KNOWNFOLDER:Desktop}/voice-${HH}${MM}${SS}.png",
+          "storeAs": "imagePath"
+        }
+      ],
+      "kind": "voiceListen",
+      "language": "auto",
+      "model": "",
+      "phrase": "screenshot",
+      "provider": "",
+      "storeAs": "voice",
+      "wakePhrase": "${wake}"
+    },
+    {
+      "action": "Status",
+      "blockId": "voiceListen-1g69x6",
+      "comment": "Inspect the same instance from another run / after Start-without-children.",
+      "enabled": false,
+      "instance": "live",
+      "kind": "voiceListen",
+      "storeAs": "voice"
+    },
+    {
+      "action": "Still",
+      "blockId": "voiceListen-1jekrm",
+      "comment": "Still: one match on the live instance (or start+stop if it is idle).",
+      "dispatch": false,
+      "durationMs": 15000,
+      "enabled": false,
+      "instance": "live",
+      "items": [
+        {
+          "blockId": "stdout-r5qcsz",
+          "kind": "stdout",
+          "message": "  [still]   one-shot match"
+        }
+      ],
+      "kind": "voiceListen",
+      "phrase": "",
+      "storeAs": "voice",
+      "wakePhrase": "${wake}"
+    },
+    {
+      "action": "Stop",
+      "blockId": "voiceListen-0s3xx7",
+      "enabled": false,
+      "instance": "live",
+      "kind": "voiceListen",
+      "storeAs": "voice"
+    },
+    {
+      "blockId": "stdout-v98eo0",
+      "kind": "stdout",
+      "message": "done."
+    }
+  ],
+  "version": 2
+}

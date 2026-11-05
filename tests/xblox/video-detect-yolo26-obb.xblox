@@ -1,0 +1,36 @@
+{
+  "context": {
+    "detections": {}
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "conf": 0.3,
+      "input": "screen:0",
+      "instance": "y26obb0",
+      "items": [
+        {
+          "kind": "log",
+          "level": "info",
+          "message": "yolo26 obb pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo26n-obb.onnx",
+      "provider": "auto",
+      "smoothAge": 8,
+      "smoothAlpha": 0.35,
+      "storeAs": "detections",
+      "task": "obb",
+      "visualize": true,
+      "visualizeLabels": true,
+      "visualizeMode": "overlay",
+      "visualizeStats": true
+    }
+  ],
+  "version": 1
+}

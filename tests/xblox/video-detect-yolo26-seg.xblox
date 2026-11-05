@@ -1,0 +1,306 @@
+{
+  "context": {
+    "audioEndpoints": [
+      {
+        "capture": false,
+        "default": true,
+        "default_comm": false,
+        "id": "{0.0.0.00000000}.{2595ba50-f8bc-4f9c-a02b-a7db3b416d02}",
+        "is_bluetooth": true,
+        "name": "Speakers (RX-V383 Yamaha  Stereo)"
+      },
+      {
+        "capture": false,
+        "default": false,
+        "default_comm": false,
+        "id": "{0.0.0.00000000}.{2a0374d0-2468-418c-9ad7-d4a515271ab3}",
+        "is_bluetooth": false,
+        "name": "S240HL (2- NVIDIA High Definition Audio)"
+      },
+      {
+        "capture": false,
+        "default": false,
+        "default_comm": false,
+        "id": "{0.0.0.00000000}.{94e1b5bd-b0a2-4e80-a2e1-65c99232f707}",
+        "is_bluetooth": false,
+        "name": "Realtek Digital Output (Realtek(R) Audio)"
+      },
+      {
+        "capture": false,
+        "default": false,
+        "default_comm": true,
+        "id": "{0.0.0.00000000}.{ae7bf72f-88f1-4e14-95f5-d4cfdcb7d2a8}",
+        "is_bluetooth": false,
+        "name": "Speakers (Yeti Stereo Microphone)"
+      },
+      {
+        "capture": false,
+        "default": false,
+        "default_comm": false,
+        "id": "{0.0.0.00000000}.{e7a185c6-4c75-4c49-83ec-7e8e303161ae}",
+        "is_bluetooth": false,
+        "name": "Speakers (Sonic Studio Virtual Mixer)"
+      }
+    ],
+    "detections": {
+      "activeProvider": "cpu",
+      "boxes": [
+        {
+          "cls": 0,
+          "conf": 0.66,
+          "contour": [
+            [
+              1008,
+              528
+            ],
+            [
+              1056,
+              576
+            ],
+            [
+              1020,
+              792
+            ],
+            [
+              1020,
+              732
+            ],
+            [
+              996,
+              720
+            ],
+            [
+              984,
+              744
+            ],
+            [
+              972,
+              708
+            ],
+            [
+              1008,
+              540
+            ]
+          ],
+          "h": 264.9,
+          "label": "person",
+          "w": 105.7,
+          "x": 965.5,
+          "y": 530.7
+        },
+        {
+          "cls": 0,
+          "conf": 0.464,
+          "contour": [
+            [
+              1188,
+              540
+            ],
+            [
+              1224,
+              624
+            ],
+            [
+              1224,
+              756
+            ],
+            [
+              1200,
+              876
+            ],
+            [
+              1176,
+              876
+            ],
+            [
+              1164,
+              804
+            ],
+            [
+              1116,
+              756
+            ],
+            [
+              1116,
+              612
+            ],
+            [
+              1152,
+              564
+            ],
+            [
+              1176,
+              588
+            ],
+            [
+              1200,
+              552
+            ]
+          ],
+          "h": 338.6,
+          "label": "person",
+          "w": 117.2,
+          "x": 1118.3,
+          "y": 545
+        },
+        {
+          "cls": 0,
+          "conf": 0.412,
+          "contour": [
+            [
+              792,
+              552
+            ],
+            [
+              816,
+              552
+            ],
+            [
+              816,
+              576
+            ],
+            [
+              840,
+              588
+            ],
+            [
+              840,
+              828
+            ],
+            [
+              804,
+              828
+            ],
+            [
+              780,
+              708
+            ],
+            [
+              792,
+              564
+            ]
+          ],
+          "h": 282.6,
+          "label": "person",
+          "w": 67.8,
+          "x": 790,
+          "y": 556.5
+        },
+        {
+          "cls": 63,
+          "conf": 0.386,
+          "contour": [
+            [
+              348,
+              12
+            ],
+            [
+              1896,
+              12
+            ],
+            [
+              1896,
+              1056
+            ],
+            [
+              348,
+              1056
+            ],
+            [
+              348,
+              24
+            ]
+          ],
+          "h": 1038.4,
+          "label": "laptop",
+          "w": 1549.6,
+          "x": 357.1,
+          "y": 22.1
+        },
+        {
+          "cls": 0,
+          "conf": 0.295,
+          "contour": [
+            [
+              852,
+              600
+            ],
+            [
+              852,
+              612
+            ]
+          ],
+          "h": 292,
+          "label": "person",
+          "w": 117,
+          "x": 856.7,
+          "y": 602.1
+        },
+        {
+          "cls": 0,
+          "conf": 0.287,
+          "h": 330.9,
+          "label": "person",
+          "w": 67.6,
+          "x": 1174.2,
+          "y": 543.8
+        }
+      ],
+      "error": "",
+      "image_h": 1080,
+      "image_w": 1920,
+      "infer_ms": 117.661,
+      "ok": true,
+      "provider": "cpu",
+      "task": "segment"
+    }
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "conf": 0.2,
+      "filterClasses": "person",
+      "gpuStats": false,
+      "input": "screen:0",
+      "inputSize": 0,
+      "instance": "y26seg0",
+      "items": [
+        {
+          "enabled": false,
+          "kind": "log",
+          "level": "info",
+          "message": "yolo26 segment pass"
+        }
+      ],
+      "kind": "videoDetect",
+      "model": "${MODELS_DIR}/yolo26n-seg.onnx",
+      "nms": 0.45,
+      "provider": "cpu",
+      "recordPath": "tests/xblox/video-detect-record.mp4",
+      "smoothAge": 0,
+      "smoothAlpha": 0.9,
+      "storeAs": "detections",
+      "task": "segment",
+      "threads": 1,
+      "topK": 1,
+      "trackCenter": false,
+      "trackIds": true,
+      "trackTwoStage": true,
+      "visualize": true,
+      "visualizeLabels": true,
+      "visualizeMode": "auto",
+      "visualizeStats": true
+    },
+    {
+      "enabled": false,
+      "kind": "log",
+      "level": "info",
+      "message": ""
+    }
+  ],
+  "version": 1
+}

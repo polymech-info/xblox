@@ -1,0 +1,85 @@
+{
+  "mcpServers": {
+    "code-mcp": {
+      "args": [],
+      "command": "codebase-memory-mcp",
+      "enabled": true,
+      "enabled_tools": [
+        "*"
+      ],
+      "env": {},
+      "headers": {},
+      "tool_timeout": 30,
+      "type": null,
+      "url": ""
+    },
+    "officecli": {
+      "args": [
+        "mcp"
+      ],
+      "command": "officecli",
+      "enabled": true,
+      "enabled_tools": [
+        "*"
+      ],
+      "env": {},
+      "headers": {},
+      "tool_timeout": 30,
+      "type": "stdio",
+      "url": ""
+    },
+    "memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "command": "npx",
+      "enabled": false,
+      "enabled_tools": [
+        "*"
+      ],
+      "env": {},
+      "headers": {},
+      "tool_timeout": 30,
+      "type": null,
+      "url": ""
+    },
+    "tanit": {
+      "enabled": true,
+      "enabled_tools": [
+        "*"
+      ],
+      "env": {},
+      "headers": {},
+      "tool_timeout": 30,
+      "type": "http",
+      "url": "https://llm.polymech.info/mcp"
+    },
+    "poolypress-cms-local": {
+      "args": [],
+      "command": "",
+      "enabled": false,
+      "enabled_tools": [
+        "*"
+      ],
+      "env": {},
+      "headers": {},
+      "tool_timeout": 30,
+      "type": null,
+      "url": "http://localhost:3333/api/mcp"
+    },
+    "tavily-remote-mcp": {
+      "args": [],
+      "command": "npx -y mcp-remote https://mcp.tavily.com/mcp/?tavilyApiKey=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",
+      "enabled": false,
+      "enabled_tools": [
+        "*"
+      ],
+      "env": {},
+      "headers": {},
+      "tool_timeout": 30,
+      "type": null,
+      "url": ""
+    }
+  }
+}

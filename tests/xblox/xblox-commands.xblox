@@ -1,0 +1,52 @@
+{
+  "context": {
+    "accumulated": 0,
+    "iteration": 0
+  },
+  "loop": {
+    "enabled": true,
+    "intervalMs": 0,
+    "reset": false
+  },
+  "roots": [
+    {
+      "command": {
+        "args": [
+          "record",
+          "--dst",
+          "${KNOWNFOLDER:Desktop}/last_mic.wav",
+          "--text-out",
+          "${KNOWNFOLDER:Desktop}/mic_last.md"
+        ],
+        "cliCommand": "audio",
+        "enabled": true,
+        "icon": "microphone",
+        "id": "custom.command-mpxzk7g4-67590",
+        "label": "Voice Recorder",
+        "logLevel": "trace",
+        "output": {},
+        "registerInExplorer": false,
+        "registerInStartmenu": true,
+        "runOptions": {
+          "newShellWindow": false,
+          "runInConsole": false,
+          "showInQueue": false
+        },
+        "shortcut": "Ctrl+F4",
+        "showInLauncher": true,
+        "showParameterDialog": false,
+        "source": {
+          "kind": "selection"
+        },
+        "tint": "#EF4444",
+        "toggle": true,
+        "type": "button",
+        "userData": {},
+        "visible": true
+      },
+      "id": "custom.command-mpxzk7g4-67590",
+      "kind": "command"
+    }
+  ],
+  "version": 1
+}

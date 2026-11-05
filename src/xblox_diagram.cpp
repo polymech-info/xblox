@@ -1,12 +1,12 @@
-#include "xblox/xblox_diagram.hpp"
+#include "xblox_diagram.hpp"
 #include "fs/path_sanitizer.hpp"
 
-#include "xblox/xblox_sequence_diagram.hpp"
+#include "xblox_sequence_diagram.hpp"
 
-#include "xblox/blocks/block_registry.hpp"
-#include "xblox/blocks/block_params.hpp"
-#include "xblox/xblox_diagram_pathfinding.hpp"
-#include "xblox/xblox_diagram_text.hpp"
+#include "blocks/block_registry.hpp"
+#include "blocks/block_params.hpp"
+#include "xblox_diagram_pathfinding.hpp"
+#include "xblox_diagram_text.hpp"
 
 #include <vips/vips.h>
 

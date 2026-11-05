@@ -1,11 +1,11 @@
-﻿// Brief pseudo-code markdown for blocks-file documents (`xblox run --md`).
+// Brief pseudo-code markdown for blocks-file documents (`xblox run --md`).
 // Pure formatting over the raw JSON tree: no input resolution, no execution.
 
-#include "xblox/xblox_markdown.hpp"
+#include "xblox_markdown.hpp"
 
-#include "xblox/xblox_diagram.hpp"
-#include "xblox/xblox_sequence_diagram.hpp"
-#include "xblox/blocks/block_registry.hpp"
+#include "xblox_diagram.hpp"
+#include "xblox_sequence_diagram.hpp"
+#include "blocks/block_registry.hpp"
 
 #include <algorithm>
 #include <cctype>

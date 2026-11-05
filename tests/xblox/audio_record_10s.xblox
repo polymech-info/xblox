@@ -1,0 +1,88 @@
+{
+  "context": {
+    "i": {
+      "iterations": 1
+    },
+    "start_result": "sent to terminal",
+    "stdout": "hello\n",
+    "transcript": "",
+    "videoDevices": [
+      {
+        "id": "\\\\?\\usb#vid_3433&pid_930e&mi_00#8&38f49d39&0&0000#{e5323777-f976-4f5b-9b55-b94699c46e44}\\global",
+        "is_default": true,
+        "name": "NexiGo N930E FHD Webcam"
+      }
+    ],
+    "video_start_result": "sent to terminal",
+    "video_stop_result": ""
+  },
+  "roots": [
+    {
+      "kind": "log",
+      "level": "info",
+      "message": "Starting 10-second audio and video recording..."
+    },
+    {
+      "background": true,
+      "command": "tanit-cli custom.mic-start",
+      "kind": "shell",
+      "log": false,
+      "shell": "auto",
+      "stderr": "trace",
+      "stdout": "trace",
+      "storeAs": "start_result"
+    },
+    {
+      "background": true,
+      "command": "tanit-cli custom.video-start",
+      "kind": "shell",
+      "log": false,
+      "shell": "auto",
+      "stderr": "trace",
+      "stdout": "trace",
+      "storeAs": "video_start_result"
+    },
+    {
+      "command": "tanit-cli custom.video-stop",
+      "kind": "shell",
+      "log": true,
+      "shell": "auto",
+      "storeAs": "video_stop_result"
+    },
+    {
+      "command": "tanit-cli custom.mic-stop",
+      "kind": "shell",
+      "log": true,
+      "shell": "auto",
+      "storeAs": "stop_result"
+    },
+    {
+      "kind": "videoListDevices",
+      "storeAs": "videoDevices"
+    },
+    {
+      "device": "",
+      "enabled": false,
+      "kind": "audioTranscribe",
+      "maxDurationMs": 30000,
+      "model": "",
+      "outputPath": "",
+      "provider": "",
+      "silenceMs": 1500,
+      "storeAs": "transcript"
+    },
+    {
+      "kind": "audioSpeak",
+      "outputPath": "1.mp3",
+      "storeAs": "",
+      "text": "I want a sunday kind of love",
+      "voice": ""
+    },
+    {
+      "kind": "audioPlay",
+      "path": "1.mp3",
+      "storeAs": ""
+    }
+  ],
+  "version": 1
+}

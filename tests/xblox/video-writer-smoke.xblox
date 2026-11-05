@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "roots": [
+    {
+      "kind": "videoSource",
+      "input": "screen:0",
+      "emit": "file",
+      "outputPath": "tests/xblox/video-writer-frame.jpg",
+      "storeAs": "framePath"
+    },
+    {
+      "kind": "for",
+      "initial": "0",
+      "final": "15",
+      "comparator": "<",
+      "modifier": "+1",
+      "items": [
+        {
+          "kind": "videoSource",
+          "input": "tests/xblox/video-writer-frame.jpg",
+          "emit": "handle",
+          "storeAs": "imagePath"
+        },
+        {
+          "kind": "videoColor",
+          "saturation": 1.5,
+          "contrast": 1.1,
+          "storeAs": "imagePath"
+        },
+        {
+          "kind": "videoResize",
+          "width": 960,
+          "storeAs": "imagePath"
+        },
+        {
+          "kind": "videoWriter",
+          "outputPath": "tests/xblox/video-writer-out.mp4",
+          "fps": 15,
+          "storeAs": "videoPath"
+        }
+      ]
+    }
+  ]
+}

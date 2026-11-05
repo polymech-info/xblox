@@ -1,0 +1,25 @@
+{
+  "documents": {
+    "pm://config/settings.json": {
+      "meta": {
+        "bundleId": "document",
+        "createdAt": "2026-07-19T20:34:01Z",
+        "digest": {
+          "algorithm": "sha256",
+          "hex": "f9591d38488f33417195e5d52c04d16f63ed8e58314907d4728b961aa2735753"
+        },
+        "encrypted": true,
+        "provider": "user",
+        "signerId": "local-settings",
+        "sizeBytes": 68975,
+        "trust": "user-local",
+        "type": "settings-profile",
+        "updatedAt": "2026-07-19T20:34:01Z",
+        "uri": "pm://config/settings.json",
+        "version": "1"
+      },
+      "slug": "settings.json"
+    }
+  },
+  "schema": "resource-document-index-1"
+}

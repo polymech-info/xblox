@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "context": {
+    "model":     "${MODELS_DIR}/vibevoice-realtime-0.5B-q8_0.gguf",
+    "tokenizer": "${MODELS_DIR}/tokenizer.gguf",
+    "voice":     "${MODELS_DIR}/voice-en-Carter_man.gguf",
+    "outDir":    "dist/tts-out"
+  },
+  "roots": [
+    {
+      "kind":    "log",
+      "level":   "info",
+      "message": "=== cache-proof: BLOCK 1 starting (expect slow — CUDA warmup) ==="
+    },
+    {
+      "comment":    "BLOCK 1 — cold start. CUDA warmup happens here. Expect synthMs ~59 000.",
+      "kind":       "audioSpeak",
+      "provider":   "vibevoice",
+      "instance":   "vv-proof",
+      "model":      "${model}",
+      "tokenizer":  "${tokenizer}",
+      "voice":      "${voice}",
+      "text":       "First utterance. The engine is loading now.",
+      "outputPath": "${outDir}/proof-1.wav",
+      "storeAs":    "proof1Path"
+    },
+    {
+      "kind":    "log",
+      "level":   "info",
+      "message": "=== cache-proof: BLOCK 1 done. BLOCK 2 starting (expect fast — warm engine) ==="
+    },
+    {
+      "comment":    "BLOCK 2 — same instance key, same model/tok/voice. VibevoiceEngine::ensure() must be a no-op. Expect synthMs << 59 000 (CUDA graph reset only, ~3–10 s).",
+      "kind":       "audioSpeak",
+      "provider":   "vibevoice",
+      "instance":   "vv-proof",
+      "model":      "${model}",
+      "tokenizer":  "${tokenizer}",
+      "voice":      "${voice}",
+      "text":       "Second utterance. If this is fast, the engine stayed warm.",
+      "outputPath": "${outDir}/proof-2.wav",
+      "storeAs":    "proof2Path"
+    },
+    {
+      "kind":    "log",
+      "level":   "info",
+      "message": "=== cache-proof: BLOCK 2 done. Compare synthMs above — block-2 should be much faster than block-1. ==="
+    }
+  ]
+}

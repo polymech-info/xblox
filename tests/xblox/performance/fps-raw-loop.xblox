@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "context": {
+    "noop": 0
+  },
+  "roots": [
+    {
+      "kind": "while",
+      "condition": "1",
+      "loopLimit": 2147483647,
+      "items": [
+        {
+          "kind": "setVariable",
+          "name": "noop",
+          "value": 1
+        }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 #include "blocks/video_blocks.hpp"
 
 #include "logger/logger.h"
-#include "xblox/xblox_constants.hpp"
+#include "xblox_constants.hpp"
 #include "fs/path_sanitizer.hpp"
 
 #if defined(FEATURE_VIDEO) && FEATURE_VIDEO
