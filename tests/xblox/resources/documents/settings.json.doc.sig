@@ -1,1 +1,0 @@
-{"algorithm":"ed25519","publicKey":"ArdomMEBd1lc86q92iV6A9/cKej1e/JLfcJZZ6Gv/jM=","schema":"pm.resource.signature.v1","signature":"RqnCbxpRH/jRLcxqeRCHZijArN1sSSu58Rx3zfsrwkRBUTfmnbHn6tbwXuSPNf2lLLgw0326J1tDiPN3WYzbCQ=="}

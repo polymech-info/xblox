@@ -158,9 +158,16 @@ else()
   target_compile_options(pm-xblox-lib PRIVATE -Wall -Wextra)
 endif()
 
-add_executable(pm-xblox cli/main.cpp)
+add_executable(pm-xblox cli/main.cpp cli/xblox_cli.cpp)
 target_link_libraries(pm-xblox PRIVATE pm-xblox-lib CLI11::CLI11)
 target_compile_features(pm-xblox PRIVATE cxx_std_20)
+target_include_directories(pm-xblox PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/cli")
+if(EXISTS "${PM_XBLOX_HOST_ROOT}/src/constants.hpp")
+  target_include_directories(pm-xblox PRIVATE
+    "${PM_XBLOX_HOST_ROOT}/src"
+    "${PM_XBLOX_HOST_ROOT}/src/core")
+endif()
+target_compile_definitions(pm-xblox PRIVATE ${_pm_xblox_feature_defs})
 if(MSVC)
   target_compile_definitions(pm-xblox PRIVATE
     _CRT_SECURE_NO_WARNINGS NOMINMAX _WIN32_WINNT=0x0A00)

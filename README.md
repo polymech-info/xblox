@@ -19,8 +19,12 @@ a static library: the engine still includes host headers (`constants.hpp`,
 `core/command_variables.hpp`, `pm_branding_config.hpp`, CLI launch). The settings
 store, branding header, and command registry stay on the host.
 
-This package does not replace `src/cli/pm_image_cmd_xblox.cpp`, the Windows
-viewer, or `src/android/xblox_run.cpp`.
+`cli/xblox_cli.cpp` is the `xblox` command (`info`, `selftest`, `run`, `session`).
+`pm-xblox` registers those subcommands on its root app. `tanit-cli` still owns
+the `xblox` subcommand and installs host hooks from `src/cli/pm_image_cmd_xblox.cpp`
+(settings `commands.json`, filesystem policy, consent, run-ipc, the video
+recorder, and command-finish). This package does not replace the Windows
+viewer or `src/android/xblox_run.cpp`.
 
 ## Build and test
 
@@ -51,24 +55,30 @@ next to this one. A host build does not use that CLI.
 
 ## CLI
 
-One process. Success is one JSON object on stdout and exit 0. Failure is
-`{"ok":false,"error","code","status"}` and exit 1. A missing argument exits 2.
-
-`ExecutionResult.ok` on the library is true when the run itself succeeded.
-The CLI prints `"ok": false` when that flag is false or `error_count` is not 0.
+`pm-xblox` speaks the same subcommands as `tanit-cli xblox`. A usage error exits 2.
+A run that cannot open the document, or that finishes with errors, exits 1.
+`--json` prints the execution report. Without it, errors go to stderr and
+successful runs stay quiet aside from block stdout.
 
 ```text
-pm-xblox run fixtures/hello.xblox
-{"ok":true,"exit_code":0,"error_count":0,"event_count":1}
-
-pm-xblox run missing.xblox
-{"ok":false,"error":"cannot open document","code":"EIO","status":404}
+pm-xblox info
+pm-xblox run --src fixtures/hello.xblox --json --dry-run
+pm-xblox run --src fixtures/hello.xblox --md
+pm-xblox session list
 ```
+
+`run --json` success:
+
+```json
+{"ok":true,"exitCode":0,"src":"...","eventCount":1,"events":[],"artifacts":{"enabled":true,"count":0,"files":[]}}
+```
+
+A missing document writes `xblox run: cannot open ...` to stderr and exits 1.
 
 ## Integration
 
-The host links the include target. It does not spawn `pm-xblox` and it does
-not compile `cli/`.
+The host links the include target and compiles `cli/xblox_cli.cpp` into the GUI
+and `tanit-cli`, beside `src/cli/pm_image_cmd_xblox.cpp`. It does not spawn `pm-xblox`.
 
 ```cmake
 include(${CMAKE_CURRENT_SOURCE_DIR}/packages/xblox/cmake/host-sources.cmake)
