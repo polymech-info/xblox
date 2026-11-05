@@ -1,2 +1,4 @@
 started 2026-11-05T20:59:16.0077228+01:00
 21:01:10 test:xblox-next exit=0
+21:01:37 test:xblox-network exit=0
+21:03:20 test:xblox-controllers exit=1
