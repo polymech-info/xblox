@@ -3,7 +3,7 @@
 #include "core/command_variables.hpp"
 #include "fs/path_sanitizer.hpp"
 #include "core/settings_runtime.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "xblox_session.hpp"
 
 #if defined(FEATURE_COMMAND_IPC_NEXT) && FEATURE_COMMAND_IPC_NEXT

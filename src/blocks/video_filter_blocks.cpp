@@ -1,4 +1,4 @@
-﻿// XBlox video/image filter blocks  -  videoGrayscale, videoColor, videoCrop,
+// XBlox video/image filter blocks  -  videoGrayscale, videoColor, videoCrop,
 // videoResize, pictureOut.
 //
 // Gated on FEATURE_VIDEO. These are the first "buffer pipeline" blocks: each
@@ -16,7 +16,7 @@
 
 #include "blocks/video_filter_blocks.hpp"
 
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 #include <string>
 

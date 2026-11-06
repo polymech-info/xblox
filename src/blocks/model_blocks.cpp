@@ -1,7 +1,12 @@
 #include "blocks/model_blocks.hpp"
 
+#include <nlohmann/json.hpp>
+#if defined(FEATURE_LLAMA) && FEATURE_LLAMA
 #include "llm/llama_agent_client.hpp"
+#endif
+#if defined(FEATURE_VLM) && FEATURE_VLM
 #include "llm/llama_vlm_client.hpp"
+#endif
 #if defined(FEATURE_ONNX) && FEATURE_ONNX
 #include "lib/onnx/OnnxSession.hpp"
 #endif
@@ -51,8 +56,12 @@ nlohmann::json loaded_models_current_xblox_process_json()
             arr.push_back(row);
     };
 
+#if defined(FEATURE_LLAMA) && FEATURE_LLAMA
     append(media::llm::agent::llama_client::loaded_models_json());
+#endif
+#if defined(FEATURE_VLM) && FEATURE_VLM
     append(media::llm::vlm_client::loaded_models_json());
+#endif
 #if defined(FEATURE_ONNX) && FEATURE_ONNX
     append(media::onnx::OnnxSession::loaded_models_json());
 #endif
@@ -70,10 +79,22 @@ nlohmann::json loaded_models_current_xblox_process_json()
 
 bool stop_loaded_model_current_xblox_process(std::string_view key, std::string& err)
 {
-    if (key == "llama:text")
+    if (key == "llama:text") {
+#if defined(FEATURE_LLAMA) && FEATURE_LLAMA
         return media::llm::agent::llama_client::unload_loaded_model(key, err);
-    if (key == "llama:vlm")
+#else
+        err = "llama text models are not built into this binary";
+        return false;
+#endif
+    }
+    if (key == "llama:vlm") {
+#if defined(FEATURE_VLM) && FEATURE_VLM
         return media::llm::vlm_client::unload_loaded_model(key, err);
+#else
+        err = "vlm models are not built into this binary";
+        return false;
+#endif
+    }
 #if defined(FEATURE_ONNX) && FEATURE_ONNX
     if (key.rfind("onnx:", 0) == 0)
         return media::onnx::OnnxSession::unload_loaded_model(key, err);

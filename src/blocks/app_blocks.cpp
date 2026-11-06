@@ -22,7 +22,7 @@
 #include "blocks/app_blocks.hpp"
 #include "blocks/block_variables.hpp"
 
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 #include <algorithm>
 #include <chrono>

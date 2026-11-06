@@ -6,7 +6,7 @@
 #include "xblox_session.hpp"
 
 #include "core/settings_store.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 #include <array>
 #include <atomic>

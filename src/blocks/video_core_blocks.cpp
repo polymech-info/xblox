@@ -5,7 +5,7 @@
 #include "blocks/video_blocks.hpp"
 
 #include "constants.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "fs/path_sanitizer.hpp"
 
 #if defined(FEATURE_VIDEO) && FEATURE_VIDEO

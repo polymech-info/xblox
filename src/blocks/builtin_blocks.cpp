@@ -65,7 +65,7 @@
 #include "blocks/json_templates.hpp"
 #include "fs/glob_paths.hpp"
 #include "fs/path_sanitizer.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "policy/app_policy.hpp"
 #include "xblox_constants.hpp"
 

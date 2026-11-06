@@ -62,16 +62,71 @@ function(pm_xblox_add_sibling name)
   add_subdirectory("${_dir}" "${CMAKE_BINARY_DIR}/pm-${name}-lib" EXCLUDE_FROM_ALL)
 endfunction()
 
+# Logger, PicoSHA2, and p-ranav/glob must exist before commons. Its installer
+# and glob units include them whenever this package is not the top-level project.
+if(NOT TARGET logger AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../commons.cpp/cmake/logging.cmake")
+  include("${CMAKE_CURRENT_SOURCE_DIR}/../commons.cpp/cmake/logging.cmake")
+endif()
+if(TARGET logger)
+  target_compile_features(logger PUBLIC cxx_std_20)
+endif()
+
+include(FetchContent)
+if(NOT picosha2_SOURCE_DIR)
+  FetchContent_Declare(picosha2
+    GIT_REPOSITORY https://github.com/okdshin/PicoSHA2.git
+    GIT_TAG        master
+    GIT_SHALLOW    TRUE)
+  FetchContent_GetProperties(picosha2)
+  if(NOT picosha2_POPULATED)
+    FetchContent_Populate(picosha2)
+  endif()
+endif()
+if(NOT asio_SOURCE_DIR)
+  set(_pm_asio_cached "${PM_XBLOX_HOST_ROOT}/build/release-debug/_deps/asio-src")
+  if(EXISTS "${_pm_asio_cached}/asio/include/asio.hpp")
+    set(asio_SOURCE_DIR "${_pm_asio_cached}")
+  else()
+    FetchContent_Declare(asio
+      GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
+      GIT_TAG        asio-1-28-0
+      GIT_SHALLOW    TRUE)
+    FetchContent_GetProperties(asio)
+    if(NOT asio_POPULATED)
+      FetchContent_Populate(asio)
+    endif()
+  endif()
+endif()
+if(NOT TARGET pranav_glob)
+  FetchContent_Declare(pranav_glob
+    GIT_REPOSITORY https://github.com/p-ranav/glob.git
+    GIT_TAG        master
+    GIT_SHALLOW    TRUE)
+  FetchContent_GetProperties(pranav_glob)
+  if(NOT pranav_glob_POPULATED)
+    FetchContent_Populate(pranav_glob)
+  endif()
+  add_library(pranav_glob STATIC ${pranav_glob_SOURCE_DIR}/source/glob.cpp)
+  target_include_directories(pranav_glob PUBLIC ${pranav_glob_SOURCE_DIR}/include)
+  target_compile_features(pranav_glob PUBLIC cxx_std_17)
+  if(MSVC)
+    target_compile_options(pranav_glob PRIVATE /permissive-)
+  endif()
+endif()
+
 # commons before search. search links commons. audio and video opt into commons.
+set(PM_COMMONS_LEAN ON)
 pm_xblox_add_sibling(commons)
+set(_pm_boost_headers "${PM_XBLOX_HOST_ROOT}/build/release-debug/_deps/boost_headers-src")
+set(_pm_boost_url_lib "${PM_XBLOX_HOST_ROOT}/build/release-debug/_deps/boost-build/libs/url/libboost_url-vc145-mt-x64-1_88.lib")
+if(TARGET pm-commons-lib AND EXISTS "${_pm_boost_headers}/boost/url.hpp" AND EXISTS "${_pm_boost_url_lib}")
+  target_include_directories(pm-commons-lib PRIVATE "${_pm_boost_headers}")
+  target_compile_definitions(pm-commons-lib PRIVATE BOOST_ALL_NO_LIB)
+  target_link_libraries(pm-commons-lib PUBLIC "${_pm_boost_url_lib}")
+endif()
 pm_xblox_add_sibling(search)
 pm_xblox_add_sibling(video)
 pm_xblox_add_sibling(audio)
-
-if(NOT TARGET logger AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../logger/CMakeLists.txt")
-  add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/../logger"
-                   "${CMAKE_BINARY_DIR}/pm-xblox-logger" EXCLUDE_FROM_ALL)
-endif()
 
 if(NOT TARGET muparser AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../muparser/CMakeLists.txt")
   set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
@@ -94,6 +149,10 @@ foreach(_feat IN ITEMS
     COMMAND_AUDIO VOICE_COMMANDS COMMAND_IPC_NEXT COMMAND_XBLOX)
   set(FEATURE_${_feat} OFF)
 endforeach()
+
+list(APPEND CMAKE_MODULE_PATH "${PM_XBLOX_HOST_ROOT}/cmake")
+set(VIPS_ROOT "${PM_XBLOX_HOST_ROOT}/dist/vendor/vips-dev-8.18")
+find_package(Vips QUIET)
 
 pm_xblox_core_sources(PM_XBLOX_LIB_SOURCES)
 list(APPEND PM_XBLOX_LIB_SOURCES
@@ -130,6 +189,47 @@ if(EXISTS "${PM_XBLOX_HOST_ROOT}/src/constants.hpp")
     "${PM_XBLOX_HOST_ROOT}/src"
     "${PM_XBLOX_HOST_ROOT}/src/core")
 endif()
+if(EXISTS "${PM_XBLOX_HOST_ROOT}/build/release-debug/include/pm_branding_config.hpp")
+  target_include_directories(pm-xblox-lib PRIVATE
+    "${PM_XBLOX_HOST_ROOT}/build/release-debug/include")
+endif()
+if(picosha2_SOURCE_DIR)
+  target_include_directories(pm-xblox-lib PRIVATE "${picosha2_SOURCE_DIR}")
+endif()
+if(asio_SOURCE_DIR)
+  target_include_directories(pm-xblox-lib PRIVATE "${asio_SOURCE_DIR}/asio/include")
+endif()
+set(_pm_curl_inc "${PM_XBLOX_HOST_ROOT}/build/release-debug/_deps/curl-src/include")
+set(_pm_curl_lib "${PM_XBLOX_HOST_ROOT}/build/release-debug/_deps/curl-build/lib/libcurl.lib")
+if(EXISTS "${_pm_curl_inc}/curl/curl.h")
+  target_include_directories(pm-xblox-lib PRIVATE "${_pm_curl_inc}")
+endif()
+if(EXISTS "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_variables.cpp")
+  target_sources(pm-xblox-lib PRIVATE
+    "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_variables.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/core/command_variables_host.cpp"
+    "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/process/app_exe_directory.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/commands/command_registry.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/commands/options_registry.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/android/xblox_transfer_local.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/lib/net/http_client.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/RunTool.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/RunValidators.cpp"
+    "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/run_capture.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cli/standalone_host.cpp")
+endif()
+if(EXISTS "${_pm_curl_lib}")
+  target_link_libraries(pm-xblox-lib PUBLIC "${_pm_curl_lib}" ws2_32 wldap32 crypt32 normaliz bcrypt)
+endif()
+if(TARGET Vips::vips)
+  target_link_libraries(pm-xblox-lib PUBLIC Vips::vips)
+  set(_pm_vips_libdir "${PM_XBLOX_HOST_ROOT}/dist/vendor/vips-dev-8.18/lib")
+  if(EXISTS "${_pm_vips_libdir}/libglib-2.0.lib")
+    target_link_libraries(pm-xblox-lib PUBLIC
+      "${_pm_vips_libdir}/libglib-2.0.lib"
+      "${_pm_vips_libdir}/libgobject-2.0.lib")
+  endif()
+endif()
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../video.cpp/include")
   target_include_directories(pm-xblox-lib PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/../video.cpp/include")
@@ -148,7 +248,11 @@ foreach(_feat IN ITEMS
     COMMAND_AUDIO VOICE_COMMANDS COMMAND_IPC_NEXT COMMAND_XBLOX)
   list(APPEND _pm_xblox_feature_defs "FEATURE_${_feat}=0")
 endforeach()
-target_compile_definitions(pm-xblox-lib PRIVATE ${_pm_xblox_feature_defs})
+target_compile_definitions(pm-xblox-lib PRIVATE
+  ${_pm_xblox_feature_defs}
+  POLYMECH_STATIC_BUILD=1
+  ASIO_STANDALONE
+  CURL_STATICLIB)
 
 if(MSVC)
   target_compile_definitions(pm-xblox-lib PRIVATE
@@ -167,7 +271,14 @@ if(EXISTS "${PM_XBLOX_HOST_ROOT}/src/constants.hpp")
     "${PM_XBLOX_HOST_ROOT}/src"
     "${PM_XBLOX_HOST_ROOT}/src/core")
 endif()
-target_compile_definitions(pm-xblox PRIVATE ${_pm_xblox_feature_defs})
+if(EXISTS "${PM_XBLOX_HOST_ROOT}/build/release-debug/include/pm_branding_config.hpp")
+  target_include_directories(pm-xblox PRIVATE
+    "${PM_XBLOX_HOST_ROOT}/build/release-debug/include")
+endif()
+target_compile_definitions(pm-xblox PRIVATE
+  ${_pm_xblox_feature_defs}
+  POLYMECH_STATIC_BUILD=1
+  ASIO_STANDALONE)
 if(MSVC)
   target_compile_definitions(pm-xblox PRIVATE
     _CRT_SECURE_NO_WARNINGS NOMINMAX _WIN32_WINNT=0x0A00)

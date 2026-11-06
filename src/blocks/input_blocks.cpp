@@ -1,4 +1,4 @@
-﻿// XBlox input blocks  -  keyWait (keyboard trigger / listener).
+// XBlox input blocks  -  keyWait (keyboard trigger / listener).
 //
 // Win32 only: key polling via GetAsyncKeyState; shortcut string parsing via
 // media::hotkeys::parse_shortcut (same format as ShortcutInput.tsx).
@@ -26,7 +26,7 @@
 
 #include "blocks/block_params.hpp"
 #include "blocks/block_registry.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 #include <algorithm>
 #include <atomic>

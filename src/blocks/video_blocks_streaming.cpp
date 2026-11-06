@@ -3,7 +3,7 @@
 #include "blocks/video_blocks.hpp"
 #include "video/streaming/streaming_session.hpp"
 
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 #if defined(FEATURE_VIDEO) && FEATURE_VIDEO && defined(FEATURE_VIDEO_STREAM) && FEATURE_VIDEO_STREAM
 

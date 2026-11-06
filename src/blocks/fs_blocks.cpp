@@ -15,7 +15,7 @@
 #include "blocks/fs_blocks.hpp"
 #include "blocks/block_variables.hpp"
 
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "vfs/operations/transfer.hpp"
 
 #include <picosha2.h>

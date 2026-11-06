@@ -13,7 +13,7 @@
 
 #include "blocks/audio_blocks.hpp"
 
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "xblox_constants.hpp"
 
 #include <cctype>
@@ -101,11 +101,12 @@
 
 namespace media::xblox::blocks {
 
-namespace bp = media::xblox::bp;
-
 namespace {
 
+#if PM_HAS_AUDIO_IO || (defined(FEATURE_STT) && FEATURE_STT)
+namespace bp = media::xblox::bp;
 namespace C = pm::audio::constants;
+#endif
 
 #if PM_HAS_AUDIO_IO
 

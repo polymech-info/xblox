@@ -28,7 +28,7 @@
 #include "core/transform.hpp"
 #include "llm/llama_vlm_client.hpp"
 #include "llm/llm_image_tool_defaults.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "win/overlay_hud.hpp"
 
 #if defined(_WIN32) && defined(FEATURE_VIDEO) && FEATURE_VIDEO

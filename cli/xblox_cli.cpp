@@ -5,7 +5,7 @@
 #include "blocks/builtin_blocks.hpp"
 #include "blocks/parameter_operations.hpp"
 #include "fs/path_sanitizer.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "utils/conv.hpp"
 #include "xblox_commands.hpp"
 #include "xblox_diagram.hpp"

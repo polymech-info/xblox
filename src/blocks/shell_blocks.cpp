@@ -6,7 +6,7 @@
 #include "core/app_exe_directory.hpp"
 #include "process/process_helpers.hpp"
 #include "llm/tools/run/RunTool.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "pm_branding_config.hpp"
 #include "string/string_utils.hpp"
 #include "xblox_constants.hpp"

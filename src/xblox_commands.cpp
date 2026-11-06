@@ -14,7 +14,7 @@
 #include "core/command_variables.hpp"
 #include "pm_branding_config.hpp"
 #include "process/process_helpers.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "muParser.h"
 #include "Scope.h"
 

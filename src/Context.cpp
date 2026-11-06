@@ -3,7 +3,7 @@
 #include "ParameterIn.h"
 #include "ParameterOut.h"
 #include "string/uuid_generator.h"
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 NH_Context::NH_Context() : m_ParameterManager(nullptr) {}
 

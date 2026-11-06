@@ -6,7 +6,7 @@
 #include "blocks/audio_blocks_voice_commands.hpp"
 
 #include "constants.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "string/string_utils.hpp"
 
 #include <algorithm>

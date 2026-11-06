@@ -4,7 +4,7 @@
 
 #include "blocks/video_blocks.hpp"
 
-#include "logger/logger.h"
+#include "logging/logger.h"
 #include "xblox_constants.hpp"
 #include "fs/path_sanitizer.hpp"
 

@@ -15,7 +15,7 @@
 #include "core/openrouter_provider_models_cli.hpp"
 #include "core/replicate_provider_models_cli.hpp"
 #include "core/settings_runtime.hpp"
-#include "logger/logger.h"
+#include "logging/logger.h"
 
 #if FEATURE_MCP_CLIENT
 #include "llm/mcp_config.hpp"
