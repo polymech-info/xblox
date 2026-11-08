@@ -30,8 +30,8 @@
 #include "service_defaults.hpp"
 #include "lib/net/http_client.hpp"
 #include "lib/pm_zitadel_oauth.hpp"    // pm_zitadel_oauth_read_access_token
-#include "llm/llm_fs_guard.hpp"        // llm_fs_guard_deny_reason
-#include "llm/llm_glob_filter.hpp"     // glob_file_extension_blocked_like_file_read
+#include "fs/fs_guard.hpp"        // llm_fs_guard_deny_reason
+#include "fs/glob_filter.hpp"     // glob_file_extension_blocked_like_file_read
 
 #include <nlohmann/json.hpp>
 

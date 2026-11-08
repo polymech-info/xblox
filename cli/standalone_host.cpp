@@ -13,7 +13,6 @@
 #include "core/settings_runtime.hpp"
 #include "core/settings_store.hpp"
 #include "controllers/hotkeys.hpp"
-#include "llm/llm_fs_guard.hpp"
 #include "media/probe.hpp"
 #include "net/url_fetch.hpp"
 #include "string/string_utils.hpp"
@@ -430,15 +429,6 @@ bool list_openrouter_catalog_models(const std::string&, const std::string&,
 }
 
 } // namespace media::openrouter_cli
-
-namespace media::llm {
-
-std::string llm_fs_guard_deny_reason(const fs::path&)
-{
-    return {};
-}
-
-} // namespace media::llm
 
 namespace media::probe {
 

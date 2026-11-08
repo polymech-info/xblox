@@ -171,6 +171,12 @@ endif()
 if(TARGET pm-search-lib)
   target_link_libraries(pm-xblox-lib PUBLIC pm-search-lib)
 endif()
+if(TARGET pm-image-lib)
+  target_link_libraries(pm-xblox-lib PUBLIC pm-image-lib)
+elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../image.cpp/src/images/image_quality.hpp")
+  target_include_directories(pm-xblox-lib PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/../image.cpp/src")
+endif()
 if(TARGET pm-video-lib)
   target_link_libraries(pm-xblox-lib PUBLIC pm-video-lib)
 endif()
@@ -187,6 +193,7 @@ endif()
 if(EXISTS "${PM_XBLOX_HOST_ROOT}/src/constants.hpp")
   target_include_directories(pm-xblox-lib PRIVATE
     "${PM_XBLOX_HOST_ROOT}/src"
+    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src"
     "${PM_XBLOX_HOST_ROOT}/src/core")
 endif()
 if(WIN32 AND EXISTS "${PM_XBLOX_HOST_ROOT}/packages/win32/src/inspect/app_inspect.hpp")
@@ -217,9 +224,9 @@ if(EXISTS "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_varia
     "${PM_XBLOX_HOST_ROOT}/src/commands/options_registry.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/android/xblox_transfer_local.cpp"
     "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/net/http_client.cpp"
-    "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/RunTool.cpp"
-    "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/RunValidators.cpp"
-    "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/run_capture.cpp"
+    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src/llm/tools/run/RunTool.cpp"
+    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src/llm/tools/run/RunValidators.cpp"
+    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src/llm/tools/run/run_capture.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/cli/standalone_host.cpp")
 endif()
 if(EXISTS "${_pm_curl_lib}")

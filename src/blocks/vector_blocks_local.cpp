@@ -27,8 +27,8 @@
 #include "lib/llm/local_vector_store/VectorStore.hpp"
 #include "lib/llm/chunking.hpp"
 #include "lib/llm/chunking_md.hpp"
-#include "llm/llm_fs_guard.hpp"
-#include "llm/llm_glob_filter.hpp"
+#include "fs/fs_guard.hpp"
+#include "fs/glob_filter.hpp"
 #if defined(FEATURE_OFFICE_EXTRACTOR) && FEATURE_OFFICE_EXTRACTOR
 #  include "lib/llm/office_source_adapter.hpp"
 #endif

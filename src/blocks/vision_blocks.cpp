@@ -2,7 +2,7 @@
 
 #include "core/local_model_catalog.hpp"
 #include "llm/llama_vlm_client.hpp"
-#include "llm/string_filters.hpp"
+#include "string/string_filters.hpp"
 
 #include <cctype>
 #include <filesystem>
