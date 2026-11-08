@@ -41,7 +41,7 @@
 #include <thread>
 
 #if defined(_WIN32)
-#include "core/hotkeys.hpp"
+#include "controllers/hotkeys.hpp"
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif

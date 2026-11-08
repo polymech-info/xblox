@@ -48,7 +48,7 @@
 #include <windows.h>
 
 #include "core/host_backends.hpp"
-#include "win/inspect.hpp"
+#include "inspect/inspect.hpp"
 #include "win/chrome_inspect/bridge.hpp"
 #include "win/chrome_inspect/picker_enrich.hpp"
 #include "video/video_picker_input_spec.hpp"

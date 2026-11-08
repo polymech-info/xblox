@@ -12,7 +12,7 @@
 #include "core/settings_portable.hpp"
 #include "core/settings_runtime.hpp"
 #include "core/settings_store.hpp"
-#include "core/hotkeys.hpp"
+#include "controllers/hotkeys.hpp"
 #include "llm/llm_fs_guard.hpp"
 #include "media/probe.hpp"
 #include "net/url_fetch.hpp"

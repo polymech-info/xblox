@@ -189,6 +189,10 @@ if(EXISTS "${PM_XBLOX_HOST_ROOT}/src/constants.hpp")
     "${PM_XBLOX_HOST_ROOT}/src"
     "${PM_XBLOX_HOST_ROOT}/src/core")
 endif()
+if(WIN32 AND EXISTS "${PM_XBLOX_HOST_ROOT}/packages/win32/src/inspect/app_inspect.hpp")
+  target_include_directories(pm-xblox-lib PRIVATE
+    "${PM_XBLOX_HOST_ROOT}/packages/win32/src")
+endif()
 if(EXISTS "${PM_XBLOX_HOST_ROOT}/build/release-debug/include/pm_branding_config.hpp")
   target_include_directories(pm-xblox-lib PRIVATE
     "${PM_XBLOX_HOST_ROOT}/build/release-debug/include")
@@ -212,7 +216,7 @@ if(EXISTS "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_varia
     "${PM_XBLOX_HOST_ROOT}/src/commands/command_registry.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/commands/options_registry.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/android/xblox_transfer_local.cpp"
-    "${PM_XBLOX_HOST_ROOT}/src/lib/net/http_client.cpp"
+    "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/net/http_client.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/RunTool.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/RunValidators.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/llm/tools/run/run_capture.cpp"

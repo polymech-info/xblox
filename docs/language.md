@@ -158,7 +158,7 @@ syntactically wrong. Hard drop-rejections are replaced by soft validation:
 ### UI automation contract (UIA selectors)
 
 The tree exposes stable selectors for Windows UI Automation (consumed by
-`src/win/assistant/app_use.cpp` / `app_inspect.cpp`, where AutomationId is
+`packages/win32/src/inspect/app_use.cpp` / `app_inspect.cpp`, where AutomationId is
 the highest-scoring selector and `find_element_by_aid` matches it exactly):
 
 - Tree container: `id="xblox-tree"`, `role="tree"`, name `XBlox blocks`.
