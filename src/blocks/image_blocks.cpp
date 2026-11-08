@@ -41,7 +41,7 @@
 #include "core/screen_input.hpp"
 #include "core/host_backends.hpp"
 #include "video/video_picker_input_spec.hpp"
-#include "win/display_affinity.hpp"
+#include "capture/display_affinity.hpp"
 #endif
 
 #include <algorithm>

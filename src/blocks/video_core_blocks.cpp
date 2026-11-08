@@ -20,7 +20,7 @@
 #include "core/screen_input.hpp"
 #include "video/key_overlay.hpp"
 #include "video/creator_fx.hpp"
-#include "win/display_affinity.hpp"
+#include "capture/display_affinity.hpp"
 #include <objbase.h>
 #endif
 #if PM_HAS_AUDIO_IO
