@@ -53,12 +53,6 @@ function(pm_xblox_add_sibling name)
   if(NOT EXISTS "${_dir}/CMakeLists.txt")
     return()
   endif()
-  if(name STREQUAL "audio" AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../commons.cpp/cmake/host-layout.cmake")
-    set(PM_AUDIO_LINK_COMMONS ON CACHE BOOL "" FORCE)
-  endif()
-  if(name STREQUAL "video" AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../commons.cpp/cmake/host-layout.cmake")
-    set(PM_VIDEO_LINK_COMMONS ON CACHE BOOL "" FORCE)
-  endif()
   add_subdirectory("${_dir}" "${CMAKE_BINARY_DIR}/pm-${name}-lib" EXCLUDE_FROM_ALL)
 endfunction()
 
@@ -114,7 +108,9 @@ if(NOT TARGET pranav_glob)
   endif()
 endif()
 
-# commons before search. search links commons. audio and video opt into commons.
+# commons before search, audio, and video. Those packages link pm::commons
+# when the target is already in the build. audio before video: video's
+# public headers include pm/audio.
 set(PM_COMMONS_LEAN ON)
 pm_xblox_add_sibling(commons)
 set(_pm_boost_headers "${PM_XBLOX_HOST_ROOT}/build/release-debug/_deps/boost_headers-src")
@@ -125,8 +121,8 @@ if(TARGET pm-commons-lib AND EXISTS "${_pm_boost_headers}/boost/url.hpp" AND EXI
   target_link_libraries(pm-commons-lib PUBLIC "${_pm_boost_url_lib}")
 endif()
 pm_xblox_add_sibling(search)
-pm_xblox_add_sibling(video)
 pm_xblox_add_sibling(audio)
+pm_xblox_add_sibling(video)
 
 if(NOT TARGET muparser AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../muparser/CMakeLists.txt")
   set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
@@ -216,6 +212,8 @@ if(EXISTS "${_pm_curl_inc}/curl/curl.h")
   target_include_directories(pm-xblox-lib PRIVATE "${_pm_curl_inc}")
 endif()
 if(EXISTS "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_variables.cpp")
+  include("${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/cmake/host-sources.cmake")
+  pm_llm_sources(run _pm_llm_run)
   target_sources(pm-xblox-lib PRIVATE
     "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_variables.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/core/command_variables_host.cpp"
@@ -224,9 +222,7 @@ if(EXISTS "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/commands/command_varia
     "${PM_XBLOX_HOST_ROOT}/src/commands/options_registry.cpp"
     "${PM_XBLOX_HOST_ROOT}/src/android/xblox_transfer_local.cpp"
     "${PM_XBLOX_HOST_ROOT}/packages/commons.cpp/src/net/http_client.cpp"
-    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src/llm/tools/run/RunTool.cpp"
-    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src/llm/tools/run/RunValidators.cpp"
-    "${PM_XBLOX_HOST_ROOT}/packages/llm.cpp/src/llm/tools/run/run_capture.cpp"
+    ${_pm_llm_run}
     "${CMAKE_CURRENT_SOURCE_DIR}/cli/standalone_host.cpp")
 endif()
 if(EXISTS "${_pm_curl_lib}")
