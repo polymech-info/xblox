@@ -3,7 +3,10 @@
 #include "blocks/video_blocks.hpp"
 #include "video/streaming/streaming_session.hpp"
 
+#include "constants_server.hpp"
 #include "logging/logger.h"
+#include "process/app_exe_directory.hpp"
+#include "process/process_helpers.hpp"
 
 #if defined(FEATURE_VIDEO) && FEATURE_VIDEO && defined(FEATURE_VIDEO_STREAM) && FEATURE_VIDEO_STREAM
 
@@ -34,53 +37,6 @@ namespace media::xblox::blocks {
 namespace {
 
 using media::strutil::lower_ascii;
-
-#if defined(_WIN32)
-std::wstring widen_utf8(const std::string& value)
-{
-    if (value.empty()) return {};
-    const int n = ::MultiByteToWideChar(CP_UTF8, 0, value.data(), static_cast<int>(value.size()), nullptr, 0);
-    if (n <= 0) return std::wstring(value.begin(), value.end());
-    std::wstring out(static_cast<size_t>(n), L'\0');
-    ::MultiByteToWideChar(CP_UTF8, 0, value.data(), static_cast<int>(value.size()), out.data(), n);
-    return out;
-}
-
-std::wstring quote_arg(std::wstring value)
-{
-    std::wstring out = L"\"";
-    size_t backslashes = 0;
-    for (wchar_t ch : value) {
-        if (ch == L'\\') {
-            ++backslashes;
-            continue;
-        }
-        if (ch == L'"') {
-            out.append(backslashes * 2 + 1, L'\\');
-            out.push_back(ch);
-            backslashes = 0;
-            continue;
-        }
-        if (backslashes) {
-            out.append(backslashes, L'\\');
-            backslashes = 0;
-        }
-        out.push_back(ch);
-    }
-    if (backslashes)
-        out.append(backslashes * 2, L'\\');
-    out.push_back(L'"');
-    return out;
-}
-
-std::filesystem::path fallback_executable_path()
-{
-    std::vector<wchar_t> buf(32768, L'\0');
-    const DWORD n = ::GetModuleFileNameW(nullptr, buf.data(), static_cast<DWORD>(buf.size() - 1u));
-    if (n == 0) return {};
-    return std::filesystem::path(std::wstring(buf.data(), n));
-}
-#endif
 
 class VideoStreamInstance {
 public:
@@ -124,16 +80,16 @@ public:
         encoder_ = encoder.empty() ? "auto" : encoder;
         url_ = "http://" + pm::video::streaming::stream_url_host(bind_) + ":" + std::to_string(port_) + "/";
 
-        std::wstring cmd = quote_arg(exe.wstring());
+        std::wstring cmd = media::process::quote_process_arg(exe.wstring());
         cmd += L" video stream --server";
-        cmd += L" --input " + quote_arg(widen_utf8(input_));
-        cmd += L" --bind " + quote_arg(widen_utf8(bind_));
+        cmd += L" --input " + media::process::quote_process_arg(media::process::widen_utf8(input_));
+        cmd += L" --bind " + media::process::quote_process_arg(media::process::widen_utf8(bind_));
         cmd += L" --port " + std::to_wstring(port_);
         cmd += L" --fps " + std::to_wstring(fps_);
         cmd += L" --bitrate-kbps " + std::to_wstring(bitrate_kbps_);
         cmd += L" --mjpeg-quality " + std::to_wstring(mjpeg_quality_);
-        cmd += L" --token " + quote_arg(widen_utf8(token_));
-        cmd += L" --encoder " + quote_arg(widen_utf8(encoder_));
+        cmd += L" --token " + media::process::quote_process_arg(media::process::widen_utf8(token_));
+        cmd += L" --encoder " + media::process::quote_process_arg(media::process::widen_utf8(encoder_));
         if (!include_cursor_)
             cmd += L" --no-cursor";
         if (open)
@@ -259,7 +215,7 @@ std::filesystem::path stream_executable_path(BlockIO& io)
     if (!io.runtime().options.cli_executable_path.empty())
         return io.runtime().options.cli_executable_path;
 #if defined(_WIN32)
-    return fallback_executable_path();
+    return media::app::exe_executable();
 #else
     return {};
 #endif
@@ -338,7 +294,7 @@ BlockResult video_stream_block(BlockIO& io)
     std::string bind = io.str("bind", "127.0.0.1");
     if (bind.empty())
         bind = "127.0.0.1";
-    const int port = static_cast<int>(io.i64("port", 8787));
+    const int port = static_cast<int>(io.i64("port", pm::video_stream_http_port()));
     const int fps = std::clamp(static_cast<int>(io.i64("fps", 30)), 1, 240);
     const int bitrate = std::max(1, static_cast<int>(io.i64("bitrateKbps", 8000)));
     const int quality = std::clamp(static_cast<int>(io.i64("mjpegQuality", 85)), 1, 100);

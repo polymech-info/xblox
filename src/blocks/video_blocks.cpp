@@ -3,6 +3,7 @@
 #include "blocks/video_blocks.hpp"
 
 #include "constants.hpp"
+#include "constants_server.hpp"
 #include "core/batch_queue.hpp"
 #include "core/settings_runtime.hpp"
 #include "core/transform.hpp"
@@ -467,7 +468,7 @@ void register_video_blocks(BlockRegistry& registry)
             .desc("Named stream instance. Use the same name for Stop/Status."),
         pd_str("bind").adv().grp("network").dflt("127.0.0.1")
             .desc("Network interface to listen on. 127.0.0.1 is local only."),
-        pd_int("port").adv().grp("network").dflt(8787).range(1, 65535)
+        pd_int("port").adv().grp("network").dflt(pm::video_stream_http_port()).range(1, 65535)
             .desc("TCP port for the stream server. Use a fixed port so Status can report a stable URL."),
         pd_int("fps").adv().grp("quality").dflt(30).range(1, 240)
             .desc("Target capture frame rate."),
@@ -491,7 +492,7 @@ void register_video_blocks(BlockRegistry& registry)
         "Start, stop, or inspect a named remote video stream server for the mobile web remote. "
         "The current backend launches the same video stream server used by the CLI.",
         {{"kind","videoStream"}, {"action","Start"}, {"input","screen:0"}, {"instance","default"},
-         {"bind","127.0.0.1"}, {"port",8787}, {"fps",30}, {"bitrateKbps",8000},
+         {"bind","127.0.0.1"}, {"port", pm::video_stream_http_port()}, {"fps",30}, {"bitrateKbps",8000},
          {"mjpegQuality",85}, {"includeCursor",true}, {"token",""}, {"encoder","auto"},
          {"open",false}, {"storeAs","stream"}})
         .params(stream_params)
